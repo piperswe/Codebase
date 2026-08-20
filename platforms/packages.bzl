@@ -343,6 +343,10 @@ def linux_packages(
             "defines": {
                 "_target_cpu": rpm_arch,
                 "_target_os": "linux",
+                "__brp_strip": "%{nil}",
+                "__brp_strip_lto": "%{nil}",
+                "__brp_strip_static_archive": "%{nil}",
+                "__brp_strip_comment_note": "%{nil}",
             },
             "description": description,
             "license": _LICENSE,
