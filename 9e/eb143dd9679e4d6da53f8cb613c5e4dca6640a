@@ -1,0 +1,70 @@
+projects/bazel_cache/BUILD.bazel
+  s_a47ff09d82c5cd::t_7a6d7495d9fd13 1,4
+  s_5e91a9a66e394a::t_d3f6ea24d83b61 35,41,69,80-86
+  s_5e91a9a66e394a::t_11cbfa83b030ff 11,31
+  s_5e91a9a66e394a::t_8bf24ea1856810 3
+  s_5e91a9a66e394a::t_a935d0495eb9c5 12,22-30,32-34,36-40,42,68,74,79
+  s_5e91a9a66e394a::t_8e3fd908a3ee28 8-10
+  s_5e91a9a66e394a::t_2424cebb9098c9 65-67
+  s_5e91a9a66e394a::t_94c2da7142a559 70-73
+  s_5e91a9a66e394a::t_9ce7c12f6b7b0e 75-78
+  s_a47ff09d82c5cd::t_81f91793bea2c1 2,57-64
+tools/gazelle/wrangler/BUILD.bazel
+  s_5e91a9a66e394a::t_0d35d997da8a7d 1-24
+tools/typescript/BUILD.bazel
+  s_a47ff09d82c5cd::t_cf472afe0345f4 1
+tools/typescript/defs.bzl
+  s_a47ff09d82c5cd::t_8526c446c893d6 6,8-9,11-23,26,31
+  s_a47ff09d82c5cd::t_cf472afe0345f4 1-5,7,10,24-25,27-30,32-34
+BUILD.bazel
+  s_5e91a9a66e394a::t_0d35d997da8a7d 11
+  s_a47ff09d82c5cd::t_cf472afe0345f4 18
+projects/bazel_cache/worker-configuration.d.ts
+  s_5e91a9a66e394a::t_cc317e068cd49e 2
+projects/hello_world/hello_ts/BUILD.bazel
+  s_a47ff09d82c5cd::t_7a6d7495d9fd13 4
+tools/gazelle/wrangler/wrangler_test.go
+  s_5e91a9a66e394a::t_a9419474507f7b 17-18,20-21,35,40,49-66,76,90-91,95-97,99-100
+  s_5e91a9a66e394a::t_4c132eaf5855ba 45
+  s_5e91a9a66e394a::t_0d35d997da8a7d 1-16,19,22-34,36-39,41-44,46-48,67-75,77-89,92-94,98,101-109
+projects/bazel_cache/tsconfig.json
+  s_5e91a9a66e394a::t_20553e596d80f7 8-9
+lib/ts/vector/BUILD.bazel
+  s_a47ff09d82c5cd::t_7a6d7495d9fd13 2
+MODULE.bazel
+  s_5e91a9a66e394a::t_a935d0495eb9c5 4
+tools/gazelle/wrangler/wrangler.go
+  s_5e91a9a66e394a::t_a9419474507f7b 12-14,18-19,41-42,51-56,74,84,92,97,103-105,109,113-114
+  s_5e91a9a66e394a::t_0d35d997da8a7d 1-11,15-17,20-40,43-47,57-73,75-83,85-91,93-96,98-102,106-108,110-112,115-133
+  s_5e91a9a66e394a::t_8fee4bfc9397d6 48-50
+tools/gazelle/wrangler/defs.bzl
+  s_5e91a9a66e394a::t_0d35d997da8a7d 4-6,8-9
+  s_5e91a9a66e394a::t_9ec24794efd048 1-2
+  s_5e91a9a66e394a::t_a9419474507f7b 3,7
+tsconfig.json
+  s_5e91a9a66e394a::t_8715c678004671 7-8
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.22",
+  "base_commit_sha": "9eeb143dd9679e4d6da53f8cb613c5e4dca6640a",
+  "prompts": {},
+  "sessions": {
+    "s_5e91a9a66e394a": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a020fa-757b-7400-984a-9db90607d64d",
+        "model": "gpt-5.6-sol"
+      },
+      "human_author": "Piper McCorkle <contact@piperswe.me>"
+    },
+    "s_a47ff09d82c5cd": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a02138-5ef2-7383-b19c-fbbda7ba3d7e",
+        "model": "gpt-5.6-sol"
+      },
+      "human_author": "Piper McCorkle <contact@piperswe.me>"
+    }
+  }
+}
