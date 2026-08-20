@@ -1,0 +1,39 @@
+load("@aspect_rules_ts//ts:defs.bzl", "ts_config")
+load("@gazelle//:def.bzl", "DEFAULT_LANGUAGES", "gazelle", "gazelle_binary")
+load("@npm//:defs.bzl", "npm_link_all_packages")
+load("@npm//:tsconfig-to-swcconfig/package_json.bzl", tsconfig_to_swcconfig = "bin")
+
+gazelle_binary(
+    name = "gazelle_bin",
+    languages = DEFAULT_LANGUAGES + [
+        "@gazelle_cc//language/cc",
+        "@contrib_rules_jvm//java/gazelle",
+        "@aspect_gazelle_js",
+    ],
+)
+
+# gazelle:js_project_naming_convention {dirname}_js
+# gazelle:js_tests_naming_convention {dirname}_js_tests
+gazelle(
+    name = "gazelle",
+    gazelle = ":gazelle_bin",
+)
+
+npm_link_all_packages(name = "node_modules")
+
+ts_config(
+    name = "tsconfig",
+    src = "tsconfig.json",
+    visibility = [":__subpackages__"],
+)
+
+tsconfig_to_swcconfig.t2s(
+    name = "write_swcrc",
+    srcs = ["tsconfig.json"],
+    args = [
+        "--filename",
+        "$(location tsconfig.json)",
+    ],
+    stdout = ".swcrc",
+    visibility = ["//:__subpackages__"],
+)

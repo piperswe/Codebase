@@ -1,2 +1,28 @@
 [tools]
 bazel = "9.2.0"
+buildifier = "latest"
+node = "latest"
+pnpm = "latest"
+
+[env]
+_.path = "./scripts"
+
+[tasks.gazelle]
+description = "Re-calculate dependencies automatically with Gazelle"
+run = "bazel run //:gazelle"
+
+[tasks.refresh]
+description = "Update lockfiles for dependencies"
+run = "go mod tidy && pnpm install && REPIN=1 bazel run @maven//:pin && mise gazelle && bazel mod tidy"
+
+[tasks.build]
+description = "Build everything"
+run = "bazel build //..."
+
+[tasks.test]
+description = "Test everything"
+run = "bazel test //..."
+
+[tasks.setup-vscode]
+description = "Setup rust-analyzer in VSCode"
+run = "bazel run @rules_rust//tools/rust_analyzer:setup -- vscode"

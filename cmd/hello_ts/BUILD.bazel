@@ -1,0 +1,17 @@
+load("@aspect_rules_js//js:defs.bzl", "js_binary", "js_test")
+load("@aspect_rules_swc//swc:defs.bzl", "swc")
+load("@aspect_rules_ts//ts:defs.bzl", "ts_project")
+load("@bazel_skylib//lib:partial.bzl", "partial")
+
+ts_project(
+    name = "hello_ts_js",
+    srcs = ["hello.ts"],
+    transpiler = partial.make(swc, swcrc = "//:.swcrc"),
+    tsconfig = "//:tsconfig",
+)
+
+js_binary(
+    name = "hello_ts",
+    data = [":hello_ts_js"],
+    entry_point = "hello.js",
+)

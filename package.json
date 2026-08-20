@@ -1,0 +1,7 @@
+{
+  "devDependencies": {
+    "@bazel/buildozer": "^8.2.1",
+    "tsconfig-to-swcconfig": "^2.8.1",
+    "typescript": "7.0.2"
+  }
+}

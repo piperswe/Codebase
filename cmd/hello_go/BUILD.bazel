@@ -1,0 +1,27 @@
+load("@rules_go//go:def.bzl", "go_binary", "go_cross_binary", "go_library")
+load("//platforms:binary.bzl", "platform_binary")
+
+go_library(
+    name = "hello_go_lib",
+    srcs = ["hello.go"],
+    importpath = "codeberg.org/pmc/Codebase/cmd/hello_go",
+    visibility = ["//visibility:private"],
+)
+
+go_binary(
+    name = "hello_go",
+    embed = [":hello_go_lib"],
+    visibility = ["//visibility:public"],
+)
+
+platform_binary(
+    name = "hello_go_linux_amd64",
+    binary = ":hello_go",
+    platform = "//platforms:linux_amd64",
+)
+
+platform_binary(
+    name = "hello_go_linux_arm64",
+    binary = ":hello_go",
+    platform = "//platforms:linux_arm64",
+)

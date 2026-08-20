@@ -1,0 +1,19 @@
+load("@rules_cc//cc:defs.bzl", "cc_binary")
+load("//platforms:binary.bzl", "platform_binary")
+
+cc_binary(
+    name = "hello_cpp",
+    srcs = ["hello.cpp"],
+)
+
+platform_binary(
+    name = "hello_cpp_linux_amd64",
+    binary = ":hello_cpp",
+    platform = "//platforms:linux_amd64",
+)
+
+platform_binary(
+    name = "hello_cpp_linux_arm64",
+    binary = ":hello_cpp",
+    platform = "//platforms:linux_arm64",
+)

@@ -1,0 +1,8 @@
+{
+    "recommendations": [
+        "bazelbuild.vscode-bazel",
+        "hverlin.mise-vscode",
+        "tombi-toml.tombi",
+        "rust-lang.rust-analyzer"
+    ]
+}
