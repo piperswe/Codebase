@@ -1,0 +1,14 @@
+tsconfig.json
+  h_cb7f8177e9a94f 4,6-7
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.22",
+  "base_commit_sha": "29c239fa146d764246cce855ad23c19b01e6d512",
+  "prompts": {},
+  "humans": {
+    "h_cb7f8177e9a94f": {
+      "author": "Piper McCorkle <contact@piperswe.me>"
+    }
+  }
+}
