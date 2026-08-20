@@ -1,0 +1,14 @@
+.forgejo/workflows/ci.yaml
+  h_cb7f8177e9a94f 22
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.22",
+  "base_commit_sha": "038402b5de1375a8020752b147a93033ce210ecd",
+  "prompts": {},
+  "humans": {
+    "h_cb7f8177e9a94f": {
+      "author": "Piper McCorkle <contact@piperswe.me>"
+    }
+  }
+}
