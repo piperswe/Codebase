@@ -1,5 +1,6 @@
 load("@rules_cc//cc:defs.bzl", "cc_binary")
 load("//platforms:binary.bzl", "platform_binary")
+load("//platforms:oci.bzl", "binary_oci_image")
 
 cc_binary(
     name = "hello_cpp",
@@ -16,4 +17,12 @@ platform_binary(
     name = "hello_cpp_linux_arm64",
     binary = ":hello_cpp",
     platform = "//platforms:linux_arm64",
+)
+
+binary_oci_image(
+    name = "hello_cpp_image",
+    base = "distroless_cc",
+    binary = ":hello_cpp_linux_{arch}",
+    entrypoint = ["/hello_cpp"],
+    visibility = ["//visibility:public"],
 )

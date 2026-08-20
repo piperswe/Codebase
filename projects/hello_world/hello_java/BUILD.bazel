@@ -1,4 +1,5 @@
 load("@rules_java//java:defs.bzl", "java_binary", "java_library")
+load("//platforms:oci.bzl", "binary_oci_image")
 
 java_library(
     name = "hello_java",
@@ -11,4 +12,16 @@ java_binary(
     main_class = "org.codeberg.pmc.codebase.projects.hello_world.hello_java.Hello",
     visibility = ["//visibility:public"],
     runtime_deps = [":hello_java"],
+)
+
+binary_oci_image(
+    name = "hello_java_image",
+    base = "distroless_java",
+    binary = ":Hello_deploy.jar",
+    entrypoint = [
+        "java",
+        "-jar",
+        "/Hello_deploy.jar",
+    ],
+    visibility = ["//visibility:public"],
 )

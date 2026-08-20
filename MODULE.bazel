@@ -70,6 +70,86 @@ maven.install(
 )
 use_repo(maven, "maven")
 
+bazel_dep(name = "rules_oci", version = "2.3.0")
+bazel_dep(name = "tar.bzl", version = "0.10.4")
+
+oci = use_extension("@rules_oci//oci:extensions.bzl", "oci")
+oci.pull(
+    name = "distroless_base",
+    image = "gcr.io/distroless/base",
+    platforms = [
+        "linux/amd64",
+        "linux/arm64/v8",
+    ],
+    # 'latest' is not reproducible, but it's convenient.
+    # During the build we print a WARNING message that includes recommended 'digest' and 'platforms'
+    # values which you can use here in place of 'tag' to pin for reproducibility.
+    tag = "latest",
+)
+use_repo(
+    oci,
+    "distroless_base",
+    "distroless_base_linux_amd64",
+    "distroless_base_linux_arm64_v8",
+)
+
+oci.pull(
+    name = "distroless_cc",
+    image = "gcr.io/distroless/cc",
+    platforms = [
+        "linux/amd64",
+        "linux/arm64/v8",
+    ],
+    # 'latest' is not reproducible, but it's convenient.
+    # During the build we print a WARNING message that includes recommended 'digest' and 'platforms'
+    # values which you can use here in place of 'tag' to pin for reproducibility.
+    tag = "latest",
+)
+use_repo(
+    oci,
+    "distroless_cc",
+    "distroless_cc_linux_amd64",
+    "distroless_cc_linux_arm64_v8",
+)
+
+oci.pull(
+    name = "distroless_java",
+    image = "gcr.io/distroless/java25",
+    platforms = [
+        "linux/amd64",
+        "linux/arm64/v8",
+    ],
+    # 'latest' is not reproducible, but it's convenient.
+    # During the build we print a WARNING message that includes recommended 'digest' and 'platforms'
+    # values which you can use here in place of 'tag' to pin for reproducibility.
+    tag = "latest",
+)
+use_repo(
+    oci,
+    "distroless_java",
+    "distroless_java_linux_amd64",
+    "distroless_java_linux_arm64_v8",
+)
+
+oci.pull(
+    name = "distroless_nodejs",
+    image = "gcr.io/distroless/nodejs26",
+    platforms = [
+        "linux/amd64",
+        "linux/arm64/v8",
+    ],
+    # 'latest' is not reproducible, but it's convenient.
+    # During the build we print a WARNING message that includes recommended 'digest' and 'platforms'
+    # values which you can use here in place of 'tag' to pin for reproducibility.
+    tag = "latest",
+)
+use_repo(
+    oci,
+    "distroless_nodejs",
+    "distroless_nodejs_linux_amd64",
+    "distroless_nodejs_linux_arm64_v8",
+)
+
 bazel_dep(name = "gazelle", version = "0.53.0")
 
 go_deps = use_extension("@gazelle//:extensions.bzl", "go_deps")

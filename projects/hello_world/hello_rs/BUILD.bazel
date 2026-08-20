@@ -1,5 +1,6 @@
 load("@rules_rust//rust:defs.bzl", "rust_binary")
 load("//platforms:binary.bzl", "platform_binary")
+load("//platforms:oci.bzl", "binary_oci_image")
 
 rust_binary(
     name = "hello_rs",
@@ -16,4 +17,12 @@ platform_binary(
     name = "hello_rs_linux_arm64",
     binary = ":hello_rs",
     platform = "//platforms:linux_arm64",
+)
+
+binary_oci_image(
+    name = "hello_rs_image",
+    base = "distroless_cc",
+    binary = ":hello_rs_linux_{arch}",
+    entrypoint = ["/hello_rs"],
+    visibility = ["//visibility:public"],
 )
