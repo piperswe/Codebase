@@ -1,4 +1,13 @@
-import { checkAuthorization } from "./auth";
+import { BasicAuthenticator } from "$/lib/ts/http/authorization.js";
+
+let authenticator: BasicAuthenticator | undefined;
+async function getAuthenticator(env: Env): Promise<BasicAuthenticator> {
+  if (!authenticator) {
+    authenticator = new BasicAuthenticator();
+    await authenticator.addUsers([{ username: "user", password: env.PASSWORD }]);
+  }
+  return authenticator;
+}
 
 export default {
   async fetch(req: Request, env: Env): Promise<Response> {
@@ -13,7 +22,8 @@ export default {
           }
           return new Response(file.body);
         case "PUT":
-          if (!checkAuthorization(req, env.PASSWORD)) {
+          const authenticator = await getAuthenticator(env);
+          if (!(await authenticator.authenticate(req))) {
             return new Response("Unauthorized", { status: 401 });
           }
           await env.BUCKET.put(path, req.body);

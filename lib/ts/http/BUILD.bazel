@@ -1,0 +1,36 @@
+load("//tools/gazelle/vitest:defs.bzl", "vitest")
+load("//tools/typescript:defs.bzl", "ts_project")
+
+ts_project(
+    name = "http_js",
+    srcs = ["authorization.ts"],
+    declaration = True,
+    source_map = True,
+    tsconfig = "//:tsconfig",
+    visibility = ["//visibility:public"],
+    deps = ["//lib/ts/security:security_js"],
+)
+
+ts_project(
+    name = "http_js_tests",
+    testonly = True,
+    srcs = ["authorization.test.ts"],
+    declaration = True,
+    source_map = True,
+    tsconfig = "//:tsconfig",
+    deps = [
+        ":http_js",
+        "//:node_modules/vitest",
+    ],
+)
+
+vitest.vitest_test(
+    name = "test",
+    args = ["run"],
+    chdir = package_name(),
+    data = [
+        ":http_js",
+        ":http_js_tests",
+        "//:node_modules/vitest",
+    ],
+)

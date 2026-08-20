@@ -1,0 +1,38 @@
+load("//tools/gazelle/vitest:defs.bzl", "vitest")
+load("//tools/typescript:defs.bzl", "ts_project")
+
+ts_project(
+    name = "security_js",
+    srcs = [
+        "hash.ts",
+        "timingSafe.ts",
+    ],
+    declaration = True,
+    source_map = True,
+    tsconfig = "//:tsconfig",
+    visibility = ["//visibility:public"],
+)
+
+ts_project(
+    name = "security_js_tests",
+    testonly = True,
+    srcs = ["hash.test.ts"],
+    declaration = True,
+    source_map = True,
+    tsconfig = "//:tsconfig",
+    deps = [
+        ":security_js",
+        "//:node_modules/vitest",
+    ],
+)
+
+vitest.vitest_test(
+    name = "test",
+    args = ["run"],
+    chdir = package_name(),
+    data = [
+        ":security_js",
+        ":security_js_tests",
+        "//:node_modules/vitest",
+    ],
+)

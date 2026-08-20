@@ -1,4 +1,4 @@
-import { Vector2 } from "../../../lib/ts/vector/vector.js";
+import { Vector2 } from "$/lib/ts/vector/vector.js";
 
 console.log("Hello, world!");
 const a = new Vector2(1, 2);

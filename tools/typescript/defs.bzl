@@ -2,6 +2,7 @@
 
 load("@aspect_rules_swc//swc:defs.bzl", "swc")
 load("@aspect_rules_ts//ts:defs.bzl", _ts_project = "ts_project")
+load("@bazel_lib//lib:utils.bzl", "path_to_workspace_root")
 load("@bazel_skylib//lib:partial.bzl", "partial")
 load("@npm//:tsconfig-to-swcconfig/package_json.bzl", _tsconfig_to_swcconfig = "bin")
 
@@ -11,6 +12,7 @@ def ts_project(name, tsconfig = None, transpiler = None, **kwargs):
         if tsconfig == None:
             fail("tsconfig must be set when using the default SWC transpiler")
 
+        workspace_root = path_to_workspace_root() or "."
         swcrc = "{}.swcrc".format(name)
         _tsconfig_to_swcconfig.t2s(
             name = "{}_swcrc".format(name),
@@ -18,6 +20,8 @@ def ts_project(name, tsconfig = None, transpiler = None, **kwargs):
             args = [
                 "--filename",
                 "$(location {})".format(tsconfig),
+                "--set",
+                "jsc.baseUrl={}".format(workspace_root),
             ],
             stdout = swcrc,
         )

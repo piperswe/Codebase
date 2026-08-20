@@ -1,12 +1,7 @@
 {
+  "extends": "../../tsconfig.json",
   "compilerOptions": {
-    "target": "esnext",
-    "strict": true,
-    "declaration": true,
-    "sourceMap": true,
-    "module": "esnext",
-    "lib": ["ESNext"],
-    "skipLibCheck": true
+    "lib": ["ESNext"]
   },
   "exclude": ["bazel-*/**/*"]
 }

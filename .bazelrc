@@ -4,7 +4,7 @@ common --repo_env=BAZEL_NO_APPLE_CPP_TOOLCHAIN=1
 common --@llvm//config:experimental_stub_libgcc_s=True
 common --linkopt=-no-pie
 common --workspace_status_command=./platforms/workspace_status.sh
-build --stamp
+# build --stamp
 build --@rules_rust//rust/toolchain/channel=nightly
 
 try-import %workspace%/user.bazelrc

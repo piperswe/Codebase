@@ -5,7 +5,10 @@
     "declaration": true,
     "sourceMap": true,
     "module": "esnext",
-    "skipLibCheck": true
+    "skipLibCheck": true,
+    "paths": {
+      "$/*": ["./*"]
+    }
   },
   "exclude": ["bazel-*/**/*"]
 }

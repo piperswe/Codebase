@@ -1,24 +1,24 @@
 load("@aspect_rules_ts//ts:defs.bzl", "ts_config")
-load("//tools/gazelle/vitest:defs.bzl", "vitest")
 load("//tools/gazelle/wrangler:defs.bzl", "directory_path", "wrangler", "write_source_files")
 load("//tools/typescript:defs.bzl", "ts_project")
 
 ts_project(
     name = "bazel_cache_js",
     srcs = [
-        "auth.ts",
         "index.ts",
         "worker-configuration.d.ts",
     ],
     declaration = True,
     source_map = True,
     tsconfig = ":tsconfig",
+    deps = ["//lib/ts/http:http_js"],
 )
 
 ts_config(
     name = "tsconfig",
     src = "tsconfig.json",
     visibility = [":__subpackages__"],
+    deps = ["//:tsconfig"],
 )
 
 wrangler.wrangler(
@@ -52,30 +52,6 @@ wrangler.wrangler_binary(
         "deploy",
         "--config",
         "$(rootpath wrangler.toml)",
-    ],
-)
-
-ts_project(
-    name = "bazel_cache_js_tests",
-    testonly = True,
-    srcs = ["auth.test.ts"],
-    declaration = True,
-    source_map = True,
-    tsconfig = ":tsconfig",
-    deps = [
-        ":bazel_cache_js",
-        "//:node_modules/vitest",
-    ],
-)
-
-vitest.vitest_test(
-    name = "test",
-    args = ["run"],
-    chdir = package_name(),
-    data = [
-        ":bazel_cache_js",
-        ":bazel_cache_js_tests",
-        "//:node_modules/vitest",
     ],
 )
 

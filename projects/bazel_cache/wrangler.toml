@@ -3,6 +3,7 @@ name = "bazel-cache"
 main = "index.js"
 compatibility_date = "2026-08-20"
 workers_dev = false
+upload_source_maps = true
 
 [route]
 pattern = "bazel-cache.piperswe.me"
