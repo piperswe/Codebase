@@ -1,4 +1,8 @@
 {
   "$schema": "./node_modules/oxfmt/configuration_schema.json",
-  "ignorePatterns": []
+  "ignorePatterns": [
+    "projects/datasite/internal/static/**/*",
+    "worker-configuration.d.ts",
+    "maven_install.json"
+  ]
 }

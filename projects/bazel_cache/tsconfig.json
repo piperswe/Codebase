@@ -1,0 +1,11 @@
+{
+  "compilerOptions": {
+    "target": "esnext",
+    "strict": true,
+    "declaration": true,
+    "sourceMap": true,
+    "module": "esnext",
+    "lib": ["ESNext"]
+  },
+  "exclude": ["bazel-*/**/*"]
+}

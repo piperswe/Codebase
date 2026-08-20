@@ -6,3 +6,5 @@ common --linkopt=-no-pie
 common --workspace_status_command=./platforms/workspace_status.sh
 build --stamp
 build --@rules_rust//rust/toolchain/channel=nightly
+
+build --remote_cache=https://bazel-cache.piperswe.me/Codebase

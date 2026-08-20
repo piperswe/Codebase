@@ -1,0 +1,36 @@
+load("@aspect_rules_swc//swc:defs.bzl", "swc")
+load("@aspect_rules_ts//ts:defs.bzl", "ts_config", "ts_project")
+load("@bazel_skylib//lib:partial.bzl", "partial")
+load("@npm//:wrangler/package_json.bzl", wrangler = "bin")
+
+ts_project(
+    name = "bazel_cache_js",
+    srcs = ["index.ts"],
+    declaration = True,
+    source_map = True,
+    transpiler = partial.make(
+        swc,
+        swcrc = "//:.swcrc",
+    ),
+    tsconfig = ":tsconfig",
+)
+
+ts_config(
+    name = "tsconfig",
+    src = "tsconfig.json",
+    visibility = [":__subpackages__"],
+    deps = ["//projects/bazel_cache/types:types_js"],
+)
+
+wrangler.wrangler_binary(
+    name = "deploy",
+    data = [
+        "wrangler.toml",
+        ":bazel_cache_js",
+    ],
+    fixed_args = [
+        "deploy",
+        "--config",
+        "$(rootpath wrangler.toml)",
+    ],
+)

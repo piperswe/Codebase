@@ -1,5 +1,10 @@
 {
   "$schema": "./node_modules/oxlint/configuration_schema.json",
+  "ignorePatterns": [
+    "projects/datasite/internal/static/**/*",
+    "worker-configuration.d.ts",
+    "maven_install.json"
+  ],
   "plugins": ["typescript", "unicorn", "oxc"],
   "categories": {
     "correctness": "error"

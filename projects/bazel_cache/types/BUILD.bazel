@@ -1,0 +1,7 @@
+load("@aspect_rules_js//js:defs.bzl", "js_library")
+
+js_library(
+    name = "types_js",
+    srcs = ["worker-configuration.d.ts"],
+    visibility = ["//visibility:public"],
+)
