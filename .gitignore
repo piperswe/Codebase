@@ -3,3 +3,4 @@ node_modules/
 .rules_rust_analyzer
 .vscode/settings.json
 .wrangler
+user.bazelrc

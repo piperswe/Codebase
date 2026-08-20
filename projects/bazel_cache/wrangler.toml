@@ -11,3 +11,6 @@ custom_domain = true
 [[r2_buckets]]
 binding = "BUCKET"
 bucket_name = "bazel-cache"
+
+[secrets]
+required = ["PASSWORD"]
