@@ -80,15 +80,12 @@ register_toolchains("//platforms:native_rpmbuild_toolchain")
 oci = use_extension("@rules_oci//oci:extensions.bzl", "oci")
 oci.pull(
     name = "distroless_base",
+    digest = "sha256:f4a335ca209e1d2ee873102c17c389ad0142e3d5b21aee2817e9cc9c01d87d20",
     image = "gcr.io/distroless/base",
     platforms = [
         "linux/amd64",
         "linux/arm64/v8",
     ],
-    # 'latest' is not reproducible, but it's convenient.
-    # During the build we print a WARNING message that includes recommended 'digest' and 'platforms'
-    # values which you can use here in place of 'tag' to pin for reproducibility.
-    tag = "latest",
 )
 use_repo(
     oci,
@@ -99,15 +96,12 @@ use_repo(
 
 oci.pull(
     name = "distroless_cc",
+    digest = "sha256:ed7c407fd64eb0af9dddb9456b94cee188a40a7f53cf38c9836e1e9ae14fca02",
     image = "gcr.io/distroless/cc",
     platforms = [
         "linux/amd64",
         "linux/arm64/v8",
     ],
-    # 'latest' is not reproducible, but it's convenient.
-    # During the build we print a WARNING message that includes recommended 'digest' and 'platforms'
-    # values which you can use here in place of 'tag' to pin for reproducibility.
-    tag = "latest",
 )
 use_repo(
     oci,
@@ -118,15 +112,12 @@ use_repo(
 
 oci.pull(
     name = "distroless_java",
+    digest = "sha256:34f47c4e018bf205c771ad12a1c8c06d0801a69c0a5566677f0e31f166c89793",
     image = "gcr.io/distroless/java25",
     platforms = [
         "linux/amd64",
         "linux/arm64/v8",
     ],
-    # 'latest' is not reproducible, but it's convenient.
-    # During the build we print a WARNING message that includes recommended 'digest' and 'platforms'
-    # values which you can use here in place of 'tag' to pin for reproducibility.
-    tag = "latest",
 )
 use_repo(
     oci,
@@ -137,15 +128,12 @@ use_repo(
 
 oci.pull(
     name = "distroless_nodejs",
+    digest = "sha256:2ab683b273ed12bcbce0005fa3488aa58dcdee31edf6fa6ab6a1351a9cbc6079",
     image = "gcr.io/distroless/nodejs26",
     platforms = [
         "linux/amd64",
         "linux/arm64/v8",
     ],
-    # 'latest' is not reproducible, but it's convenient.
-    # During the build we print a WARNING message that includes recommended 'digest' and 'platforms'
-    # values which you can use here in place of 'tag' to pin for reproducibility.
-    tag = "latest",
 )
 use_repo(
     oci,
