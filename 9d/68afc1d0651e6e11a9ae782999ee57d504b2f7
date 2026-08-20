@@ -1,0 +1,19 @@
+MODULE.bazel
+  s_9e12c946456368::t_d3b14df89976e0 83,99,115,131
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.22",
+  "base_commit_sha": "9d68afc1d0651e6e11a9ae782999ee57d504b2f7",
+  "prompts": {},
+  "sessions": {
+    "s_9e12c946456368": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a020ae-7bf6-7921-89f3-5b371c213d54",
+        "model": "gpt-5.6-sol"
+      },
+      "human_author": "Piper McCorkle <contact@piperswe.me>"
+    }
+  }
+}
