@@ -1,0 +1,14 @@
+platforms/packages.bzl
+  h_cb7f8177e9a94f 346-349
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.22",
+  "base_commit_sha": "91d03aedd47946ae53af93d0892e4fbc0b74ad53",
+  "prompts": {},
+  "humans": {
+    "h_cb7f8177e9a94f": {
+      "author": "Piper McCorkle <contact@piperswe.me>"
+    }
+  }
+}
