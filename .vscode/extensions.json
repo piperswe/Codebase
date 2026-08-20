@@ -1,8 +1,13 @@
 {
-    "recommendations": [
-        "bazelbuild.vscode-bazel",
-        "hverlin.mise-vscode",
-        "tombi-toml.tombi",
-        "rust-lang.rust-analyzer"
-    ]
+  "recommendations": [
+    "bazelbuild.vscode-bazel",
+    "hverlin.mise-vscode",
+    "tombi-toml.tombi",
+    "rust-lang.rust-analyzer",
+    "vscjava.vscode-java-pack",
+    "sfdc.bazel-vscode-java",
+    "golang.go",
+    "ms-vscode.cpptools-extension-pack",
+    "oxc.oxc-vscode"
+  ]
 }

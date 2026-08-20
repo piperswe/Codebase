@@ -1,10 +1,10 @@
-load("@rules_go//go:def.bzl", "go_binary", "go_cross_binary", "go_library")
+load("@rules_go//go:def.bzl", "go_binary", "go_library")
 load("//platforms:binary.bzl", "platform_binary")
 
 go_library(
     name = "hello_go_lib",
     srcs = ["hello.go"],
-    importpath = "codeberg.org/pmc/Codebase/cmd/hello_go",
+    importpath = "codeberg.org/pmc/Codebase/projects/hello_world/hello_go",
     visibility = ["//visibility:private"],
 )
 

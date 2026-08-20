@@ -1,0 +1,16 @@
+load("@aspect_rules_swc//swc:defs.bzl", "swc")
+load("@aspect_rules_ts//ts:defs.bzl", "ts_project")
+load("@bazel_skylib//lib:partial.bzl", "partial")
+
+ts_project(
+    name = "vector_js",
+    srcs = ["vector.ts"],
+    declaration = True,
+    source_map = True,
+    transpiler = partial.make(
+        swc,
+        swcrc = "//:.swcrc",
+    ),
+    tsconfig = "//:tsconfig",
+    visibility = ["//visibility:public"],
+)

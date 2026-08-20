@@ -1,6 +1,7 @@
 [tools]
 bazel = "9.2.0"
 buildifier = "latest"
+go = "latest"
 node = "latest"
 pnpm = "latest"
 
@@ -26,3 +27,11 @@ run = "bazel test //..."
 [tasks.setup-vscode]
 description = "Setup rust-analyzer in VSCode"
 run = "bazel run @rules_rust//tools/rust_analyzer:setup -- vscode"
+
+[tasks.lint]
+description = "Lint the codebase"
+run = "npx oxlint"
+
+[tasks.format]
+description = "Format the codebase"
+run = "npx oxfmt"

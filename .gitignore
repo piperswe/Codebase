@@ -1,3 +1,4 @@
 node_modules/
 /bazel-*
 .rules_rust_analyzer
+.vscode/settings.json

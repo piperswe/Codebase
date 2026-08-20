@@ -102,9 +102,7 @@
       "com.google.errorprone.annotations",
       "com.google.errorprone.annotations.concurrent"
     ],
-    "com.google.guava:failureaccess": [
-      "com.google.common.util.concurrent.internal"
-    ],
+    "com.google.guava:failureaccess": ["com.google.common.util.concurrent.internal"],
     "com.google.guava:guava": [
       "com.google.common.annotations",
       "com.google.common.base",
@@ -125,9 +123,7 @@
       "com.google.common.xml",
       "com.google.thirdparty.publicsuffix"
     ],
-    "com.google.j2objc:j2objc-annotations": [
-      "com.google.j2objc.annotations"
-    ],
+    "com.google.j2objc:j2objc-annotations": ["com.google.j2objc.annotations"],
     "org.checkerframework:checker-qual": [
       "org.checkerframework.checker.builder.qual",
       "org.checkerframework.checker.calledmethods.qual",

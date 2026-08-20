@@ -1,5 +1,4 @@
 load("@rules_rust//rust:defs.bzl", "rust_binary")
-
 load("//platforms:binary.bzl", "platform_binary")
 
 rust_binary(
