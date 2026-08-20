@@ -1,0 +1,46 @@
+.gitignore
+  h_cb7f8177e9a94f 3-4
+.oxfmtrc.json
+  h_cb7f8177e9a94f 1-4
+.oxlintrc.json
+  h_cb7f8177e9a94f 2-5,7-9,11-13
+.vscode/extensions.json
+  h_cb7f8177e9a94f 2-13
+MODULE.bazel
+  h_cb7f8177e9a94f 41
+lib/ts/vector/BUILD.bazel
+  h_cb7f8177e9a94f 1-16
+lib/ts/vector/vector.ts
+  h_cb7f8177e9a94f 1-149
+maven_install.json
+  h_cb7f8177e9a94f 105,126
+mise.toml
+  h_cb7f8177e9a94f 4,30-37
+package.json
+  h_cb7f8177e9a94f 2,5-7
+pnpm-lock.yaml
+  h_cb7f8177e9a94f 14-22,39-312,436-465,469-472,488-619,684-739,742-743
+projects/hello_world/hello_go/BUILD.bazel
+  h_cb7f8177e9a94f 1,7
+projects/hello_world/hello_java/BUILD.bazel
+  h_cb7f8177e9a94f 11
+projects/hello_world/hello_java/Hello.java
+  h_cb7f8177e9a94f 1
+projects/hello_world/hello_ts/BUILD.bazel
+  h_cb7f8177e9a94f 1,9-14,16-19
+projects/hello_world/hello_ts/hello.ts
+  h_cb7f8177e9a94f 1-2,4-7
+tsconfig.json
+  h_cb7f8177e9a94f 1-8
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.22",
+  "base_commit_sha": "5e2e9f7d735de66caeed166ced16314eb8b22cfa",
+  "prompts": {},
+  "humans": {
+    "h_cb7f8177e9a94f": {
+      "author": "Piper McCorkle <contact@piperswe.me>"
+    }
+  }
+}
