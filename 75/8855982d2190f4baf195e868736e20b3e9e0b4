@@ -1,0 +1,14 @@
+projects/bazel_cache/wrangler.toml
+  h_cb7f8177e9a94f 16
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.22",
+  "base_commit_sha": "758855982d2190f4baf195e868736e20b3e9e0b4",
+  "prompts": {},
+  "humans": {
+    "h_cb7f8177e9a94f": {
+      "author": "Piper McCorkle <contact@piperswe.me>"
+    }
+  }
+}
