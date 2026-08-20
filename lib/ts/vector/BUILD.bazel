@@ -1,7 +1,7 @@
 load("@aspect_rules_swc//swc:defs.bzl", "swc")
 load("@aspect_rules_ts//ts:defs.bzl", "ts_project")
 load("@bazel_skylib//lib:partial.bzl", "partial")
-load("@npm//:vitest/package_json.bzl", vitest = "bin")
+load("//tools/gazelle/vitest:defs.bzl", "vitest")
 
 ts_project(
     name = "vector_js",
@@ -35,9 +35,7 @@ ts_project(
 
 vitest.vitest_test(
     name = "test",
-    args = [
-        "run",
-    ],
+    args = ["run"],
     chdir = package_name(),
     data = [
         ":vector_js",

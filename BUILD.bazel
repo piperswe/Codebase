@@ -9,6 +9,7 @@ gazelle_binary(
         "@gazelle_cc//language/cc",
         "@contrib_rules_jvm//java/gazelle",
         "@aspect_gazelle_js",
+        "//tools/gazelle/vitest",
     ],
 )
 
