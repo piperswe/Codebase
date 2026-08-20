@@ -1,5 +1,6 @@
 load("@rules_java//java:defs.bzl", "java_binary", "java_library")
 load("//platforms:oci.bzl", "binary_oci_image")
+load("//platforms:packages.bzl", "linux_runtime_packages", "package_file")
 
 java_library(
     name = "hello_java",
@@ -23,5 +24,28 @@ binary_oci_image(
         "-jar",
         "/Hello_deploy.jar",
     ],
+    visibility = ["//visibility:public"],
+)
+
+linux_runtime_packages(
+    name = "hello_java_linux_packages",
+    package_name = "hello-java",
+    command = [
+        "java",
+        "-jar",
+        "/usr/lib/hello-java/Hello_deploy.jar",
+    ],
+    deb_depends = ["openjdk-25-jre-headless"],
+    description = "Hello world implemented in Java",
+    executable_name = "hello_java",
+    files = [
+        package_file(
+            src = ":Hello_deploy.jar",
+            destination = "/usr/lib/hello-java/Hello_deploy.jar",
+        ),
+    ],
+    install_test_command = ["/usr/bin/hello_java"],
+    rpm_requires = ["java-25-openjdk-headless"],
+    target_name = "hello_java",
     visibility = ["//visibility:public"],
 )

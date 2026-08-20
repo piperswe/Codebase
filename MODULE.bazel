@@ -71,7 +71,11 @@ maven.install(
 use_repo(maven, "maven")
 
 bazel_dep(name = "rules_oci", version = "2.3.0")
+bazel_dep(name = "rules_pkg", version = "1.2.0")
+bazel_dep(name = "rules_shell", version = "0.6.1")
 bazel_dep(name = "tar.bzl", version = "0.10.4")
+
+register_toolchains("//platforms:native_rpmbuild_toolchain")
 
 oci = use_extension("@rules_oci//oci:extensions.bzl", "oci")
 oci.pull(

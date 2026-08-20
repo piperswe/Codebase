@@ -1,6 +1,7 @@
 load("@rules_cc//cc:defs.bzl", "cc_binary")
 load("//platforms:binary.bzl", "platform_binary")
 load("//platforms:oci.bzl", "binary_oci_image")
+load("//platforms:packages.bzl", "linux_binary_packages")
 
 cc_binary(
     name = "hello_cpp",
@@ -24,5 +25,24 @@ binary_oci_image(
     base = "distroless_cc",
     binary = ":hello_cpp_linux_{arch}",
     entrypoint = ["/hello_cpp"],
+    visibility = ["//visibility:public"],
+)
+
+linux_binary_packages(
+    name = "hello_cpp_linux_packages",
+    package_name = "hello-cpp",
+    binary = ":hello_cpp_linux_{arch}",
+    deb_depends = [
+        "libc6",
+        "libstdc++6",
+    ],
+    description = "Hello world implemented in C++",
+    executable_name = "hello_cpp",
+    install_test_command = ["/usr/bin/hello_cpp"],
+    rpm_requires = [
+        "glibc",
+        "libstdc++",
+    ],
+    target_name = "hello_cpp",
     visibility = ["//visibility:public"],
 )

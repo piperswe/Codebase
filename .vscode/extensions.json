@@ -9,6 +9,7 @@
     "golang.go",
     "ms-vscode.cpptools-extension-pack",
     "oxc.oxc-vscode",
-    "a-h.templ"
+    "a-h.templ",
+    "coolbear.systemd-unit-file"
   ]
 }

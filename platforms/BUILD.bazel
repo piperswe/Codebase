@@ -1,3 +1,15 @@
+load("@bazel_skylib//rules:common_settings.bzl", "string_flag")
+load("@rules_pkg//toolchains/rpm:rpmbuild.bzl", "rpmbuild_toolchain")
+load(":package_version.bzl", "package_status_value")
+
+exports_files(
+    [
+        "package_install_container.sh",
+        "package_install_test.sh",
+    ],
+    visibility = ["//visibility:public"],
+)
+
 platform(
     name = "linux_amd64",
     constraint_values = [
@@ -5,6 +17,48 @@ platform(
         "@platforms//cpu:x86_64",
     ],
     visibility = ["//visibility:public"],
+)
+
+string_flag(
+    name = "package_arch",
+    build_setting_default = "default",
+    values = [
+        "default",
+        "amd64",
+        "arm64",
+    ],
+    visibility = ["//visibility:public"],
+)
+
+package_status_value(
+    name = "deb_package_version",
+    key = "STABLE_DEB_VERSION",
+    visibility = ["//visibility:public"],
+)
+
+package_status_value(
+    name = "rpm_package_release",
+    key = "STABLE_RPM_RELEASE",
+    visibility = ["//visibility:public"],
+)
+
+package_status_value(
+    name = "rpm_package_version",
+    key = "STABLE_RPM_VERSION",
+    visibility = ["//visibility:public"],
+)
+
+rpmbuild_toolchain(
+    name = "native_rpmbuild",
+    debuginfo_type = "none",
+    label = "rpmbuild_compat.sh",
+    version = "system",
+)
+
+toolchain(
+    name = "native_rpmbuild_toolchain",
+    toolchain = ":native_rpmbuild",
+    toolchain_type = "@rules_pkg//toolchains/rpm:rpmbuild_toolchain_type",
 )
 
 platform(

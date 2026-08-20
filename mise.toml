@@ -20,6 +20,14 @@ run = "go mod tidy && pnpm install && REPIN=1 bazel run @maven//:pin && mise gaz
 description = "Build everything"
 run = "bazel build //..."
 
+[tasks.packages]
+description = "Build all native Debian and RPM packages"
+run = "platforms/build_packages.sh"
+
+[tasks.package-tests]
+description = "Install all Debian and RPM packages in Docker containers"
+run = "bazel test //:package_install_tests"
+
 [tasks.test]
 description = "Test everything"
 run = "bazel test //..."

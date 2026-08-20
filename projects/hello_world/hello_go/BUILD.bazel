@@ -1,6 +1,7 @@
 load("@rules_go//go:def.bzl", "go_binary", "go_library", "go_test")
 load("//platforms:binary.bzl", "platform_binary")
 load("//platforms:oci.bzl", "binary_oci_image")
+load("//platforms:packages.bzl", "linux_binary_packages")
 
 go_library(
     name = "hello_go_lib",
@@ -32,6 +33,17 @@ binary_oci_image(
     base = "distroless_base",
     binary = ":hello_go_linux_{arch}",
     entrypoint = ["/hello_go"],
+    visibility = ["//visibility:public"],
+)
+
+linux_binary_packages(
+    name = "hello_go_linux_packages",
+    package_name = "hello-go",
+    binary = ":hello_go_linux_{arch}",
+    description = "Hello world implemented in Go",
+    executable_name = "hello_go",
+    install_test_command = ["/usr/bin/hello_go"],
+    target_name = "hello_go",
     visibility = ["//visibility:public"],
 )
 

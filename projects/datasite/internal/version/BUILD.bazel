@@ -5,4 +5,5 @@ go_library(
     srcs = ["version.go"],
     importpath = "codeberg.org/pmc/Codebase/projects/datasite/internal/version",
     visibility = ["//projects/datasite:__subpackages__"],
+    x_defs = {"Version": "{STABLE_DATASITE_VERSION}"},
 )

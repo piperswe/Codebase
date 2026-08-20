@@ -3,6 +3,7 @@ load("@aspect_rules_swc//swc:defs.bzl", "swc")
 load("@aspect_rules_ts//ts:defs.bzl", "ts_project")
 load("@bazel_skylib//lib:partial.bzl", "partial")
 load("//platforms:oci.bzl", "multiarch_oci_image")
+load("//platforms:packages.bzl", "linux_runtime_packages", "package_file")
 
 ts_project(
     name = "hello_ts_js",
@@ -59,4 +60,30 @@ multiarch_oci_image(
     tars = [":hello_ts_linux_{arch}_app_layer"],
     visibility = ["//visibility:public"],
     workdir = "/app/projects/hello_world/hello_ts/hello_ts.runfiles/_main",
+)
+
+linux_runtime_packages(
+    name = "hello_ts_linux_packages",
+    package_name = "hello-ts",
+    command = [
+        "node",
+        "/usr/lib/hello-ts/projects/hello_world/hello_ts/hello.js",
+    ],
+    deb_depends = ["nodejs (>= 20)"],
+    description = "Hello world implemented in TypeScript",
+    executable_name = "hello_ts",
+    files = [
+        package_file(
+            src = ":hello.js",
+            destination = "/usr/lib/hello-ts/projects/hello_world/hello_ts/hello.js",
+        ),
+        package_file(
+            src = "//lib/ts/vector:vector.js",
+            destination = "/usr/lib/hello-ts/lib/ts/vector/vector.js",
+        ),
+    ],
+    install_test_command = ["/usr/bin/hello_ts"],
+    rpm_requires = ["nodejs >= 20"],
+    target_name = "hello_ts",
+    visibility = ["//visibility:public"],
 )

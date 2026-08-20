@@ -1,6 +1,7 @@
 load("@rules_go//go:def.bzl", "go_binary", "go_library", "go_test")
 load("//platforms:binary.bzl", "platform_binary")
 load("//platforms:oci.bzl", "binary_oci_image")
+load("//platforms:packages.bzl", "linux_binary_packages", "package_file", "systemd_service_account")
 
 go_library(
     name = "datasite_lib",
@@ -74,5 +75,47 @@ binary_oci_image(
     base = "distroless_base",
     binary = ":datasite_linux_{arch}",
     entrypoint = ["/datasite"],
+    visibility = ["//visibility:public"],
+)
+
+linux_binary_packages(
+    name = "datasite_linux_packages",
+    package_name = "datasite",
+    binary = ":datasite_linux_{arch}",
+    deb_depends = [
+        "libc6",
+        "systemd",
+    ],
+    description = "Movie log web application",
+    executable_name = "datasite",
+    extra_files = [
+        package_file(
+            src = "datasite.service",
+            destination = "/usr/lib/systemd/system/datasite.service",
+        ),
+        package_file(
+            src = "datasite.env",
+            config = True,
+            destination = "/etc/datasite/datasite.env",
+            mode = "0600",
+        ),
+    ],
+    install_test_command = [
+        "/usr/bin/datasite",
+        "smoke",
+    ],
+    rpm_requires = [
+        "glibc",
+        "systemd",
+    ],
+    systemd_account = systemd_service_account(
+        description = "datasite service account",
+        home = "/var/lib/datasite",
+        state_directory = "/var/lib/datasite",
+        state_directory_mode = "0750",
+        user = "datasite",
+    ),
+    systemd_service = "datasite.service",
+    target_name = "datasite",
     visibility = ["//visibility:public"],
 )

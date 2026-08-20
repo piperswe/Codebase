@@ -43,3 +43,29 @@ tsconfig_to_swcconfig.t2s(
     stdout = ".swcrc",
     visibility = ["//:__subpackages__"],
 )
+
+filegroup(
+    name = "packages",
+    srcs = [
+        "//projects/datasite/cmd/datasite:datasite_packages",
+        "//projects/hello_world/hello_cpp:hello_cpp_packages",
+        "//projects/hello_world/hello_go:hello_go_packages",
+        "//projects/hello_world/hello_java:hello_java_packages",
+        "//projects/hello_world/hello_rs:hello_rs_packages",
+        "//projects/hello_world/hello_ts:hello_ts_packages",
+    ],
+    visibility = ["//visibility:public"],
+)
+
+test_suite(
+    name = "package_install_tests",
+    tests = [
+        "//projects/datasite/cmd/datasite:datasite_install_tests",
+        "//projects/hello_world/hello_cpp:hello_cpp_install_tests",
+        "//projects/hello_world/hello_go:hello_go_install_tests",
+        "//projects/hello_world/hello_java:hello_java_install_tests",
+        "//projects/hello_world/hello_rs:hello_rs_install_tests",
+        "//projects/hello_world/hello_ts:hello_ts_install_tests",
+    ],
+    visibility = ["//visibility:public"],
+)

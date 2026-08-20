@@ -55,6 +55,10 @@ func getenvOr(key string, def string) string {
 }
 
 func main() {
+	if len(os.Args) > 1 && os.Args[1] == "smoke" {
+		fmt.Printf("datasite %s", version.Version)
+		return
+	}
 	logFormat := httplog.SchemaOTEL
 	var h slog.Handler
 	if version.Version == "dev" {
