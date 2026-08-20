@@ -15,6 +15,7 @@ platform(
     constraint_values = [
         "@platforms//os:linux",
         "@platforms//cpu:x86_64",
+        "@llvm//constraints/libc:gnu.2.36",
     ],
     visibility = ["//visibility:public"],
 )
@@ -66,6 +67,7 @@ platform(
     constraint_values = [
         "@platforms//os:linux",
         "@platforms//cpu:arm64",
+        "@llvm//constraints/libc:gnu.2.36",
     ],
     visibility = ["//visibility:public"],
 )
