@@ -1,6 +1,7 @@
 load("@aspect_rules_swc//swc:defs.bzl", "swc")
 load("@aspect_rules_ts//ts:defs.bzl", "ts_project")
 load("@bazel_skylib//lib:partial.bzl", "partial")
+load("@npm//:vitest/package_json.bzl", vitest = "bin")
 
 ts_project(
     name = "vector_js",
@@ -13,4 +14,34 @@ ts_project(
     ),
     tsconfig = "//:tsconfig",
     visibility = ["//visibility:public"],
+)
+
+ts_project(
+    name = "vector_js_tests",
+    testonly = True,
+    srcs = ["vector.test.ts"],
+    declaration = True,
+    source_map = True,
+    transpiler = partial.make(
+        swc,
+        swcrc = "//:.swcrc",
+    ),
+    tsconfig = "//:tsconfig",
+    deps = [
+        ":vector_js",
+        "//:node_modules/vitest",
+    ],
+)
+
+vitest.vitest_test(
+    name = "test",
+    args = [
+        "run",
+    ],
+    chdir = package_name(),
+    data = [
+        ":vector_js",
+        ":vector_js_tests",
+        "//:node_modules/vitest",
+    ],
 )
