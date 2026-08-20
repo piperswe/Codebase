@@ -1,0 +1,26 @@
+lib/ts/vector/BUILD.bazel
+  h_cb7f8177e9a94f 4,18-47
+lib/ts/vector/vector.test.ts
+  h_cb7f8177e9a94f 1-10
+maven_install.json
+  h_cb7f8177e9a94f 105-107,128-130
+package.json
+  h_cb7f8177e9a94f 9-10
+pnpm-lock.yaml
+  h_cb7f8177e9a94f 29-31,42-47,322-426,547-614,618-703,734-747,751-779,784-787,797-885,892-895,1028-1082,1143-1206,1211-1267,1324-1335,1338-1374,1377-1378,1406-1445
+projects/hello_world/hello_go/BUILD.bazel
+  h_cb7f8177e9a94f 1,37-42
+projects/hello_world/hello_go/hello_test.go
+  h_cb7f8177e9a94f 1-7
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.22",
+  "base_commit_sha": "314127199653f1ca57badcf403e601e3ab1f7997",
+  "prompts": {},
+  "humans": {
+    "h_cb7f8177e9a94f": {
+      "author": "Piper McCorkle <contact@piperswe.me>"
+    }
+  }
+}
