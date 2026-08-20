@@ -1,0 +1,54 @@
+lib/ts/security/hash.test.ts
+  h_cb7f8177e9a94f 1-17
+lib/ts/http/authorization.ts
+  h_cb7f8177e9a94f 1-53
+lib/ts/security/BUILD.bazel
+  h_cb7f8177e9a94f 1-38
+projects/hello_world/hello_ts/hello.ts
+  h_cb7f8177e9a94f 1
+projects/bazel_cache/index.ts
+  h_cb7f8177e9a94f 1-10,25-26
+tools/typescript/defs.bzl
+  s_da6d5e8b58f0a4::t_5bd34a5c2b5624 5
+  s_da6d5e8b58f0a4::t_dc86bbe80a3bea 23
+  s_da6d5e8b58f0a4::t_479fe15475e1b4 15,24
+tsconfig.json
+  h_cb7f8177e9a94f 8-11
+lib/ts/security/timingSafe.ts
+  h_cb7f8177e9a94f 3,6-10
+lib/ts/security/hash.ts
+  h_cb7f8177e9a94f 1-58
+projects/bazel_cache/BUILD.bazel
+  h_cb7f8177e9a94f 14,21
+.bazelrc
+  h_cb7f8177e9a94f 7
+lib/ts/http/authorization.test.ts
+  h_cb7f8177e9a94f 2,4-11
+projects/bazel_cache/wrangler.toml
+  h_cb7f8177e9a94f 6
+lib/ts/http/BUILD.bazel
+  h_cb7f8177e9a94f 1-36
+projects/bazel_cache/tsconfig.json
+  h_cb7f8177e9a94f 2,4
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.23",
+  "base_commit_sha": "81cf772b3a85e86b913d94f30bcba0c7dbf11e05",
+  "prompts": {},
+  "humans": {
+    "h_cb7f8177e9a94f": {
+      "author": "Piper McCorkle <contact@piperswe.me>"
+    }
+  },
+  "sessions": {
+    "s_da6d5e8b58f0a4": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a02174-dd70-7022-84fe-f0da88f00214",
+        "model": "gpt-5.6-sol"
+      },
+      "human_author": "Piper McCorkle <contact@piperswe.me>"
+    }
+  }
+}
