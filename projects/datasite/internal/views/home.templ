@@ -1,0 +1,52 @@
+package views
+
+import "fmt"
+
+type MovieLogViewModel struct {
+	URL       string
+	MovieName string
+	PosterURL string
+	Year      int
+	Month     int
+	Day       int
+	Rating    string
+}
+
+type HomeViewModel struct {
+	ServerSrc string
+	MovieLogs []MovieLogViewModel
+}
+
+templ moviePoster(log MovieLogViewModel) {
+	<div class="col-6 col-sm-4 col-md-3 col-lg-2 mb-4">
+		<div class="card h-100">
+			if log.PosterURL != "" {
+				<img src={ log.PosterURL } class="card-img-top" alt={ log.MovieName } loading="lazy"/>
+			} else {
+				<div class="card-img-top bg-light d-flex align-items-center justify-content-center" style="height: 300px;">
+					<span class="text-muted">No poster</span>
+				</div>
+			}
+			<div class="card-body d-flex flex-column">
+				<h6 class="card-title">{ log.MovieName }</h6>
+				if log.Rating != "" {
+					<p class="card-text mb-2"><small>@starDisplay(log.Rating)</small></p>
+				}
+				<p class="card-text text-muted small mt-auto">{ fmt.Sprintf("%04d-%02d-%02d", log.Year, log.Month, log.Day) }</p>
+				<a href={ log.URL } class="stretched-link">View log</a>
+			</div>
+		</div>
+	</div>
+}
+
+templ Home(vm HomeViewModel) {
+	@page(vm.ServerSrc) {
+		<h1 class="mb-4">Datasite</h1>
+		<h2 class="mb-3">Recent movie logs</h2>
+		<div class="row row-cols-2 row-cols-sm-3 row-cols-md-4 row-cols-lg-5 row-cols-xl-6 g-3">
+			for _, log := range vm.MovieLogs {
+				@moviePoster(log)
+			}
+		</div>
+	}
+}

@@ -1,0 +1,65 @@
+package views
+
+import "fmt"
+
+type AdminCinemasCinemaViewModel struct {
+	URL  string
+	Name string
+	ID   int64
+}
+
+type AdminCinemasViewModel struct {
+	ServerSrc string
+	Cinemas   []AdminCinemasCinemaViewModel
+}
+
+templ AdminCinemas(vm AdminCinemasViewModel) {
+	@page(vm.ServerSrc) {
+		<h1>Cinemas</h1>
+		<a class="btn btn-primary" href="/admin/cinemas/new">Create new</a>
+		<ul>
+			for _, c := range vm.Cinemas {
+				<li><a href={ c.URL }>{ c.Name }</a></li>
+			}
+		</ul>
+	}
+}
+
+type AdminCreateCinemaViewModel struct {
+	ServerSrc string
+}
+
+templ AdminCreateCinema(vm AdminCreateCinemaViewModel) {
+	@page(vm.ServerSrc) {
+		<h1>Create cinema</h1>
+		<form method="POST" action="/admin/cinemas">
+			<div class="mb-3">
+				<label for="name" class="form-label">Name</label>
+				<input type="text" class="form-control" name="name"/>
+			</div>
+			<button type="submit" class="btn btn-primary">Create</button>
+		</form>
+	}
+}
+
+type AdminCinemaViewModel struct {
+	ServerSrc string
+	Name      string
+	ID        int64
+}
+
+templ AdminCinema(vm AdminCinemaViewModel) {
+	@page(vm.ServerSrc) {
+		<h1>{ vm.Name }</h1>
+		<form method="POST" action={ fmt.Sprintf("/admin/cinemas/%d", vm.ID) }>
+			<div class="mb-3">
+				<label for="name" class="form-label">Name</label>
+				<input type="text" class="form-control" name="name" value={ vm.Name }/>
+			</div>
+			<button type="submit" class="btn btn-primary">Edit</button>
+		</form>
+		<form method="POST" action={ fmt.Sprintf("/admin/cinemas/%d/delete", vm.ID) } onsubmit="return confirm('Delete this cinema?')">
+			<button type="submit" class="btn btn-danger">Delete</button>
+		</form>
+	}
+}

@@ -1,0 +1,86 @@
+package views
+
+import "fmt"
+
+type AdminImportViewModel struct {
+	ServerSrc string
+}
+
+templ AdminImportForm(vm AdminImportViewModel) {
+	@page(vm.ServerSrc) {
+		<h1>Import from Letterboxd</h1>
+		<p>Upload one or more files. Each row is matched to an existing log by name, year, and watched date.</p>
+		<form method="POST" action="/admin/import" enctype="multipart/form-data">
+			<div class="mb-3">
+				<label for="diary" class="form-label">diary.csv</label>
+				<input type="file" class="form-control" name="diary" accept=".csv"/>
+				<div class="form-text">Creates new movie logs with ratings, dates, and tags-as-cinema.</div>
+			</div>
+			<div class="mb-3">
+				<label for="ratings" class="form-label">ratings.csv</label>
+				<input type="file" class="form-control" name="ratings" accept=".csv"/>
+				<div class="form-text">Backfills ratings on existing logs.</div>
+			</div>
+			<div class="mb-3">
+				<label for="reviews" class="form-label">reviews.csv</label>
+				<input type="file" class="form-control" name="reviews" accept=".csv"/>
+				<div class="form-text">Backfills review text on existing logs.</div>
+			</div>
+			<button type="submit" class="btn btn-primary">Import</button>
+		</form>
+		<a href="/admin">Back to admin dash</a>
+	}
+}
+
+type ImportResult struct {
+	Source    string
+	MovieName string
+	Watched   string
+	Rating    string
+	Success   bool
+	Error     string
+}
+
+type AdminImportReportViewModel struct {
+	ServerSrc string
+	Total     int
+	Imported  int
+	Skipped   int
+	Results   []ImportResult
+}
+
+templ AdminImportReport(vm AdminImportReportViewModel) {
+	@page(vm.ServerSrc) {
+		<h1>Import report</h1>
+		<p>Total: { fmt.Sprintf("%d", vm.Total) } | Imported: { fmt.Sprintf("%d", vm.Imported) } | Skipped: { fmt.Sprintf("%d", vm.Skipped) }</p>
+		<table class="table">
+			<thead>
+				<tr>
+					<th>Source</th>
+					<th>Movie</th>
+					<th>Watched</th>
+					<th>Rating</th>
+					<th>Status</th>
+				</tr>
+			</thead>
+			<tbody>
+				for _, r := range vm.Results {
+					<tr>
+						<td>{ r.Source }</td>
+						<td>{ r.MovieName }</td>
+						<td>{ r.Watched }</td>
+						<td>@starDisplay(r.Rating)</td>
+						if r.Success {
+							<td>OK</td>
+						} else {
+							<td>{ r.Error }</td>
+						}
+					</tr>
+				}
+			</tbody>
+		</table>
+		<a href="/admin/import">Import another file</a>
+		<br/>
+		<a href="/admin">Back to admin dash</a>
+	}
+}

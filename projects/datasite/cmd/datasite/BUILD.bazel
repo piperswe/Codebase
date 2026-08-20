@@ -1,0 +1,56 @@
+load("@rules_go//go:def.bzl", "go_binary", "go_library", "go_test")
+
+go_library(
+    name = "datasite_lib",
+    srcs = [
+        "main.go",
+        "router.go",
+    ],
+    embedsrcs = ["openapi.yaml"],
+    importpath = "codeberg.org/pmc/Codebase/projects/datasite/cmd/datasite",
+    visibility = ["//visibility:private"],
+    deps = [
+        "//projects/datasite/internal/cache",
+        "//projects/datasite/internal/controllers",
+        "//projects/datasite/internal/db",
+        "//projects/datasite/internal/moviedb",
+        "//projects/datasite/internal/oas",
+        "//projects/datasite/internal/static",
+        "//projects/datasite/internal/telemetry",
+        "//projects/datasite/internal/version",
+        "@com_github_coreos_go_systemd_v22//daemon",
+        "@com_github_cyruzin_golang_tmdb//:golang-tmdb",
+        "@com_github_go_chi_chi_v5//:chi",
+        "@com_github_go_chi_httplog_v3//:httplog",
+        "@com_github_joho_godotenv//:godotenv",
+        "@com_github_riandyrn_otelchi//:otelchi",
+        "@com_github_riandyrn_otelchi//metric",
+        "@com_github_systemd_slog_journal//:slog-journal",
+        "@com_github_xsam_otelsql//:otelsql",
+        "@io_opentelemetry_go_otel//attribute",
+        "@io_opentelemetry_go_otel//codes",
+        "@io_opentelemetry_go_otel//semconv/v1.26.0:v1_26_0",
+        "@io_opentelemetry_go_otel_metric//:metric",
+    ],
+)
+
+go_binary(
+    name = "datasite",
+    embed = [":datasite_lib"],
+    visibility = ["//visibility:public"],
+)
+
+go_test(
+    name = "datasite_test",
+    srcs = [
+        "main_test.go",
+        "router_test.go",
+    ],
+    embed = [":datasite_lib"],
+    deps = [
+        "//projects/datasite/internal/db",
+        "@com_github_cyruzin_golang_tmdb//:golang-tmdb",
+        "@com_github_go_chi_httplog_v3//:httplog",
+        "@org_modernc_sqlite//:sqlite",
+    ],
+)

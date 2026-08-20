@@ -1,0 +1,36 @@
+load("@rules_go//go:def.bzl", "go_library", "go_test")
+
+go_library(
+    name = "db",
+    srcs = [
+        "db.go",
+        "helpers.go",
+        "migrate.go",
+        "models.go",
+        "queries.sql.go",
+        "sqlite.go",
+    ],
+    embedsrcs = [
+        "migrations/000001_init.down.sql",
+        "migrations/000001_init.up.sql",
+        "migrations/000002_create_movie_log.down.sql",
+        "migrations/000002_create_movie_log.up.sql",
+    ],
+    importpath = "codeberg.org/pmc/Codebase/projects/datasite/internal/db",
+    visibility = ["//projects/datasite:__subpackages__"],
+    deps = [
+        "//projects/datasite/internal/dbmigrate",
+        "@org_modernc_sqlite//:sqlite",
+    ],
+)
+
+go_test(
+    name = "db_test",
+    srcs = [
+        "helpers_test.go",
+        "migrate_test.go",
+        "queries_test.go",
+    ],
+    embed = [":db"],
+    deps = ["@org_modernc_sqlite//:sqlite"],
+)

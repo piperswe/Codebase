@@ -1,0 +1,39 @@
+load("@rules_go//go:def.bzl", "go_library", "go_test")
+
+go_library(
+    name = "views",
+    srcs = [
+        "admin_cinemas_templ.go",
+        "admin_dash_templ.go",
+        "admin_import_templ.go",
+        "admin_login_templ.go",
+        "admin_movie_logs_templ.go",
+        "generate.go",
+        "home_templ.go",
+        "markdown.go",
+        "page_templ.go",
+        "public_movie_log_templ.go",
+        "star_display_templ.go",
+    ],
+    importpath = "codeberg.org/pmc/Codebase/projects/datasite/internal/views",
+    visibility = ["//projects/datasite:__subpackages__"],
+    deps = [
+        "//projects/datasite/internal/version",
+        "@com_github_a_h_templ//:templ",
+        "@com_github_a_h_templ//runtime",
+        "@com_github_yuin_goldmark//:goldmark",
+    ],
+)
+
+go_test(
+    name = "views_test",
+    srcs = [
+        "admin_dash_test.go",
+        "admin_import_test.go",
+        "admin_movie_logs_test.go",
+        "home_test.go",
+        "public_movie_log_test.go",
+    ],
+    embed = [":views"],
+    deps = ["//projects/datasite/internal/version"],
+)

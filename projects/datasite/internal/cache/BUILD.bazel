@@ -1,0 +1,29 @@
+load("@rules_go//go:def.bzl", "go_library", "go_test")
+
+go_library(
+    name = "cache",
+    srcs = [
+        "db.go",
+        "helpers.go",
+        "migrate.go",
+        "models.go",
+        "queries.sql.go",
+    ],
+    embedsrcs = [
+        "migrations/000001_init.down.sql",
+        "migrations/000001_init.up.sql",
+    ],
+    importpath = "codeberg.org/pmc/Codebase/projects/datasite/internal/cache",
+    visibility = ["//projects/datasite:__subpackages__"],
+    deps = ["//projects/datasite/internal/dbmigrate"],
+)
+
+go_test(
+    name = "cache_test",
+    srcs = [
+        "cache_test.go",
+        "migrate_test.go",
+    ],
+    embed = [":cache"],
+    deps = ["@org_modernc_sqlite//:sqlite"],
+)

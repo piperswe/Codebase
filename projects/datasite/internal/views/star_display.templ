@@ -1,0 +1,45 @@
+package views
+
+import (
+	"fmt"
+	"strconv"
+)
+
+templ starDisplay(rating string) {
+	<span class="star-display" title={ fmt.Sprintf("%s/5", rating) } aria-label={ fmt.Sprintf("%s out of 5 stars", rating) }>
+		<span class="bg">★★★★★</span>
+		<span class="fg" style={ fmt.Sprintf("width: %s%%", starDisplayPercent(rating)) }>★★★★★</span>
+	</span>
+	<style type="text/css">
+		.star-display {
+			position: relative;
+			display: inline-block;
+			font-size: 1.5rem;
+			line-height: 1;
+			white-space: nowrap;
+		}
+		.star-display .bg {
+			color: #ddd;
+		}
+		.star-display .fg {
+			color: #ffc107;
+			position: absolute;
+			top: 0;
+			left: 0;
+			overflow: hidden;
+			white-space: nowrap;
+		}
+	</style>
+}
+
+func starDisplayPercent(rating string) string {
+	v, err := strconv.ParseFloat(rating, 64)
+	if err != nil || v < 0 {
+		v = 0
+	}
+	if v > 5 {
+		v = 5
+	}
+	pct := (v / 5) * 100
+	return strconv.FormatFloat(pct, 'f', -1, 64)
+}

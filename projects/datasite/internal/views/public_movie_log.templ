@@ -1,0 +1,62 @@
+package views
+
+type PublicMovieLogViewModel struct {
+	ServerSrc              string
+	ID                     int64
+	MovieName              string
+	PosterURL              string
+	DateStr                string
+	Rating                 string
+	CinemaName             string
+	Review                 string
+	ReviewContainsSpoilers bool
+}
+
+templ PublicMovieLog(vm PublicMovieLogViewModel) {
+	@page(vm.ServerSrc) {
+		<style type="text/css">
+			.poster {
+				max-width: 250px;
+				border-radius: 8px;
+				box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+				margin-bottom: 1rem;
+			}
+		</style>
+		if vm.PosterURL != "" {
+			<img src={ vm.PosterURL } alt={ vm.MovieName } class="poster"/>
+		}
+		<h1>{ vm.MovieName }</h1>
+		if vm.DateStr != "" {
+			<p class="text-muted"><small>{ vm.DateStr }</small></p>
+		}
+		if vm.Rating != "" {
+			<p>@starDisplay(vm.Rating)</p>
+		}
+		if vm.CinemaName != "" {
+			<p class="text-muted"><small>Watched at { vm.CinemaName }</small></p>
+		}
+		if vm.Review != "" {
+			<hr/>
+			if vm.ReviewContainsSpoilers {
+				<div id="spoiler-section">
+					<button class="btn btn-outline-secondary btn-sm mb-2" id="reveal-spoilers">Show review (contains spoilers)</button>
+					<div id="spoiler-content" style="display: none;">
+						@renderMarkdown(vm.Review)
+					</div>
+				</div>
+				<script type="text/javascript">
+					(function(){
+						var btn = document.getElementById("reveal-spoilers");
+						var content = document.getElementById("spoiler-content");
+						btn.addEventListener("click", function(){
+							content.style.display = "block";
+							btn.style.display = "none";
+						});
+					})();
+				</script>
+			} else {
+				@renderMarkdown(vm.Review)
+			}
+		}
+	}
+}

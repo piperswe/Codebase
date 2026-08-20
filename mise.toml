@@ -35,3 +35,7 @@ run = "npx oxlint"
 [tasks.format]
 description = "Format the codebase"
 run = "npx oxfmt"
+
+[tasks.gencode]
+description = "Run `go generate` & `sqlc generate`"
+run = "bazel run @com_github_sqlc_dev_sqlc//cmd/sqlc -- generate && go generate ./... && mise gazelle"

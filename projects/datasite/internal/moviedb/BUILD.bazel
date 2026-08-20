@@ -1,0 +1,28 @@
+load("@rules_go//go:def.bzl", "go_library", "go_test")
+
+go_library(
+    name = "moviedb",
+    srcs = ["moviedb.go"],
+    importpath = "codeberg.org/pmc/Codebase/projects/datasite/internal/moviedb",
+    visibility = ["//projects/datasite:__subpackages__"],
+    deps = [
+        "//projects/datasite/internal/cache",
+        "//projects/datasite/internal/telemetry",
+        "@com_github_cyruzin_golang_tmdb//:golang-tmdb",
+        "@io_opentelemetry_go_otel//attribute",
+        "@io_opentelemetry_go_otel//codes",
+        "@io_opentelemetry_go_otel_metric//:metric",
+        "@io_opentelemetry_go_otel_trace//:trace",
+    ],
+)
+
+go_test(
+    name = "moviedb_test",
+    srcs = ["moviedb_test.go"],
+    embed = [":moviedb"],
+    deps = [
+        "//projects/datasite/internal/cache",
+        "@com_github_cyruzin_golang_tmdb//:golang-tmdb",
+        "@org_modernc_sqlite//:sqlite",
+    ],
+)

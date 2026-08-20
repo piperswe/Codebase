@@ -8,6 +8,7 @@
     "sfdc.bazel-vscode-java",
     "golang.go",
     "ms-vscode.cpptools-extension-pack",
-    "oxc.oxc-vscode"
+    "oxc.oxc-vscode",
+    "a-h.templ"
   ]
 }

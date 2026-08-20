@@ -1,0 +1,3 @@
+-- Baseline migration. The main database has no tables yet; this exists so the
+-- migration machinery and go:embed have at least one file. Add real tables in
+-- subsequent migrations.

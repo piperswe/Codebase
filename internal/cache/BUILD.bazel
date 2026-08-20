@@ -1,0 +1,12 @@
+load("@rules_go//go:def.bzl", "go_library")
+
+go_library(
+    name = "cache",
+    srcs = [
+        "db.go",
+        "models.go",
+        "queries.sql.go",
+    ],
+    importpath = "codeberg.org/pmc/Codebase/internal/cache",
+    visibility = ["//:__subpackages__"],
+)

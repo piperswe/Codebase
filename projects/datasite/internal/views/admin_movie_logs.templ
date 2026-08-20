@@ -1,0 +1,258 @@
+package views
+
+import (
+	"fmt"
+	"strconv"
+)
+
+type AdminMovieLogsLogViewModel struct {
+	URL        string
+	MovieName  string
+	Date       string
+	Rating     string
+	CinemaName string
+	Review     string
+	Spoilers   bool
+}
+
+type AdminMovieLogsListViewModel struct {
+	ServerSrc string
+	Logs      []AdminMovieLogsLogViewModel
+}
+
+templ AdminMovieLogs(vm AdminMovieLogsListViewModel) {
+	@page(vm.ServerSrc) {
+		<h1>Movie logs</h1>
+		<a class="btn btn-primary" href="/admin/movie_logs/new">Create new</a>
+		<table class="table">
+			<thead>
+				<tr>
+					<th>Movie</th>
+					<th>Date</th>
+					<th>Rating</th>
+					<th>Cinema</th>
+					<th></th>
+				</tr>
+			</thead>
+			<tbody>
+				for _, l := range vm.Logs {
+					<tr>
+						<td>
+							if l.Spoilers {
+								<span title="Contains spoilers">⚠️</span>
+							}
+							<a href={ l.URL }>{ l.MovieName }</a>
+						</td>
+						<td>{ l.Date }</td>
+						<td>@starDisplay(l.Rating)</td>
+						<td>{ l.CinemaName }</td>
+						<td><a href={ l.URL }>Edit</a></td>
+					</tr>
+				}
+			</tbody>
+		</table>
+	}
+}
+
+type AdminCreateMovieLogViewModel struct {
+	ServerSrc   string
+	Cinemas     []AdminCinemasCinemaViewModel
+	DefaultDate string
+}
+
+templ AdminCreateMovieLog(vm AdminCreateMovieLogViewModel) {
+	@page(vm.ServerSrc) {
+		<h1>Create movie log</h1>
+		<form method="POST" action="/admin/movie_logs">
+			<div class="mb-3">
+				<label for="movie_id" class="form-label">Movie ID / TMDB URL</label>
+				<input type="text" class="form-control" name="movie_id" required placeholder="e.g. 550 or https://www.themoviedb.org/movie/550"/>
+				<a class="form-text" href="https://www.themoviedb.org/search" target="_blank">Search TMDB ↗</a>
+			</div>
+			<div class="mb-3">
+				<label for="date" class="form-label">Date</label>
+				<input type="date" class="form-control" name="date" value={ vm.DefaultDate }/>
+			</div>
+			<div class="mb-3">
+				<label for="cinema_id" class="form-label">Cinema</label>
+				<select class="form-control" name="cinema_id">
+					<option value="">-- None --</option>
+					for _, c := range vm.Cinemas {
+						<option value={ strconv.FormatInt(c.ID, 10) }>{ c.Name }</option>
+					}
+				</select>
+			</div>
+			<div class="mb-3">
+				<label class="form-label">Rating</label>
+				@starRating("")
+			</div>
+			<div class="mb-3">
+				<label for="review" class="form-label">Review</label>
+				<textarea class="form-control" name="review" rows="4"></textarea>
+			</div>
+			<div class="mb-3 form-check">
+				<input type="checkbox" class="form-check-input" name="review_contains_spoilers" id="review_contains_spoilers" value="true"/>
+				<label class="form-check-label" for="review_contains_spoilers">Review contains spoilers</label>
+			</div>
+			<button type="submit" class="btn btn-primary">Create</button>
+		</form>
+	}
+}
+
+type AdminMovieLogViewModel struct {
+	ServerSrc              string
+	ID                     int64
+	MovieID                int64
+	MovieName              string
+	PosterURL              string
+	DateStr                string
+	CinemaID               string
+	Rating                 string
+	Review                 string
+	ReviewContainsSpoilers bool
+	Cinemas                []AdminCinemasCinemaViewModel
+}
+
+templ AdminMovieLog(vm AdminMovieLogViewModel) {
+	@page(vm.ServerSrc) {
+		<h1>Movie log #{ vm.ID }</h1>
+		<style type="text/css">
+			.poster {
+				max-width: 200px;
+				border-radius: 8px;
+				box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+				margin-bottom: 1rem;
+			}
+		</style>
+		if vm.PosterURL != "" {
+			<img src={ vm.PosterURL } alt={ vm.MovieName } class="poster"/>
+		}
+		<form method="POST" action={ fmt.Sprintf("/admin/movie_logs/%d", vm.ID) }>
+			<div class="mb-3">
+				<label for="movie_id" class="form-label">Movie ID / TMDB URL</label>
+				<input type="text" class="form-control" name="movie_id" required placeholder="e.g. 550 or https://www.themoviedb.org/movie/550" value={ strconv.FormatInt(vm.MovieID, 10) }/>
+				if vm.MovieName != "" {
+					<div class="form-text">Current: { vm.MovieName } (<a href={ fmt.Sprintf("https://www.themoviedb.org/movie/%d", vm.MovieID) } target="_blank">TMDB ↗</a>)</div>
+				} else {
+					<a class="form-text" href="https://www.themoviedb.org/search" target="_blank">Search TMDB ↗</a>
+				}
+			</div>
+			<div class="mb-3">
+				<label for="date" class="form-label">Date</label>
+				<input type="date" class="form-control" name="date" value={ vm.DateStr }/>
+			</div>
+			<div class="mb-3">
+				<label for="cinema_id" class="form-label">Cinema</label>
+				<select class="form-control" name="cinema_id">
+					<option value="">-- None --</option>
+					for _, c := range vm.Cinemas {
+						if strconv.FormatInt(c.ID, 10) == vm.CinemaID {
+							<option value={ strconv.FormatInt(c.ID, 10) } selected>{ c.Name }</option>
+						} else {
+							<option value={ strconv.FormatInt(c.ID, 10) }>{ c.Name }</option>
+						}
+					}
+				</select>
+			</div>
+			<div class="mb-3">
+				<label class="form-label">Rating</label>
+				@starRating(vm.Rating)
+			</div>
+			<div class="mb-3">
+				<label for="review" class="form-label">Review</label>
+				<textarea class="form-control" name="review" rows="4">{ vm.Review }</textarea>
+			</div>
+			if vm.Review != "" {
+				<div class="mb-3">
+					<label class="form-label">Preview</label>
+					<div class="border rounded p-3 bg-body-tertiary">
+						@renderMarkdown(vm.Review)
+					</div>
+				</div>
+			}
+			<div class="mb-3 form-check">
+				if vm.ReviewContainsSpoilers {
+					<input type="checkbox" class="form-check-input" name="review_contains_spoilers" id="review_contains_spoilers" value="true" checked/>
+				} else {
+					<input type="checkbox" class="form-check-input" name="review_contains_spoilers" id="review_contains_spoilers" value="true"/>
+				}
+				<label class="form-check-label" for="review_contains_spoilers">Review contains spoilers</label>
+			</div>
+			<button type="submit" class="btn btn-primary">Save</button>
+		</form>
+		<form method="POST" action={ fmt.Sprintf("/admin/movie_logs/%d/delete", vm.ID) } onsubmit="return confirm('Delete this movie log?')">
+			<button type="submit" class="btn btn-danger">Delete</button>
+		</form>
+	}
+}
+
+templ starRating(currentValue string) {
+	<div class="star-rating" id="star-rating">
+		<input type="hidden" name="rating" value={ currentValue }/>
+		<div class="stars">
+			<span class="bg">★★★★★</span>
+			<span class="fg" style="width: 0%">★★★★★</span>
+		</div>
+		<button type="button" class="btn-clear">Clear</button>
+	</div>
+	<style type="text/css">
+		.star-rating {
+			display: inline-flex;
+			align-items: center;
+			gap: 0.25rem;
+		}
+		.star-rating .stars {
+			position: relative;
+			display: inline-block;
+			font-size: 1.5rem;
+			line-height: 1;
+			white-space: nowrap;
+			cursor: pointer;
+			-webkit-user-select: none;
+			user-select: none;
+		}
+		.star-rating .stars .bg {
+			color: #ddd;
+		}
+		.star-rating .stars .fg {
+			color: #ffc107;
+			position: absolute;
+			top: 0;
+			left: 0;
+			overflow: hidden;
+			white-space: nowrap;
+		}
+		.star-rating .btn-clear {
+			margin-left: 0.5rem;
+			font-size: 0.75rem;
+		}
+	</style>
+	<script type="text/javascript">
+		(function(){
+			var c = document.getElementById("star-rating");
+			if (!c) return;
+			var inp = c.querySelector("input[name=rating]");
+			var stars = c.querySelector(".stars");
+			var fg = c.querySelector(".fg");
+			var clearBtn = c.querySelector(".btn-clear");
+			function set(v) {
+				inp.value = v || "";
+				if (!v) { fg.style.width = "0%"; return; }
+				var pct = (parseFloat(v) / 5) * 100;
+				fg.style.width = pct + "%";
+			}
+			stars.addEventListener("click", function(e) {
+				var rect = stars.getBoundingClientRect();
+				var x = e.clientX - rect.left;
+				var pct = x / rect.width;
+				var raw = pct * 5;
+				var half = Math.round(raw * 2) / 2;
+				if (half < 0.5) half = 0.5;
+				if (half > 5) half = 5;
+				set(half.toFixed(1));
+			});
+			if (clearBtn) clearBtn.addEventListener("click", function(){ set(""); });
+			set(inp.value);
+		})();
+	</script>
+}

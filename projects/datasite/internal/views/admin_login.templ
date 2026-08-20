@@ -1,0 +1,18 @@
+package views
+
+type AdminLoginViewModel struct {
+	ServerSrc string
+}
+
+templ AdminLogin(vm AdminLoginViewModel) {
+	@page(vm.ServerSrc) {
+		<h1>Admin login</h1>
+		<form action="/admin/login" method="POST">
+			<div class="mb-3">
+				<label for="key" class="form-label">Admin API Key</label>
+				<input type="password" class="form-control" name="key"/>
+			</div>
+			<button type="submit" class="btn btn-primary">Login</button>
+		</form>
+	}
+}

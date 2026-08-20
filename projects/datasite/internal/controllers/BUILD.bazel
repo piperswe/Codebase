@@ -1,0 +1,42 @@
+load("@rules_go//go:def.bzl", "go_library", "go_test")
+
+go_library(
+    name = "controllers",
+    srcs = [
+        "admin_cinemas.go",
+        "admin_dash.go",
+        "admin_import.go",
+        "admin_movie_logs.go",
+        "api_handler.go",
+        "home.go",
+        "login.go",
+        "public_movie_log.go",
+    ],
+    importpath = "codeberg.org/pmc/Codebase/projects/datasite/internal/controllers",
+    visibility = ["//projects/datasite:__subpackages__"],
+    deps = [
+        "//projects/datasite/internal/db",
+        "//projects/datasite/internal/moviedb",
+        "//projects/datasite/internal/oas",
+        "//projects/datasite/internal/views",
+        "@com_github_go_chi_chi_v5//:chi",
+        "@com_github_go_faster_jx//:jx",
+        "@com_github_ogen_go_ogen//ogenerrors",
+    ],
+)
+
+go_test(
+    name = "controllers_test",
+    srcs = [
+        "cinemas_api_test.go",
+        "home_test.go",
+        "movie_logs_api_test.go",
+    ],
+    embed = [":controllers"],
+    deps = [
+        "//projects/datasite/internal/db",
+        "//projects/datasite/internal/oas",
+        "@com_github_cyruzin_golang_tmdb//:golang-tmdb",
+        "@org_modernc_sqlite//:sqlite",
+    ],
+)
