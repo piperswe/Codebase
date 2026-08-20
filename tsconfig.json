@@ -4,7 +4,8 @@
     "strict": true,
     "declaration": true,
     "sourceMap": true,
-    "module": "esnext"
+    "module": "esnext",
+    "skipLibCheck": true
   },
   "exclude": ["bazel-*/**/*"]
 }

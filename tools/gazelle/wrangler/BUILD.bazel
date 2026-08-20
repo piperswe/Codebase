@@ -1,0 +1,24 @@
+load("@rules_go//go:def.bzl", "go_library", "go_test")
+
+go_library(
+    name = "wrangler",
+    srcs = ["wrangler.go"],
+    importpath = "codeberg.org/pmc/Codebase/tools/gazelle/wrangler",
+    visibility = ["//visibility:public"],
+    deps = [
+        "@gazelle//language",
+        "@gazelle//rule",
+    ],
+)
+
+go_test(
+    name = "wrangler_test",
+    srcs = ["wrangler_test.go"],
+    embed = [":wrangler"],
+    deps = [
+        "@gazelle//language",
+        "@gazelle//rule",
+    ],
+)
+
+exports_files(["defs.bzl"])

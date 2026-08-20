@@ -1,19 +1,13 @@
 load("@aspect_rules_js//js:defs.bzl", "js_binary", "js_image_layer")
-load("@aspect_rules_swc//swc:defs.bzl", "swc")
-load("@aspect_rules_ts//ts:defs.bzl", "ts_project")
-load("@bazel_skylib//lib:partial.bzl", "partial")
 load("//platforms:oci.bzl", "multiarch_oci_image")
 load("//platforms:packages.bzl", "linux_runtime_packages", "package_file")
+load("//tools/typescript:defs.bzl", "ts_project")
 
 ts_project(
     name = "hello_ts_js",
     srcs = ["hello.ts"],
     declaration = True,
     source_map = True,
-    transpiler = partial.make(
-        swc,
-        swcrc = "//:.swcrc",
-    ),
     tsconfig = "//:tsconfig",
     visibility = ["//visibility:public"],
     deps = [

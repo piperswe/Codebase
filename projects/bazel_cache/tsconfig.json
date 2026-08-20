@@ -5,7 +5,8 @@
     "declaration": true,
     "sourceMap": true,
     "module": "esnext",
-    "lib": ["ESNext"]
+    "lib": ["ESNext"],
+    "skipLibCheck": true
   },
   "exclude": ["bazel-*/**/*"]
 }

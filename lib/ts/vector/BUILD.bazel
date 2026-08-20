@@ -1,17 +1,11 @@
-load("@aspect_rules_swc//swc:defs.bzl", "swc")
-load("@aspect_rules_ts//ts:defs.bzl", "ts_project")
-load("@bazel_skylib//lib:partial.bzl", "partial")
 load("//tools/gazelle/vitest:defs.bzl", "vitest")
+load("//tools/typescript:defs.bzl", "ts_project")
 
 ts_project(
     name = "vector_js",
     srcs = ["vector.ts"],
     declaration = True,
     source_map = True,
-    transpiler = partial.make(
-        swc,
-        swcrc = "//:.swcrc",
-    ),
     tsconfig = "//:tsconfig",
     visibility = ["//visibility:public"],
 )
@@ -22,10 +16,6 @@ ts_project(
     srcs = ["vector.test.ts"],
     declaration = True,
     source_map = True,
-    transpiler = partial.make(
-        swc,
-        swcrc = "//:.swcrc",
-    ),
     tsconfig = "//:tsconfig",
     deps = [
         ":vector_js",

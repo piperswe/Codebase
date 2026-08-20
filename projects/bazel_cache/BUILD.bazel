@@ -1,17 +1,17 @@
-load("@aspect_rules_swc//swc:defs.bzl", "swc")
-load("@aspect_rules_ts//ts:defs.bzl", "ts_config", "ts_project")
-load("@bazel_skylib//lib:partial.bzl", "partial")
-load("@npm//:wrangler/package_json.bzl", wrangler = "bin")
+load("@aspect_rules_ts//ts:defs.bzl", "ts_config")
+load("//tools/gazelle/vitest:defs.bzl", "vitest")
+load("//tools/gazelle/wrangler:defs.bzl", "directory_path", "wrangler", "write_source_files")
+load("//tools/typescript:defs.bzl", "ts_project")
 
 ts_project(
     name = "bazel_cache_js",
-    srcs = ["index.ts"],
+    srcs = [
+        "auth.ts",
+        "index.ts",
+        "worker-configuration.d.ts",
+    ],
     declaration = True,
     source_map = True,
-    transpiler = partial.make(
-        swc,
-        swcrc = "//:.swcrc",
-    ),
     tsconfig = ":tsconfig",
 )
 
@@ -19,7 +19,27 @@ ts_config(
     name = "tsconfig",
     src = "tsconfig.json",
     visibility = [":__subpackages__"],
-    deps = ["//projects/bazel_cache/types:types_js"],
+)
+
+wrangler.wrangler(
+    name = "generated_types",
+    srcs = ["wrangler.toml"],
+    args = [
+        "types",
+        "--config",
+        "wrangler.toml",
+        "types/worker-configuration.d.ts",
+    ],
+    chdir = package_name(),
+    env = {"WRANGLER_WRITE_LOGS": "false"},
+    out_dirs = ["types"],
+)
+
+write_source_files(
+    name = "typegen",
+    files = {
+        "worker-configuration.d.ts": ":generated_types_file",
+    },
 )
 
 wrangler.wrangler_binary(
@@ -33,4 +53,34 @@ wrangler.wrangler_binary(
         "--config",
         "$(rootpath wrangler.toml)",
     ],
+)
+
+ts_project(
+    name = "bazel_cache_js_tests",
+    testonly = True,
+    srcs = ["auth.test.ts"],
+    declaration = True,
+    source_map = True,
+    tsconfig = ":tsconfig",
+    deps = [
+        ":bazel_cache_js",
+        "//:node_modules/vitest",
+    ],
+)
+
+vitest.vitest_test(
+    name = "test",
+    args = ["run"],
+    chdir = package_name(),
+    data = [
+        ":bazel_cache_js",
+        ":bazel_cache_js_tests",
+        "//:node_modules/vitest",
+    ],
+)
+
+directory_path(
+    name = "generated_types_file",
+    directory = ":generated_types",
+    path = "worker-configuration.d.ts",
 )
