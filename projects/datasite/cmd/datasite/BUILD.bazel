@@ -1,4 +1,6 @@
 load("@rules_go//go:def.bzl", "go_binary", "go_library", "go_test")
+load("//platforms:binary.bzl", "platform_binary")
+load("//platforms:oci.bzl", "binary_oci_image")
 
 go_library(
     name = "datasite_lib",
@@ -53,4 +55,24 @@ go_test(
         "@com_github_go_chi_httplog_v3//:httplog",
         "@org_modernc_sqlite//:sqlite",
     ],
+)
+
+platform_binary(
+    name = "datasite_linux_amd64",
+    binary = ":datasite",
+    platform = "//platforms:linux_amd64",
+)
+
+platform_binary(
+    name = "datasite_linux_arm64",
+    binary = ":datasite",
+    platform = "//platforms:linux_arm64",
+)
+
+binary_oci_image(
+    name = "datasite_image",
+    base = "distroless_base",
+    binary = ":datasite_linux_{arch}",
+    entrypoint = ["/datasite"],
+    visibility = ["//visibility:public"],
 )
