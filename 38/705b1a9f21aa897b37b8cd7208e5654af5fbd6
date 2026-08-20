@@ -1,0 +1,336 @@
+.vscode/extensions.json
+  h_cb7f8177e9a94f 11-12
+BUILD.bazel
+  h_cb7f8177e9a94f 2,23-27
+MODULE.bazel
+  h_cb7f8177e9a94f 157
+go.mod
+  h_cb7f8177e9a94f 4-126
+go.sum
+  h_cb7f8177e9a94f 1-325
+internal/cache/BUILD.bazel
+  h_cb7f8177e9a94f 1-12
+internal/cache/db.go
+  h_cb7f8177e9a94f 1-31
+internal/cache/models.go
+  h_cb7f8177e9a94f 1-12
+internal/cache/queries.sql.go
+  h_cb7f8177e9a94f 1-78
+mise.toml
+  h_cb7f8177e9a94f 38-41
+projects/datasite/.gitignore
+  h_cb7f8177e9a94f 1-3
+projects/datasite/cmd/datasite/BUILD.bazel
+  h_cb7f8177e9a94f 1-56
+projects/datasite/cmd/datasite/main.go
+  h_cb7f8177e9a94f 1-272
+projects/datasite/cmd/datasite/main_test.go
+  h_cb7f8177e9a94f 1-23
+projects/datasite/cmd/datasite/openapi.yaml
+  h_cb7f8177e9a94f 1-515
+projects/datasite/cmd/datasite/router.go
+  h_cb7f8177e9a94f 1-146
+projects/datasite/cmd/datasite/router_test.go
+  h_cb7f8177e9a94f 1-201
+projects/datasite/internal/cache/BUILD.bazel
+  h_cb7f8177e9a94f 1-29
+projects/datasite/internal/cache/cache_test.go
+  h_cb7f8177e9a94f 1-257
+projects/datasite/internal/cache/db.go
+  h_cb7f8177e9a94f 1-31
+projects/datasite/internal/cache/helpers.go
+  h_cb7f8177e9a94f 1-42
+projects/datasite/internal/cache/migrate.go
+  h_cb7f8177e9a94f 1-16
+projects/datasite/internal/cache/migrate_test.go
+  h_cb7f8177e9a94f 1-23
+projects/datasite/internal/cache/migrations/000001_init.down.sql
+  h_cb7f8177e9a94f 1-3
+projects/datasite/internal/cache/migrations/000001_init.up.sql
+  h_cb7f8177e9a94f 1-10
+projects/datasite/internal/cache/models.go
+  h_cb7f8177e9a94f 1-12
+projects/datasite/internal/cache/queries.sql
+  h_cb7f8177e9a94f 1-9
+projects/datasite/internal/cache/queries.sql.go
+  h_cb7f8177e9a94f 1-78
+projects/datasite/internal/controllers/BUILD.bazel
+  h_cb7f8177e9a94f 1-42
+projects/datasite/internal/controllers/admin_cinemas.go
+  h_cb7f8177e9a94f 1-143
+projects/datasite/internal/controllers/admin_dash.go
+  h_cb7f8177e9a94f 1-155
+projects/datasite/internal/controllers/admin_import.go
+  h_cb7f8177e9a94f 1-412
+projects/datasite/internal/controllers/admin_movie_logs.go
+  h_cb7f8177e9a94f 1-337
+projects/datasite/internal/controllers/api_handler.go
+  h_cb7f8177e9a94f 1-474
+projects/datasite/internal/controllers/cinemas_api_test.go
+  h_cb7f8177e9a94f 1-320
+projects/datasite/internal/controllers/home.go
+  h_cb7f8177e9a94f 1-56
+projects/datasite/internal/controllers/home_test.go
+  h_cb7f8177e9a94f 1-212
+projects/datasite/internal/controllers/login.go
+  h_cb7f8177e9a94f 1-42
+projects/datasite/internal/controllers/movie_logs_api_test.go
+  h_cb7f8177e9a94f 1-465
+projects/datasite/internal/controllers/public_movie_log.go
+  h_cb7f8177e9a94f 1-73
+projects/datasite/internal/db/BUILD.bazel
+  h_cb7f8177e9a94f 1-36
+projects/datasite/internal/db/db.go
+  h_cb7f8177e9a94f 1-31
+projects/datasite/internal/db/helpers.go
+  h_cb7f8177e9a94f 1-28
+projects/datasite/internal/db/helpers_test.go
+  h_cb7f8177e9a94f 1-46
+projects/datasite/internal/db/migrate.go
+  h_cb7f8177e9a94f 1-16
+projects/datasite/internal/db/migrate_test.go
+  h_cb7f8177e9a94f 1-23
+projects/datasite/internal/db/migrations/000001_init.down.sql
+  h_cb7f8177e9a94f 1
+projects/datasite/internal/db/migrations/000001_init.up.sql
+  h_cb7f8177e9a94f 1-3
+projects/datasite/internal/db/migrations/000002_create_movie_log.down.sql
+  h_cb7f8177e9a94f 1-6
+projects/datasite/internal/db/migrations/000002_create_movie_log.up.sql
+  h_cb7f8177e9a94f 1-20
+projects/datasite/internal/db/models.go
+  h_cb7f8177e9a94f 1-24
+projects/datasite/internal/db/queries.sql
+  h_cb7f8177e9a94f 1-47
+projects/datasite/internal/db/queries.sql.go
+  h_cb7f8177e9a94f 1-334
+projects/datasite/internal/db/queries_test.go
+  h_cb7f8177e9a94f 1-143
+projects/datasite/internal/db/sqlite.go
+  h_cb7f8177e9a94f 1-3
+projects/datasite/internal/dbmigrate/BUILD.bazel
+  h_cb7f8177e9a94f 1-13
+projects/datasite/internal/dbmigrate/dbmigrate.go
+  h_cb7f8177e9a94f 1-37
+projects/datasite/internal/moviedb/BUILD.bazel
+  h_cb7f8177e9a94f 1-28
+projects/datasite/internal/moviedb/moviedb.go
+  h_cb7f8177e9a94f 1-171
+projects/datasite/internal/moviedb/moviedb_test.go
+  h_cb7f8177e9a94f 1-153
+projects/datasite/internal/oas/BUILD.bazel
+  h_cb7f8177e9a94f 1-47
+projects/datasite/internal/oas/generate.go
+  h_cb7f8177e9a94f 1-3
+projects/datasite/internal/oas/oas_cfg_gen.go
+  h_cb7f8177e9a94f 1-318
+projects/datasite/internal/oas/oas_client_gen.go
+  h_cb7f8177e9a94f 1-1785
+projects/datasite/internal/oas/oas_defaults_gen.go
+  h_cb7f8177e9a94f 1-15
+projects/datasite/internal/oas/oas_handlers_gen.go
+  h_cb7f8177e9a94f 1-2664
+projects/datasite/internal/oas/oas_interfaces_gen.go
+  h_cb7f8177e9a94f 1-54
+projects/datasite/internal/oas/oas_json_gen.go
+  h_cb7f8177e9a94f 1-2844
+projects/datasite/internal/oas/oas_labeler_gen.go
+  h_cb7f8177e9a94f 1-42
+projects/datasite/internal/oas/oas_middleware_gen.go
+  h_cb7f8177e9a94f 1-10
+projects/datasite/internal/oas/oas_operations_gen.go
+  h_cb7f8177e9a94f 1-22
+projects/datasite/internal/oas/oas_parameters_gen.go
+  h_cb7f8177e9a94f 1-535
+projects/datasite/internal/oas/oas_request_decoders_gen.go
+  h_cb7f8177e9a94f 1-568
+projects/datasite/internal/oas/oas_request_encoders_gen.go
+  h_cb7f8177e9a94f 1-109
+projects/datasite/internal/oas/oas_response_decoders_gen.go
+  h_cb7f8177e9a94f 1-2776
+projects/datasite/internal/oas/oas_response_encoders_gen.go
+  h_cb7f8177e9a94f 1-978
+projects/datasite/internal/oas/oas_router_gen.go
+  h_cb7f8177e9a94f 1-589
+projects/datasite/internal/oas/oas_schemas_gen.go
+  h_cb7f8177e9a94f 1-988
+projects/datasite/internal/oas/oas_security_gen.go
+  h_cb7f8177e9a94f 1-105
+projects/datasite/internal/oas/oas_server_gen.go
+  h_cb7f8177e9a94f 1-114
+projects/datasite/internal/oas/oas_unimplemented_gen.go
+  h_cb7f8177e9a94f 1-139
+projects/datasite/internal/oas/oas_validators_gen.go
+  h_cb7f8177e9a94f 1-301
+projects/datasite/internal/static/BUILD.bazel
+  h_cb7f8177e9a94f 1-54
+projects/datasite/internal/static/static.go
+  h_cb7f8177e9a94f 1-6
+projects/datasite/internal/static/static/css/bootstrap-grid.css
+  h_cb7f8177e9a94f 1-4085
+projects/datasite/internal/static/static/css/bootstrap-grid.css.map
+  h_cb7f8177e9a94f 1
+projects/datasite/internal/static/static/css/bootstrap-grid.min.css
+  h_cb7f8177e9a94f 1-6
+projects/datasite/internal/static/static/css/bootstrap-grid.min.css.map
+  h_cb7f8177e9a94f 1
+projects/datasite/internal/static/static/css/bootstrap-grid.rtl.css
+  h_cb7f8177e9a94f 1-4084
+projects/datasite/internal/static/static/css/bootstrap-grid.rtl.css.map
+  h_cb7f8177e9a94f 1
+projects/datasite/internal/static/static/css/bootstrap-grid.rtl.min.css
+  h_cb7f8177e9a94f 1-6
+projects/datasite/internal/static/static/css/bootstrap-grid.rtl.min.css.map
+  h_cb7f8177e9a94f 1
+projects/datasite/internal/static/static/css/bootstrap-reboot.css
+  h_cb7f8177e9a94f 1-601
+projects/datasite/internal/static/static/css/bootstrap-reboot.css.map
+  h_cb7f8177e9a94f 1
+projects/datasite/internal/static/static/css/bootstrap-reboot.min.css
+  h_cb7f8177e9a94f 1-6
+projects/datasite/internal/static/static/css/bootstrap-reboot.min.css.map
+  h_cb7f8177e9a94f 1
+projects/datasite/internal/static/static/css/bootstrap-reboot.rtl.css
+  h_cb7f8177e9a94f 1-598
+projects/datasite/internal/static/static/css/bootstrap-reboot.rtl.css.map
+  h_cb7f8177e9a94f 1
+projects/datasite/internal/static/static/css/bootstrap-reboot.rtl.min.css
+  h_cb7f8177e9a94f 1-6
+projects/datasite/internal/static/static/css/bootstrap-reboot.rtl.min.css.map
+  h_cb7f8177e9a94f 1
+projects/datasite/internal/static/static/css/bootstrap-utilities.css
+  h_cb7f8177e9a94f 1-5406
+projects/datasite/internal/static/static/css/bootstrap-utilities.css.map
+  h_cb7f8177e9a94f 1
+projects/datasite/internal/static/static/css/bootstrap-utilities.min.css
+  h_cb7f8177e9a94f 1-6
+projects/datasite/internal/static/static/css/bootstrap-utilities.min.css.map
+  h_cb7f8177e9a94f 1
+projects/datasite/internal/static/static/css/bootstrap-utilities.rtl.css
+  h_cb7f8177e9a94f 1-5397
+projects/datasite/internal/static/static/css/bootstrap-utilities.rtl.css.map
+  h_cb7f8177e9a94f 1
+projects/datasite/internal/static/static/css/bootstrap-utilities.rtl.min.css
+  h_cb7f8177e9a94f 1-6
+projects/datasite/internal/static/static/css/bootstrap-utilities.rtl.min.css.map
+  h_cb7f8177e9a94f 1
+projects/datasite/internal/static/static/css/bootstrap.css
+  h_cb7f8177e9a94f 1-12048
+projects/datasite/internal/static/static/css/bootstrap.css.map
+  h_cb7f8177e9a94f 1
+projects/datasite/internal/static/static/css/bootstrap.min.css
+  h_cb7f8177e9a94f 1-6
+projects/datasite/internal/static/static/css/bootstrap.min.css.map
+  h_cb7f8177e9a94f 1
+projects/datasite/internal/static/static/css/bootstrap.rtl.css
+  h_cb7f8177e9a94f 1-12021
+projects/datasite/internal/static/static/css/bootstrap.rtl.css.map
+  h_cb7f8177e9a94f 1
+projects/datasite/internal/static/static/css/bootstrap.rtl.min.css
+  h_cb7f8177e9a94f 1-6
+projects/datasite/internal/static/static/css/bootstrap.rtl.min.css.map
+  h_cb7f8177e9a94f 1
+projects/datasite/internal/static/static/js/bootstrap.bundle.js
+  h_cb7f8177e9a94f 1-6312
+projects/datasite/internal/static/static/js/bootstrap.bundle.js.map
+  h_cb7f8177e9a94f 1
+projects/datasite/internal/static/static/js/bootstrap.bundle.min.js
+  h_cb7f8177e9a94f 1-7
+projects/datasite/internal/static/static/js/bootstrap.bundle.min.js.map
+  h_cb7f8177e9a94f 1
+projects/datasite/internal/static/static/js/bootstrap.esm.js
+  h_cb7f8177e9a94f 1-4447
+projects/datasite/internal/static/static/js/bootstrap.esm.js.map
+  h_cb7f8177e9a94f 1
+projects/datasite/internal/static/static/js/bootstrap.esm.min.js
+  h_cb7f8177e9a94f 1-7
+projects/datasite/internal/static/static/js/bootstrap.esm.min.js.map
+  h_cb7f8177e9a94f 1
+projects/datasite/internal/static/static/js/bootstrap.js
+  h_cb7f8177e9a94f 1-4494
+projects/datasite/internal/static/static/js/bootstrap.js.map
+  h_cb7f8177e9a94f 1
+projects/datasite/internal/static/static/js/bootstrap.min.js
+  h_cb7f8177e9a94f 1-7
+projects/datasite/internal/static/static/js/bootstrap.min.js.map
+  h_cb7f8177e9a94f 1
+projects/datasite/internal/telemetry/BUILD.bazel
+  h_cb7f8177e9a94f 1-28
+projects/datasite/internal/telemetry/metrics.go
+  h_cb7f8177e9a94f 1-76
+projects/datasite/internal/telemetry/telemetry.go
+  h_cb7f8177e9a94f 1-132
+projects/datasite/internal/tool/BUILD.bazel
+  h_cb7f8177e9a94f 1-13
+projects/datasite/internal/tool/tool.go
+  h_cb7f8177e9a94f 1-9
+projects/datasite/internal/version/BUILD.bazel
+  h_cb7f8177e9a94f 1-8
+projects/datasite/internal/version/version.go
+  h_cb7f8177e9a94f 1-3
+projects/datasite/internal/views/BUILD.bazel
+  h_cb7f8177e9a94f 1-39
+projects/datasite/internal/views/admin_cinemas.templ
+  h_cb7f8177e9a94f 1-65
+projects/datasite/internal/views/admin_cinemas_templ.go
+  h_cb7f8177e9a94f 1-263
+projects/datasite/internal/views/admin_dash.templ
+  h_cb7f8177e9a94f 1-150
+projects/datasite/internal/views/admin_dash_templ.go
+  h_cb7f8177e9a94f 1-447
+projects/datasite/internal/views/admin_dash_test.go
+  h_cb7f8177e9a94f 1-137
+projects/datasite/internal/views/admin_import.templ
+  h_cb7f8177e9a94f 1-86
+projects/datasite/internal/views/admin_import_templ.go
+  h_cb7f8177e9a94f 1-252
+projects/datasite/internal/views/admin_import_test.go
+  h_cb7f8177e9a94f 1-30
+projects/datasite/internal/views/admin_login.templ
+  h_cb7f8177e9a94f 1-18
+projects/datasite/internal/views/admin_login_templ.go
+  h_cb7f8177e9a94f 1-62
+projects/datasite/internal/views/admin_movie_logs.templ
+  h_cb7f8177e9a94f 1-258
+projects/datasite/internal/views/admin_movie_logs_templ.go
+  h_cb7f8177e9a94f 1-649
+projects/datasite/internal/views/admin_movie_logs_test.go
+  h_cb7f8177e9a94f 1-51
+projects/datasite/internal/views/generate.go
+  h_cb7f8177e9a94f 1-3
+projects/datasite/internal/views/home.templ
+  h_cb7f8177e9a94f 1-52
+projects/datasite/internal/views/home_templ.go
+  h_cb7f8177e9a94f 1-212
+projects/datasite/internal/views/home_test.go
+  h_cb7f8177e9a94f 1-131
+projects/datasite/internal/views/markdown.go
+  h_cb7f8177e9a94f 1-16
+projects/datasite/internal/views/page.templ
+  h_cb7f8177e9a94f 1-20
+projects/datasite/internal/views/page_templ.go
+  h_cb7f8177e9a94f 1-76
+projects/datasite/internal/views/public_movie_log.templ
+  h_cb7f8177e9a94f 1-62
+projects/datasite/internal/views/public_movie_log_templ.go
+  h_cb7f8177e9a94f 1-208
+projects/datasite/internal/views/public_movie_log_test.go
+  h_cb7f8177e9a94f 1-54
+projects/datasite/internal/views/star_display.templ
+  h_cb7f8177e9a94f 1-45
+projects/datasite/internal/views/star_display_templ.go
+  h_cb7f8177e9a94f 1-96
+sqlc.yaml
+  h_cb7f8177e9a94f 1-18
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.22",
+  "base_commit_sha": "38705b1a9f21aa897b37b8cd7208e5654af5fbd6",
+  "prompts": {},
+  "humans": {
+    "h_cb7f8177e9a94f": {
+      "author": "Piper McCorkle <contact@piperswe.me>"
+    }
+  }
+}
