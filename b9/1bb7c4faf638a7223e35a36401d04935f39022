@@ -1,0 +1,36 @@
+sqlc.yaml
+  h_cb7f8177e9a94f 12-13,17
+projects/datasite/internal/moviedb/moviedb.go
+  h_cb7f8177e9a94f 10
+projects/datasite/internal/db/migrate.go
+  h_cb7f8177e9a94f 7
+lib/go/cache/migrate.go
+  h_cb7f8177e9a94f 7
+lib/go/dbmigrate/BUILD.bazel
+  h_cb7f8177e9a94f 1-13
+projects/datasite/internal/moviedb/moviedb_test.go
+  h_cb7f8177e9a94f 11
+projects/datasite/cmd/datasite/main.go
+  h_cb7f8177e9a94f 23
+go.mod
+  h_cb7f8177e9a94f 20
+lib/go/cache/BUILD.bazel
+  h_cb7f8177e9a94f 16-18
+projects/datasite/cmd/datasite/BUILD.bazel
+  h_cb7f8177e9a94f 16
+projects/datasite/internal/db/BUILD.bazel
+  h_cb7f8177e9a94f 22
+projects/datasite/internal/moviedb/BUILD.bazel
+  h_cb7f8177e9a94f 9,24
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.23",
+  "base_commit_sha": "b91bb7c4faf638a7223e35a36401d04935f39022",
+  "prompts": {},
+  "humans": {
+    "h_cb7f8177e9a94f": {
+      "author": "Piper McCorkle <contact@piperswe.me>"
+    }
+  }
+}
