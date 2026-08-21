@@ -15,16 +15,16 @@ import (
 	"syscall"
 	"time"
 
-	"codeberg.org/pmc/Codebase/projects/datasite/internal/cache"
-	"codeberg.org/pmc/Codebase/projects/datasite/internal/db"
-	"codeberg.org/pmc/Codebase/projects/datasite/internal/moviedb"
-	"codeberg.org/pmc/Codebase/projects/datasite/internal/telemetry"
-	"codeberg.org/pmc/Codebase/projects/datasite/internal/version"
 	"github.com/XSAM/otelsql"
 	"github.com/coreos/go-systemd/v22/daemon"
 	tmdb "github.com/cyruzin/golang-tmdb"
 	"github.com/go-chi/httplog/v3"
 	"github.com/joho/godotenv"
+	"github.com/piperswe/Codebase/projects/datasite/internal/cache"
+	"github.com/piperswe/Codebase/projects/datasite/internal/db"
+	"github.com/piperswe/Codebase/projects/datasite/internal/moviedb"
+	"github.com/piperswe/Codebase/projects/datasite/internal/telemetry"
+	"github.com/piperswe/Codebase/projects/datasite/internal/version"
 	slogjournal "github.com/systemd/slog-journal"
 	"go.opentelemetry.io/otel/attribute"
 	"go.opentelemetry.io/otel/codes"
@@ -146,7 +146,7 @@ func main() {
 		logger.Error("failed to parse port", slog.Any("err", err))
 		os.Exit(1)
 	}
-	serverSrc := getenvOr("SERVER_SRC", "https://codeberg.org/pmc/Codebase/projects/datasite")
+	serverSrc := getenvOr("SERVER_SRC", "https://github.com/piperswe/Codebase/projects/datasite")
 	adminAPIKey := getenvOr("ADMIN_API_KEY", "1234")
 	u := universe{
 		logger,

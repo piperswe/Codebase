@@ -7,6 +7,6 @@ go_library(
         "models.go",
         "queries.sql.go",
     ],
-    importpath = "codeberg.org/pmc/Codebase/internal/cache",
+    importpath = "github.com/piperswe/Codebase/internal/cache",
     visibility = ["//:__subpackages__"],
 )

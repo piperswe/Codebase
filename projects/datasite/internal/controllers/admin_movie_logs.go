@@ -11,10 +11,10 @@ import (
 	"strings"
 	"time"
 
-	"codeberg.org/pmc/Codebase/projects/datasite/internal/db"
-	"codeberg.org/pmc/Codebase/projects/datasite/internal/moviedb"
-	"codeberg.org/pmc/Codebase/projects/datasite/internal/views"
 	"github.com/go-chi/chi/v5"
+	"github.com/piperswe/Codebase/projects/datasite/internal/db"
+	"github.com/piperswe/Codebase/projects/datasite/internal/moviedb"
+	"github.com/piperswe/Codebase/projects/datasite/internal/views"
 )
 
 var tmdbURLRe = regexp.MustCompile(`themoviedb\.org/movie/(\d+)`)

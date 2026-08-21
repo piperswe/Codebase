@@ -1,4 +1,4 @@
-module codeberg.org/pmc/Codebase
+module github.com/piperswe/Codebase
 
 go 1.26.6
 

@@ -6,7 +6,7 @@ load("//platforms:packages.bzl", "linux_binary_packages")
 go_library(
     name = "hello_go_lib",
     srcs = ["hello.go"],
-    importpath = "codeberg.org/pmc/Codebase/projects/hello_world/hello_go",
+    importpath = "github.com/piperswe/Codebase/projects/hello_world/hello_go",
     visibility = ["//visibility:private"],
 )
 

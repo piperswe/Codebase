@@ -4,7 +4,7 @@ import (
 	"database/sql"
 	"embed"
 
-	"codeberg.org/pmc/Codebase/projects/datasite/internal/dbmigrate"
+	"github.com/piperswe/Codebase/projects/datasite/internal/dbmigrate"
 )
 
 //go:embed migrations

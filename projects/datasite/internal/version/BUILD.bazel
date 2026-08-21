@@ -3,7 +3,7 @@ load("@rules_go//go:def.bzl", "go_library")
 go_library(
     name = "version",
     srcs = ["version.go"],
-    importpath = "codeberg.org/pmc/Codebase/projects/datasite/internal/version",
+    importpath = "github.com/piperswe/Codebase/projects/datasite/internal/version",
     visibility = ["//projects/datasite:__subpackages__"],
     x_defs = {"Version": "{STABLE_DATASITE_VERSION}"},
 )

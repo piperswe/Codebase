@@ -9,7 +9,7 @@ import (
 
 // ScopeName is the instrumentation scope used for datasite's own spans and
 // metrics. It matches the module path by convention.
-const ScopeName = "codeberg.org/pmc/Codebase/projects/datasite"
+const ScopeName = "github.com/piperswe/Codebase/projects/datasite"
 
 // Tracer returns the datasite application tracer. It resolves against whatever
 // global TracerProvider is registered (the OTLP one, or the no-op default).

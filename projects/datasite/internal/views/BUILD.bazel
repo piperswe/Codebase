@@ -15,7 +15,7 @@ go_library(
         "public_movie_log_templ.go",
         "star_display_templ.go",
     ],
-    importpath = "codeberg.org/pmc/Codebase/projects/datasite/internal/views",
+    importpath = "github.com/piperswe/Codebase/projects/datasite/internal/views",
     visibility = ["//projects/datasite:__subpackages__"],
     deps = [
         "//projects/datasite/internal/version",

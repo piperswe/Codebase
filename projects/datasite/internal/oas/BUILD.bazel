@@ -25,7 +25,7 @@ go_library(
         "oas_unimplemented_gen.go",
         "oas_validators_gen.go",
     ],
-    importpath = "codeberg.org/pmc/Codebase/projects/datasite/internal/oas",
+    importpath = "github.com/piperswe/Codebase/projects/datasite/internal/oas",
     visibility = ["//projects/datasite:__subpackages__"],
     deps = [
         "@com_github_go_faster_errors//:errors",

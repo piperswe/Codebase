@@ -8,8 +8,8 @@ import (
 	"strings"
 	"testing"
 
-	"codeberg.org/pmc/Codebase/projects/datasite/internal/db"
-	"codeberg.org/pmc/Codebase/projects/datasite/internal/oas"
+	"github.com/piperswe/Codebase/projects/datasite/internal/db"
+	"github.com/piperswe/Codebase/projects/datasite/internal/oas"
 	_ "modernc.org/sqlite"
 )
 

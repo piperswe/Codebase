@@ -3,7 +3,7 @@ load("@rules_go//go:def.bzl", "go_library", "go_test")
 go_library(
     name = "wrangler",
     srcs = ["wrangler.go"],
-    importpath = "codeberg.org/pmc/Codebase/tools/gazelle/wrangler",
+    importpath = "github.com/piperswe/Codebase/tools/gazelle/wrangler",
     visibility = ["//visibility:public"],
     deps = [
         "@gazelle//language",
