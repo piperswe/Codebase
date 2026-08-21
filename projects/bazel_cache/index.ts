@@ -1,12 +1,15 @@
 import { BasicAuthenticator } from "$/lib/ts/http/authorization.js";
 
-let authenticator: BasicAuthenticator | undefined;
+let authenticator: Promise<BasicAuthenticator> | undefined;
 async function getAuthenticator(env: Env): Promise<BasicAuthenticator> {
   if (!authenticator) {
-    authenticator = new BasicAuthenticator();
-    await authenticator.addUsers([{ username: "user", password: env.PASSWORD }]);
+    authenticator = (async () => {
+      const authenticator = new BasicAuthenticator();
+      await authenticator.addUsers([{ username: "user", password: env.PASSWORD }]);
+      return authenticator;
+    })();
   }
-  return authenticator;
+  return await authenticator;
 }
 
 export default {
