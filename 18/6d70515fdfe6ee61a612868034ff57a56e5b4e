@@ -1,0 +1,25 @@
+.github/workflows/ci.yaml
+  h_cb7f8177e9a94f 10
+  s_b9b8c2315f94d4::t_937a4dbc0c74d9 14
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.23",
+  "base_commit_sha": "186d70515fdfe6ee61a612868034ff57a56e5b4e",
+  "prompts": {},
+  "humans": {
+    "h_cb7f8177e9a94f": {
+      "author": "Piper McCorkle <contact@piperswe.me>"
+    }
+  },
+  "sessions": {
+    "s_b9b8c2315f94d4": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a02193-4c44-73c0-83f4-7a8a2a0e57bb",
+        "model": "unknown"
+      },
+      "human_author": "Piper McCorkle <contact@piperswe.me>"
+    }
+  }
+}
