@@ -1,4 +1,18 @@
-export class Vector2 {
+export interface Vector<T = unknown> {
+  toString(): string;
+  add(other: T): T;
+  subtract(other: T): T;
+  multiply(scalar: number): T;
+  divide(scalar: number): T;
+  magnitude(): number;
+  normalize(): T;
+  dot(other: T): number;
+  angle(other: T): number;
+  angleRadians(other: T): number;
+  angleDegrees(other: T): number;
+}
+
+export class Vector2 implements Vector<Vector2> {
   #x: number;
   #y: number;
 
@@ -50,10 +64,6 @@ export class Vector2 {
     return this.x * other.x + this.y * other.y;
   }
 
-  cross(other: Vector2): number {
-    return this.x * other.y - this.y * other.x;
-  }
-
   angle(other: Vector2): number {
     const dot = this.dot(other);
     const mags = this.magnitude() * other.magnitude();
@@ -69,7 +79,7 @@ export class Vector2 {
   }
 }
 
-export class Vector3 {
+export class Vector3 implements Vector<Vector3> {
   #x: number;
   #y: number;
   #z: number;
