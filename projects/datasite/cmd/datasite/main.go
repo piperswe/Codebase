@@ -20,7 +20,7 @@ import (
 	tmdb "github.com/cyruzin/golang-tmdb"
 	"github.com/go-chi/httplog/v3"
 	"github.com/joho/godotenv"
-	"github.com/piperswe/Codebase/projects/datasite/internal/cache"
+	"github.com/piperswe/Codebase/lib/go/cache"
 	"github.com/piperswe/Codebase/projects/datasite/internal/db"
 	"github.com/piperswe/Codebase/projects/datasite/internal/moviedb"
 	"github.com/piperswe/Codebase/projects/datasite/internal/telemetry"

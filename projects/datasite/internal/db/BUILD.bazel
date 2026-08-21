@@ -19,7 +19,7 @@ go_library(
     importpath = "github.com/piperswe/Codebase/projects/datasite/internal/db",
     visibility = ["//projects/datasite:__subpackages__"],
     deps = [
-        "//projects/datasite/internal/dbmigrate",
+        "//lib/go/dbmigrate",
         "@org_modernc_sqlite//:sqlite",
     ],
 )

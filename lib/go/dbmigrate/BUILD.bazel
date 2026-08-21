@@ -3,8 +3,8 @@ load("@rules_go//go:def.bzl", "go_library")
 go_library(
     name = "dbmigrate",
     srcs = ["dbmigrate.go"],
-    importpath = "github.com/piperswe/Codebase/projects/datasite/internal/dbmigrate",
-    visibility = ["//projects/datasite:__subpackages__"],
+    importpath = "github.com/piperswe/Codebase/lib/go/dbmigrate",
+    visibility = ["//visibility:public"],
     deps = [
         "@com_github_golang_migrate_migrate_v4//:migrate",
         "@com_github_golang_migrate_migrate_v4//database/sqlite",

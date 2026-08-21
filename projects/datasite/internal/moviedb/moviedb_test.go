@@ -8,7 +8,7 @@ import (
 	"time"
 
 	tmdb "github.com/cyruzin/golang-tmdb"
-	"github.com/piperswe/Codebase/projects/datasite/internal/cache"
+	"github.com/piperswe/Codebase/lib/go/cache"
 	_ "modernc.org/sqlite"
 )
 

@@ -13,9 +13,9 @@ go_library(
         "migrations/000001_init.down.sql",
         "migrations/000001_init.up.sql",
     ],
-    importpath = "github.com/piperswe/Codebase/projects/datasite/internal/cache",
-    visibility = ["//projects/datasite:__subpackages__"],
-    deps = ["//projects/datasite/internal/dbmigrate"],
+    importpath = "github.com/piperswe/Codebase/lib/go/cache",
+    visibility = ["//visibility:public"],
+    deps = ["//lib/go/dbmigrate"],
 )
 
 go_test(

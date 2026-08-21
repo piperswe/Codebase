@@ -9,10 +9,10 @@ sql:
         out: "projects/datasite/internal/db"
         sql_package: "database/sql"
   - engine: "sqlite"
-    queries: "projects/datasite/internal/cache/queries.sql"
-    schema: "projects/datasite/internal/cache/migrations"
+    queries: "lib/go/cache/queries.sql"
+    schema: "lib/go/cache/migrations"
     gen:
       go:
         package: "cache"
-        out: "internal/cache"
+        out: "lib/go/cache"
         sql_package: "database/sql"

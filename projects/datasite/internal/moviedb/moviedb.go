@@ -7,7 +7,7 @@ import (
 	"time"
 
 	tmdb "github.com/cyruzin/golang-tmdb"
-	"github.com/piperswe/Codebase/projects/datasite/internal/cache"
+	"github.com/piperswe/Codebase/lib/go/cache"
 	"github.com/piperswe/Codebase/projects/datasite/internal/telemetry"
 	"go.opentelemetry.io/otel/attribute"
 	"go.opentelemetry.io/otel/codes"
