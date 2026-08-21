@@ -1,6 +1,8 @@
 load("@aspect_rules_ts//ts:defs.bzl", "ts_config")
 load("@gazelle//:def.bzl", "DEFAULT_LANGUAGES", "gazelle", "gazelle_binary", "gazelle_test")
 load("@npm//:defs.bzl", "npm_link_all_packages")
+load("@rules_oci//oci:defs.bzl", "oci_push")
+load("@rules_shell//shell:sh_binary.bzl", "sh_binary")
 
 gazelle_binary(
     name = "gazelle_bin",
@@ -58,4 +60,38 @@ test_suite(
         "//projects/hello_world/hello_ts:hello_ts_install_tests",
     ],
     visibility = ["//visibility:public"],
+)
+
+_OCI_IMAGES = [
+    ("datasite", "//projects/datasite/cmd/datasite:datasite_image"),
+    ("hello-cpp", "//projects/hello_world/hello_cpp:hello_cpp_image"),
+    ("hello-go", "//projects/hello_world/hello_go:hello_go_image"),
+    ("hello-java", "//projects/hello_world/hello_java:hello_java_image"),
+    ("hello-rs", "//projects/hello_world/hello_rs:hello_rs_image"),
+    ("hello-ts", "//projects/hello_world/hello_ts:hello_ts_image"),
+]
+
+[
+    oci_push(
+        name = "push_{}_image".format(repository.replace("-", "_")),
+        image = image,
+        remote_tags = ["latest"],
+    )
+    for repository, image in _OCI_IMAGES
+]
+
+sh_binary(
+    name = "push_images",
+    srcs = ["push_images.sh"],
+    args = [
+        "$(location :push_{}_image)={}".format(
+            repository.replace("-", "_"),
+            repository,
+        )
+        for repository, _ in _OCI_IMAGES
+    ],
+    data = [
+        ":push_{}_image".format(repository.replace("-", "_"))
+        for repository, _ in _OCI_IMAGES
+    ],
 )
