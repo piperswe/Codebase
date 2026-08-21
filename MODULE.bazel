@@ -25,7 +25,6 @@ typescript.deps(
 )
 use_repo(typescript, "npm_typescript")
 
-bazel_dep(name = "aspect_rules_swc", version = "2.7.6")
 bazel_dep(name = "rules_go", version = "0.63.0")
 
 go_sdk = use_extension("@rules_go//go:extensions.bzl", "go_sdk")
@@ -41,6 +40,25 @@ rust.toolchain(
 use_repo(rust, "rust_toolchains")
 
 register_toolchains("@rust_toolchains//:all")
+
+oxc_crates = use_extension("@rules_rust//crate_universe:extensions.bzl", "crate")
+oxc_crates.spec(
+    default_features = False,
+    features = [
+        "ast_visit",
+        "codegen",
+        "semantic",
+        "transformer",
+    ],
+    package = "oxc",
+    version = "=0.146.0",
+)
+oxc_crates.spec(
+    package = "oxc_resolver",
+    version = "=11.23.0",
+)
+oxc_crates.from_specs(name = "oxc_crates")
+use_repo(oxc_crates, "oxc_crates")
 
 bazel_dep(name = "rules_cc", version = "0.2.18")
 bazel_dep(name = "rules_android", version = "0.7.3")

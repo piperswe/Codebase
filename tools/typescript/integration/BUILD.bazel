@@ -1,0 +1,28 @@
+load("@rules_shell//shell:sh_test.bzl", "sh_test")
+load("//tools/typescript:defs.bzl", "ts_project")
+
+ts_project(
+    name = "integration_js",
+    srcs = [
+        "fixture.ts",
+        "value.ts",
+    ],
+    declaration = True,
+    source_map = True,
+    tsconfig = "//:tsconfig",
+)
+
+sh_test(
+    name = "integration_test",
+    srcs = ["integration_test.sh"],
+    args = [
+        "$(rootpath :fixture.js)",
+        "$(rootpath :fixture.js.map)",
+        "$(rootpath :value.js)",
+    ],
+    data = [
+        ":fixture.js",
+        ":fixture.js.map",
+        ":value.js",
+    ],
+)

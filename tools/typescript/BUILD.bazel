@@ -1,1 +1,30 @@
-exports_files(["defs.bzl"])
+load("@rules_rust//rust:defs.bzl", "rust_binary", "rust_library", "rust_test")
+
+exports_files([
+    "defs.bzl",
+    "oxc.bzl",
+])
+
+rust_library(
+    name = "oxc_transpiler_lib",
+    srcs = ["src/lib.rs"],
+    crate_name = "oxc_transpiler",
+    edition = "2021",
+    deps = [
+        "@oxc_crates//oxc",
+        "@oxc_crates//oxc_resolver",
+    ],
+)
+
+rust_binary(
+    name = "oxc_transpiler",
+    srcs = ["src/main.rs"],
+    edition = "2021",
+    visibility = ["//visibility:private"],
+    deps = [":oxc_transpiler_lib"],
+)
+
+rust_test(
+    name = "oxc_transpiler_test",
+    crate = ":oxc_transpiler_lib",
+)

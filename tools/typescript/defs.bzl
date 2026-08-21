@@ -1,38 +1,33 @@
 """Repository defaults for TypeScript targets."""
 
-load("@aspect_rules_swc//swc:defs.bzl", "swc")
 load("@aspect_rules_ts//ts:defs.bzl", _ts_project = "ts_project")
-load("@bazel_lib//lib:utils.bzl", "path_to_workspace_root")
 load("@bazel_skylib//lib:partial.bzl", "partial")
-load("@npm//:tsconfig-to-swcconfig/package_json.bzl", _tsconfig_to_swcconfig = "bin")
+load(":oxc.bzl", "oxc")
 
-def ts_project(name, tsconfig = None, transpiler = None, **kwargs):
-    """Creates a ts_project that derives an SWC config from its tsconfig."""
+def ts_project(
+        name,
+        tsconfig = None,
+        transpiler = None,
+        source_map = False,
+        **kwargs):
+    """Creates a ts_project using the repository's Oxc transpiler by default."""
     if transpiler == None:
         if tsconfig == None:
-            fail("tsconfig must be set when using the default SWC transpiler")
-
-        workspace_root = path_to_workspace_root() or "."
-        swcrc = "{}.swcrc".format(name)
-        _tsconfig_to_swcconfig.t2s(
-            name = "{}_swcrc".format(name),
-            srcs = [tsconfig],
-            args = [
-                "--filename",
-                "$(location {})".format(tsconfig),
-                "--set",
-                "jsc.baseUrl={}".format(workspace_root),
-            ],
-            stdout = swcrc,
-        )
+            fail("tsconfig must be set when using the default Oxc transpiler")
+        if kwargs.get("out_dir"):
+            fail("out_dir is unsupported by the default in-place Oxc transpiler")
+        if kwargs.get("root_dir"):
+            fail("root_dir is unsupported by the default in-place Oxc transpiler")
         transpiler = partial.make(
-            swc,
-            swcrc = ":{}".format(swcrc),
+            oxc,
+            tsconfig = tsconfig,
+            source_map = source_map,
         )
 
     _ts_project(
         name = name,
         tsconfig = tsconfig,
         transpiler = transpiler,
+        source_map = source_map,
         **kwargs
     )
