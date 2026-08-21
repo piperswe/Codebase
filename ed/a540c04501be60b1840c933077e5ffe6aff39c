@@ -1,0 +1,14 @@
+.github/workflows/ci.yaml
+  h_cb7f8177e9a94f 18-19
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.23",
+  "base_commit_sha": "eda540c04501be60b1840c933077e5ffe6aff39c",
+  "prompts": {},
+  "humans": {
+    "h_cb7f8177e9a94f": {
+      "author": "Piper McCorkle <contact@piperswe.me>"
+    }
+  }
+}
