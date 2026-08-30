@@ -1,0 +1,29 @@
+projects/bazel_cache/BUILD.bazel
+  s_3ae8e1dba5c542::t_29bbe10290cc08 16,23-28,30-36
+  s_3ae8e1dba5c542::t_87eb253c681cfc 2,29
+  s_3ae8e1dba5c542::t_c71ce4513a4524 4
+  s_3ae8e1dba5c542::t_af3b26ebcdbf00 1
+  s_3ae8e1dba5c542::t_76315e27ac56ce 3
+  s_3ae8e1dba5c542::t_77a9c92a29a303 5-7,13-15
+  s_3ae8e1dba5c542::t_879ff04dcb8b89 17-22
+projects/bazel_cache/wrangler.toml
+  s_3ae8e1dba5c542::t_29bbe10290cc08 2-9
+  s_3ae8e1dba5c542::t_08c28829e6c19e 1
+  s_3ae8e1dba5c542::t_9a80bcee6272e6 10-12
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.22",
+  "base_commit_sha": "4ffd3b0fb4eeec3e61f0ecfed5af275332a2173e",
+  "prompts": {},
+  "sessions": {
+    "s_3ae8e1dba5c542": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a02057-a7b1-7253-bec7-716d7a232643",
+        "model": "gpt-5.6-sol"
+      },
+      "human_author": "Piper McCorkle <contact@piperswe.me>"
+    }
+  }
+}

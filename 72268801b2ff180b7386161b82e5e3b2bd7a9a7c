@@ -1,0 +1,17 @@
+lib/ts/vector/vector.ts
+  h_cb7f8177e9a94f 1-15,82
+lib/ts/vector/vector.test.ts
+  h_cb7f8177e9a94f 1-2,4-108,110-230
+  h_cb7f8177e9a94f 109
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.23",
+  "base_commit_sha": "72268801b2ff180b7386161b82e5e3b2bd7a9a7c",
+  "prompts": {},
+  "humans": {
+    "h_cb7f8177e9a94f": {
+      "author": "Piper McCorkle <contact@piperswe.me>"
+    }
+  }
+}

@@ -1,0 +1,53 @@
+projects/hello_world/hello_rs/BUILD.bazel
+  s_73d099172de852::t_bfd8fe7ed5004c 3,21-27
+  s_73d099172de852::t_6179bebea95876 28
+projects/hello_world/hello_ts/BUILD.bazel
+  s_73d099172de852::t_bfd8fe7ed5004c 1,5,28-35,40-41,54-58,60
+  s_73d099172de852::t_b79655f8d1cfc1 36-39
+  s_73d099172de852::t_7a45664dbb1d10 42-53,59,61
+  s_73d099172de852::t_7498d4e7ad9f4c 62
+MODULE.bazel
+  s_73d099172de852::t_c44aa62cdf15cc 74-75,88-92,94,97,107-111,113,116,126-130,132,135,145-149,151
+  s_73d099172de852::t_b79655f8d1cfc1 79-81,83,95,98-100,102,114,117-119,121,133,136-138,140
+  s_73d099172de852::t_c3497bd5bfa05f 82,93,101,112,120,131,139,150
+  s_73d099172de852::t_0b94a4d04d57e8 73
+  s_73d099172de852::t_8ae81848e6f727 76-78
+  s_73d099172de852::t_14ab7ff49ca2bd 84-87
+  s_73d099172de852::t_e8e542e52a0d60 96
+  s_73d099172de852::t_1897b61c2548d3 103-106
+  s_73d099172de852::t_d3be4be0140134 115
+  s_73d099172de852::t_515be96ba8b803 122-125
+  s_73d099172de852::t_8aec13d4d935e5 134
+  s_73d099172de852::t_66e8b7cf9456ab 141-144
+  s_73d099172de852::t_12de722d1430c3 152
+platforms/oci.bzl
+  s_73d099172de852::t_c3497bd5bfa05f 6-9,16,31,47,51
+  s_73d099172de852::t_c44aa62cdf15cc 1-5,10-13,15,17-18,20-22,27-30,32-46,48-50,52-67
+  s_73d099172de852::t_7a45664dbb1d10 14,19,23-26
+projects/hello_world/hello_java/BUILD.bazel
+  s_73d099172de852::t_0d0cc4d4198e7e 2,16-27
+projects/hello_world/hello_go/BUILD.bazel
+  s_73d099172de852::t_bfd8fe7ed5004c 3,29-35
+  s_73d099172de852::t_13d07ce038a341 36
+projects/hello_world/hello_cpp/BUILD.bazel
+  s_73d099172de852::t_bfd8fe7ed5004c 3,21-27
+  s_73d099172de852::t_b588934ac66759 28
+MODULE.bazel.lock
+  s_73d099172de852::t_57b42c5fd6fc67 32,155,294-295,354,684-1004
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.22",
+  "base_commit_sha": "d6cf0d867ac08266b75eb076a18452a14d1fd10c",
+  "prompts": {},
+  "sessions": {
+    "s_73d099172de852": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a01e39-2e14-7543-a66c-b215f7ecb106",
+        "model": "gpt-5.6-sol"
+      },
+      "human_author": "Piper McCorkle <contact@piperswe.me>"
+    }
+  }
+}

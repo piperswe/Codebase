@@ -1,0 +1,61 @@
+projects/bazel_cache/types/worker-configuration.d.ts
+  h_cb7f8177e9a94f 1-15173
+pnpm-lock.yaml
+  h_cb7f8177e9a94f 14-16,34-37,45-250,254-419,423-425,703-711,805-811,824-826,980-982,990-993,998-1000,1004-1008,1033-1036,1114-1117,1157-1159,1182-1190,1204-1207,1231-1233,1239-1248,1338-1370,1375-1484,1487-1594,1597-1601,1736-1747,1792-1795,1807-1810,1880,1886,1914-1915,1920-1921,1924-1925,1928-1956,1974-1975,2029-2040,2101-2102,2137-2170,2179-2180,2199-2201,2225-2233,2241-2242,2245,2248,2265,2267-2268,2276-2314
+projects/bazel_cache/BUILD.bazel
+  s_3ae8e1dba5c542::t_29bbe10290cc08 16,23-28,30-36
+  s_3ae8e1dba5c542::t_879ff04dcb8b89 17-22
+  s_3ae8e1dba5c542::t_af3b26ebcdbf00 1
+  s_3ae8e1dba5c542::t_87eb253c681cfc 2,29
+  s_3ae8e1dba5c542::t_c71ce4513a4524 4
+  s_3ae8e1dba5c542::t_77a9c92a29a303 5-15
+  s_3ae8e1dba5c542::t_76315e27ac56ce 3
+package.json
+  h_cb7f8177e9a94f 5,11-12
+projects/bazel_cache/types/BUILD.bazel
+  h_cb7f8177e9a94f 1-7
+.bazelrc
+  h_cb7f8177e9a94f 9-10
+projects/bazel_cache/tsconfig.json
+  h_cb7f8177e9a94f 1-11
+projects/bazel_cache/index.ts
+  h_cb7f8177e9a94f 1-23
+  h_cb7f8177e9a94f 24
+pnpm-workspace.yaml
+  h_cb7f8177e9a94f 1
+.gitignore
+  h_cb7f8177e9a94f 4-5
+projects/bazel_cache/wrangler.toml
+  s_3ae8e1dba5c542::t_08c28829e6c19e 1
+  s_3ae8e1dba5c542::t_29bbe10290cc08 2-9
+  s_3ae8e1dba5c542::t_9a80bcee6272e6 10-12
+  s_3ae8e1dba5c542::t_6f2a724f2248d2 13
+lib/ts/vector/vector.test.ts
+  h_cb7f8177e9a94f 1-2,4-10
+.oxfmtrc.json
+  h_cb7f8177e9a94f 3,7
+  h_cb7f8177e9a94f 4-6
+.oxlintrc.json
+  h_cb7f8177e9a94f 3-7
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.22",
+  "base_commit_sha": "a8ebabab8a488b202174a15f1f843a5d96cbeee6",
+  "prompts": {},
+  "humans": {
+    "h_cb7f8177e9a94f": {
+      "author": "Piper McCorkle <contact@piperswe.me>"
+    }
+  },
+  "sessions": {
+    "s_3ae8e1dba5c542": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a02057-a7b1-7253-bec7-716d7a232643",
+        "model": "gpt-5.6-sol"
+      },
+      "human_author": "Piper McCorkle <contact@piperswe.me>"
+    }
+  }
+}

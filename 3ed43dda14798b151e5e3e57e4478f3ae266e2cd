@@ -1,0 +1,16 @@
+projects/bazel_cache/index.ts
+  h_cb7f8177e9a94f 3,6-10,12
+mise.toml
+  h_cb7f8177e9a94f 50-53
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.23",
+  "base_commit_sha": "3ed43dda14798b151e5e3e57e4478f3ae266e2cd",
+  "prompts": {},
+  "humans": {
+    "h_cb7f8177e9a94f": {
+      "author": "Piper McCorkle <contact@piperswe.me>"
+    }
+  }
+}

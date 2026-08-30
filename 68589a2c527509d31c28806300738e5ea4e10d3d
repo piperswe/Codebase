@@ -1,0 +1,14 @@
+projects/datasite/cmd/datasite/BUILD.bazel
+  h_cb7f8177e9a94f 2-3,59-78
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.22",
+  "base_commit_sha": "68589a2c527509d31c28806300738e5ea4e10d3d",
+  "prompts": {},
+  "humans": {
+    "h_cb7f8177e9a94f": {
+      "author": "Piper McCorkle <contact@piperswe.me>"
+    }
+  }
+}

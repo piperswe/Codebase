@@ -1,0 +1,19 @@
+push_images.sh
+  s_4e5b7a0d789baa::t_a2964d33f630b8 3-19
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.23",
+  "base_commit_sha": "700457a14a5f7d48528caeedd5df6ac78d0cb556",
+  "prompts": {},
+  "sessions": {
+    "s_4e5b7a0d789baa": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a0221c-1c14-7c02-9639-776f64394f2a",
+        "model": "gpt-5.6-sol"
+      },
+      "human_author": "Piper McCorkle <contact@piperswe.me>"
+    }
+  }
+}

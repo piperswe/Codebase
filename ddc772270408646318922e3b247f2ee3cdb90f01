@@ -1,0 +1,35 @@
+push_images.sh
+  s_4e5b7a0d789baa::t_ca4c277df19eff 1-23
+BUILD.bazel
+  s_4e5b7a0d789baa::t_502aab70defd9b 5
+  s_4e5b7a0d789baa::t_c80866f0154dae 87-90
+  s_4e5b7a0d789baa::t_ca4c277df19eff 65-86,91-96
+  s_4e5b7a0d789baa::t_f98939b0c036d7 4,64
+  s_4e5b7a0d789baa::t_9cf4813acfcc58 97
+.github/workflows/ci.yaml
+  s_4e5b7a0d789baa::t_f98939b0c036d7 8-10,24-31,33
+  h_cb7f8177e9a94f 23,32
+  s_4e5b7a0d789baa::t_ca4c277df19eff 36
+  s_4e5b7a0d789baa::t_2e7318519186ab 34-35
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.23",
+  "base_commit_sha": "ddc772270408646318922e3b247f2ee3cdb90f01",
+  "prompts": {},
+  "humans": {
+    "h_cb7f8177e9a94f": {
+      "author": "Piper McCorkle <contact@piperswe.me>"
+    }
+  },
+  "sessions": {
+    "s_4e5b7a0d789baa": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a0221c-1c14-7c02-9639-776f64394f2a",
+        "model": "gpt-5.6-sol"
+      },
+      "human_author": "Piper McCorkle <contact@piperswe.me>"
+    }
+  }
+}
