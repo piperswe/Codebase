@@ -1,0 +1,14 @@
+BUILD.bazel
+  h_cb7f8177e9a94f 48,62,74
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.0",
+  "base_commit_sha": "7d4f72830b0fe05b1596a889b1635f8211989194",
+  "prompts": {},
+  "humans": {
+    "h_cb7f8177e9a94f": {
+      "author": "Piper McCorkle <contact@piperswe.me>"
+    }
+  }
+}
