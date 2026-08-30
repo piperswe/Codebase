@@ -1,0 +1,63 @@
+load("@rules_go//go:def.bzl", "go_binary", "go_library")
+load("//platforms:binary.bzl", "platform_binary")
+load("//platforms:oci.bzl", "binary_oci_image")
+load("//platforms:packages.bzl", "linux_binary_packages")
+
+go_library(
+    name = "yago_lib",
+    srcs = ["main.go"],
+    importpath = "github.com/piperswe/Codebase/projects/yago/cmd/yago",
+    visibility = ["//visibility:private"],
+    deps = [
+        "//projects/yago/internal/version",
+        "@com_github_coreos_go_systemd_v22//daemon",
+    ],
+)
+
+go_binary(
+    name = "yago",
+    embed = [":yago_lib"],
+    visibility = ["//visibility:public"],
+)
+
+platform_binary(
+    name = "yago_linux_amd64",
+    binary = ":yago",
+    platform = "//platforms:linux_amd64",
+)
+
+platform_binary(
+    name = "yago_linux_arm64",
+    binary = ":yago",
+    platform = "//platforms:linux_arm64",
+)
+
+binary_oci_image(
+    name = "yago_image",
+    base = "distroless_base",
+    binary = ":yago_linux_{arch}",
+    entrypoint = ["/yago"],
+    visibility = ["//visibility:public"],
+)
+
+linux_binary_packages(
+    name = "yago_linux_packages",
+    package_name = "yago",
+    binary = ":yago_linux_{arch}",
+    deb_depends = [
+        "libc6",
+        "systemd",
+    ],
+    description = "Social media website",
+    executable_name = "yago",
+    install_test_command = [
+        "/usr/bin/yago",
+        "smoke",
+    ],
+    rpm_requires = [
+        "glibc",
+        "systemd",
+    ],
+    target_name = "yago",
+    visibility = ["//visibility:public"],
+)

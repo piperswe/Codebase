@@ -4,6 +4,7 @@ set -eu
 
 if ! git_root="$(git rev-parse --show-toplevel 2>/dev/null)"; then
   echo "STABLE_DATASITE_VERSION 0.0.0"
+  echo "STABLE_YAGO_VERSION 0.0.0"
   echo "STABLE_DEB_VERSION 0.0.0"
   echo "STABLE_RPM_VERSION 0.0.0"
   echo "STABLE_RPM_RELEASE 1"
@@ -40,6 +41,7 @@ else
 fi
 
 echo "STABLE_DATASITE_VERSION $deb_version"
+echo "STABLE_YAGO_VERSION $deb_version"
 echo "STABLE_DEB_VERSION $deb_version"
 echo "STABLE_RPM_VERSION $base"
 echo "STABLE_RPM_RELEASE $rpm_release"
