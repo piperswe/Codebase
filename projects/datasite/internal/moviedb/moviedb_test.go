@@ -9,8 +9,12 @@ import (
 
 	tmdb "github.com/cyruzin/golang-tmdb"
 	"github.com/piperswe/Codebase/lib/go/cache"
+	"go.opentelemetry.io/otel/trace/noop"
 	_ "modernc.org/sqlite"
 )
+
+// testTracer is a no-op tracer for tests that don't assert on spans.
+var testTracer = noop.NewTracerProvider().Tracer("test")
 
 type fakeTMDB struct {
 	details *tmdb.MovieDetails
@@ -44,7 +48,7 @@ func newTestCache(t *testing.T) *cache.Queries {
 func TestGetMovieByIDFetchesOnCacheMiss(t *testing.T) {
 	ctx := context.Background()
 	fake := &fakeTMDB{details: &tmdb.MovieDetails{Title: "Dune"}}
-	m := NewCachedMovieDB(fake, fake, newTestCache(t), nil)
+	m := NewCachedMovieDB(fake, fake, newTestCache(t), nil, testTracer)
 	got, err := m.GetMovieByID(ctx, 42)
 	if err != nil {
 		t.Fatal(err)
@@ -60,7 +64,7 @@ func TestGetMovieByIDFetchesOnCacheMiss(t *testing.T) {
 func TestGetMovieByIDServesSecondCallFromCache(t *testing.T) {
 	ctx := context.Background()
 	fake := &fakeTMDB{details: &tmdb.MovieDetails{Title: "Dune"}}
-	m := NewCachedMovieDB(fake, fake, newTestCache(t), nil)
+	m := NewCachedMovieDB(fake, fake, newTestCache(t), nil, testTracer)
 	if _, err := m.GetMovieByID(ctx, 42); err != nil {
 		t.Fatal(err)
 	}
@@ -85,7 +89,7 @@ func TestGetMovieByIDServesFromExistingCache(t *testing.T) {
 		t.Fatal(err)
 	}
 	fake := &fakeTMDB{details: &tmdb.MovieDetails{Title: "Fresh"}}
-	m := NewCachedMovieDB(fake, fake, q, nil)
+	m := NewCachedMovieDB(fake, fake, q, nil, testTracer)
 	got, err := m.GetMovieByID(ctx, 42)
 	if err != nil {
 		t.Fatal(err)
@@ -107,7 +111,7 @@ func TestGetMovieByIDRefetchesExpiredEntry(t *testing.T) {
 		t.Fatal(err)
 	}
 	fake := &fakeTMDB{details: &tmdb.MovieDetails{Title: "Fresh"}}
-	m := NewCachedMovieDB(fake, fake, q, nil)
+	m := NewCachedMovieDB(fake, fake, q, nil, testTracer)
 	got, err := m.GetMovieByID(ctx, 42)
 	if err != nil {
 		t.Fatal(err)
@@ -124,7 +128,7 @@ func TestGetMovieByIDPropagatesFetchError(t *testing.T) {
 	ctx := context.Background()
 	wantErr := errors.New("tmdb down")
 	fake := &fakeTMDB{err: wantErr}
-	m := NewCachedMovieDB(fake, fake, newTestCache(t), nil)
+	m := NewCachedMovieDB(fake, fake, newTestCache(t), nil, testTracer)
 	_, err := m.GetMovieByID(ctx, 42)
 	if !errors.Is(err, wantErr) {
 		t.Errorf("got err %v, want %v", err, wantErr)
@@ -134,7 +138,7 @@ func TestGetMovieByIDPropagatesFetchError(t *testing.T) {
 func TestGetMovieByIDDoesNotCacheErrors(t *testing.T) {
 	ctx := context.Background()
 	fake := &fakeTMDB{err: errors.New("tmdb down")}
-	m := NewCachedMovieDB(fake, fake, newTestCache(t), nil)
+	m := NewCachedMovieDB(fake, fake, newTestCache(t), nil, testTracer)
 	if _, err := m.GetMovieByID(ctx, 42); err == nil {
 		t.Fatal("expected error")
 	}

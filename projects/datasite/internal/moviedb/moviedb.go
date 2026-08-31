@@ -8,7 +8,7 @@ import (
 
 	tmdb "github.com/cyruzin/golang-tmdb"
 	"github.com/piperswe/Codebase/lib/go/cache"
-	"github.com/piperswe/Codebase/projects/datasite/internal/telemetry"
+	"github.com/piperswe/Codebase/projects/datasite/internal/metrics"
 	"go.opentelemetry.io/otel/attribute"
 	"go.opentelemetry.io/otel/codes"
 	"go.opentelemetry.io/otel/metric"
@@ -40,20 +40,22 @@ type CachedMovieDB struct {
 	tmdb        MovieDetailsGetter
 	searcher    MovieSearcher
 	cache       *cache.Queries
-	instruments *telemetry.Instruments
+	instruments *metrics.Instruments
+	tracer      trace.Tracer
 }
 
-func NewCachedMovieDB(tmdb MovieDetailsGetter, searcher MovieSearcher, cache *cache.Queries, instruments *telemetry.Instruments) *CachedMovieDB {
+func NewCachedMovieDB(tmdb MovieDetailsGetter, searcher MovieSearcher, cache *cache.Queries, instruments *metrics.Instruments, tracer trace.Tracer) *CachedMovieDB {
 	return &CachedMovieDB{
 		tmdb,
 		searcher,
 		cache,
 		instruments,
+		tracer,
 	}
 }
 
 func (c *CachedMovieDB) GetMovieByID(ctx context.Context, id int) (*tmdb.MovieDetails, error) {
-	ctx, span := telemetry.Tracer().Start(ctx, "moviedb.GetMovieByID",
+	ctx, span := c.tracer.Start(ctx, "moviedb.GetMovieByID",
 		trace.WithAttributes(attribute.Int("movie.id", id)),
 	)
 	defer span.End()
@@ -89,7 +91,7 @@ func (c *CachedMovieDB) GetMovieByID(ctx context.Context, id int) (*tmdb.MovieDe
 }
 
 func (c *CachedMovieDB) SearchMovie(ctx context.Context, title string, year int) (int64, string, error) {
-	ctx, span := telemetry.Tracer().Start(ctx, "moviedb.SearchMovie",
+	ctx, span := c.tracer.Start(ctx, "moviedb.SearchMovie",
 		trace.WithAttributes(
 			attribute.String("movie.title", title),
 			attribute.Int("movie.year", year),
@@ -120,7 +122,7 @@ func (c *CachedMovieDB) SearchMovie(ctx context.Context, title string, year int)
 // getMovieDetails wraps the context-less TMDB library call in a child span and
 // records its latency into the TMDB duration histogram.
 func (c *CachedMovieDB) getMovieDetails(ctx context.Context, id int) (*tmdb.MovieDetails, error) {
-	ctx, span := telemetry.Tracer().Start(ctx, "tmdb.GetMovieDetails")
+	ctx, span := c.tracer.Start(ctx, "tmdb.GetMovieDetails")
 	defer span.End()
 
 	start := time.Now()
@@ -135,7 +137,7 @@ func (c *CachedMovieDB) getMovieDetails(ctx context.Context, id int) (*tmdb.Movi
 
 // searchMovies wraps the context-less TMDB search call in a child span.
 func (c *CachedMovieDB) searchMovies(ctx context.Context, title string) (*tmdb.SearchMovies, error) {
-	ctx, span := telemetry.Tracer().Start(ctx, "tmdb.GetSearchMovies")
+	ctx, span := c.tracer.Start(ctx, "tmdb.GetSearchMovies")
 	defer span.End()
 
 	start := time.Now()
@@ -152,7 +154,7 @@ func (c *CachedMovieDB) recordCacheLookup(ctx context.Context, result string) {
 	if c.instruments == nil {
 		return
 	}
-	c.instruments.CacheLookups.Add(ctx, 1, metricAttrs(telemetry.ResultKey.String(result)))
+	c.instruments.CacheLookups.Add(ctx, 1, metricAttrs(metrics.ResultKey.String(result)))
 }
 
 func (c *CachedMovieDB) recordTMDBDuration(ctx context.Context, operation string, err error, start time.Time) {
@@ -165,7 +167,7 @@ func (c *CachedMovieDB) recordTMDBDuration(ctx context.Context, operation string
 	}
 	elapsedMs := float64(time.Since(start)) / float64(time.Millisecond)
 	c.instruments.TMDBRequestDuration.Record(ctx, elapsedMs, metricAttrs(
-		telemetry.OperationKey.String(operation),
-		telemetry.StatusKey.String(status),
+		metrics.OperationKey.String(operation),
+		metrics.StatusKey.String(status),
 	))
 }

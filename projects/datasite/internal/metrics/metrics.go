@@ -1,21 +1,15 @@
-package telemetry
+package metrics
 
 import (
 	"go.opentelemetry.io/otel"
 	"go.opentelemetry.io/otel/attribute"
 	"go.opentelemetry.io/otel/metric"
-	"go.opentelemetry.io/otel/trace"
 )
 
 // ScopeName is the instrumentation scope used for datasite's own spans and
-// metrics. It matches the module path by convention.
+// metrics. It matches the module path by convention. Obtain a tracer for this
+// scope via o11y's (*O11y).Tracer(ScopeName).
 const ScopeName = "github.com/piperswe/Codebase/projects/datasite"
-
-// Tracer returns the datasite application tracer. It resolves against whatever
-// global TracerProvider is registered (the OTLP one, or the no-op default).
-func Tracer() trace.Tracer {
-	return otel.Tracer(ScopeName)
-}
 
 // Instruments holds datasite's custom application metrics. Build once at
 // startup with NewInstruments and pass where needed.

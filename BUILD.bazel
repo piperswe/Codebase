@@ -45,8 +45,8 @@ filegroup(
         "//projects/hello_world/hello_java:hello_java_packages",
         "//projects/hello_world/hello_rs:hello_rs_packages",
         "//projects/hello_world/hello_ts:hello_ts_packages",
-        "//projects/yago/cmd/yago:yago_packages",
         "//projects/interface/cmd/interface:interface_packages",
+        "//projects/yago/cmd/yago:yago_packages",
     ],
     visibility = ["//visibility:public"],
 )
@@ -60,8 +60,8 @@ test_suite(
         "//projects/hello_world/hello_java:hello_java_install_tests",
         "//projects/hello_world/hello_rs:hello_rs_install_tests",
         "//projects/hello_world/hello_ts:hello_ts_install_tests",
-        "//projects/yago/cmd/yago:yago_install_tests",
         "//projects/interface/cmd/interface:interface_install_tests",
+        "//projects/yago/cmd/yago:yago_install_tests",
     ],
     visibility = ["//visibility:public"],
 )

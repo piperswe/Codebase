@@ -7,7 +7,7 @@ go_library(
     visibility = ["//projects/datasite:__subpackages__"],
     deps = [
         "//lib/go/cache",
-        "//projects/datasite/internal/telemetry",
+        "//projects/datasite/internal/metrics",
         "@com_github_cyruzin_golang_tmdb//:golang-tmdb",
         "@io_opentelemetry_go_otel//attribute",
         "@io_opentelemetry_go_otel//codes",
@@ -23,6 +23,7 @@ go_test(
     deps = [
         "//lib/go/cache",
         "@com_github_cyruzin_golang_tmdb//:golang-tmdb",
+        "@io_opentelemetry_go_otel_trace//noop",
         "@org_modernc_sqlite//:sqlite",
     ],
 )

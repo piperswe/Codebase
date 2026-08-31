@@ -5,13 +5,11 @@ import (
 	"database/sql"
 	"errors"
 	"fmt"
-	"log"
 	"log/slog"
 	"net/http"
 	"os"
 	"os/signal"
 	"strconv"
-	"strings"
 	"syscall"
 	"time"
 
@@ -21,15 +19,16 @@ import (
 	"github.com/go-chi/httplog/v3"
 	"github.com/joho/godotenv"
 	"github.com/piperswe/Codebase/lib/go/cache"
+	"github.com/piperswe/Codebase/lib/go/o11y"
 	"github.com/piperswe/Codebase/projects/datasite/internal/db"
+	"github.com/piperswe/Codebase/projects/datasite/internal/metrics"
 	"github.com/piperswe/Codebase/projects/datasite/internal/moviedb"
-	"github.com/piperswe/Codebase/projects/datasite/internal/telemetry"
 	"github.com/piperswe/Codebase/projects/datasite/internal/version"
-	slogjournal "github.com/systemd/slog-journal"
 	"go.opentelemetry.io/otel/attribute"
 	"go.opentelemetry.io/otel/codes"
 	"go.opentelemetry.io/otel/metric"
 	semconv "go.opentelemetry.io/otel/semconv/v1.26.0"
+	"go.opentelemetry.io/otel/trace"
 )
 
 type universe struct {
@@ -59,48 +58,37 @@ func main() {
 		fmt.Printf("datasite %s", version.Version)
 		return
 	}
-	logFormat := httplog.SchemaOTEL
-	var h slog.Handler
-	if version.Version == "dev" {
-		h = slog.NewTextHandler(os.Stdout, &slog.HandlerOptions{
-			ReplaceAttr: logFormat.ReplaceAttr,
-		})
-	} else {
-		var err error
-		h, err = slogjournal.NewHandler(&slogjournal.Options{
-			ReplaceGroup: func(k string) string {
-				return strings.ReplaceAll(strings.ToUpper(k), "-", "_")
-			},
-			ReplaceAttr: func(groups []string, a slog.Attr) slog.Attr {
-				a = logFormat.ReplaceAttr(groups, a)
-				a.Key = strings.ReplaceAll(strings.ToUpper(a.Key), "-", "_")
-				a.Key = strings.ReplaceAll(a.Key, ".", "_")
-				return a
-			},
-		})
-		if err != nil {
-			log.Fatalf("failed to initialize logging: %v", err)
-		}
-	}
-	logger := slog.New(h).With(
-		slog.String("app", "datasite"),
-		slog.String("version", version.Version),
-	)
-	slog.SetDefault(logger)
-
-	err := godotenv.Load()
-	if err != nil {
-		logger.Warn("failed to load .env file", slog.Any("err", err))
-	}
+	// godotenv must load before o11y.Setup so LOG_FORMAT and OTEL_* env vars
+	// from .env are visible to the observability setup. Buffer the warning and
+	// emit it once the logger exists.
+	envErr := godotenv.Load()
 
 	rootCtx := context.Background()
-	tel, err := telemetry.Setup(rootCtx, "datasite", version.Version)
+	ob, logger, err := o11y.Setup(rootCtx, o11y.Config{
+		ServiceName:    "datasite",
+		ServiceVersion: version.Version,
+	})
+	if logger == nil {
+		// Logging failed to initialize entirely; fall back so we can report it.
+		logger = slog.Default()
+	}
 	if err != nil {
 		// Log and continue: a bad OTLP endpoint or exporter must not take the
 		// app down. Metrics still work as long as the meter provider came up.
-		logger.Error("failed to fully initialize telemetry", slog.Any("err", err))
+		logger.Error("failed to fully initialize observability", slog.Any("err", err))
 	}
-	instruments, err := telemetry.NewInstruments()
+	if envErr != nil {
+		logger.Warn("failed to load .env file", slog.Any("err", envErr))
+	}
+
+	if ob == nil {
+		logger.Error("observability failed to initialize; cannot continue")
+		os.Exit(1)
+	}
+	logFormat := ob.LogSchema()
+	appTracer := ob.Tracer(metrics.ScopeName)
+
+	instruments, err := metrics.NewInstruments()
 	if err != nil {
 		logger.Error("failed to create metric instruments", slog.Any("err", err))
 		os.Exit(1)
@@ -139,7 +127,7 @@ func main() {
 		os.Exit(1)
 	}
 	tmdbClient.SetClientAutoRetry()
-	movies := moviedb.NewCachedMovieDB(tmdbClient, tmdbClient, cacheQueries, instruments)
+	movies := moviedb.NewCachedMovieDB(tmdbClient, tmdbClient, cacheQueries, instruments, appTracer)
 	portStr := getenvOr("PORT", "3084")
 	port, err := strconv.ParseUint(portStr, 10, 16)
 	if err != nil {
@@ -173,35 +161,26 @@ func main() {
 	}
 	_, _ = daemon.SdNotify(false, daemon.SdNotifyReady)
 
-	go func(c *cache.Queries, logger *slog.Logger, inst *telemetry.Instruments) {
+	go func(c *cache.Queries, logger *slog.Logger, inst *metrics.Instruments, tracer trace.Tracer) {
 		t := time.NewTicker(time.Hour)
 		for range t.C {
-			runCacheCleanup(c, logger, inst)
+			runCacheCleanup(c, logger, inst, tracer)
 		}
-	}(u.cache, logger, instruments)
+	}(u.cache, logger, instruments, appTracer)
 
 	r := SetupMux(&u)
 
 	// Public application server.
 	srv := &http.Server{Addr: fmt.Sprintf(":%d", port), Handler: r}
-	// Dedicated admin server for Prometheus metrics + health, kept off the
-	// public router.
-	metricsMux := http.NewServeMux()
-	if tel != nil {
-		metricsMux.Handle("/metrics", tel.Handler())
-	}
-	metricsMux.HandleFunc("/healthz", func(w http.ResponseWriter, _ *http.Request) {
-		w.WriteHeader(http.StatusOK)
-		_, _ = w.Write([]byte("ok"))
-	})
-	metricsSrv := &http.Server{Addr: fmt.Sprintf(":%s", getenvOr("METRICS_PORT", "9090")), Handler: metricsMux}
 
 	ctx, stop := signal.NotifyContext(context.Background(), syscall.SIGINT, syscall.SIGTERM)
 	defer stop()
 
+	// Admin server (Prometheus /metrics + /healthz) owned by o11y. It shuts
+	// down on ctx cancellation.
 	go func() {
-		if err := metricsSrv.ListenAndServe(); err != nil && !errors.Is(err, http.ErrServerClosed) {
-			logger.Error("metrics server returned", slog.Any("err", err))
+		if err := ob.ServeAdmin(ctx, logger); err != nil {
+			logger.Error("admin server returned", slog.Any("err", err))
 		}
 	}()
 	go func() {
@@ -220,18 +199,15 @@ func main() {
 	if err := srv.Shutdown(shutdownCtx); err != nil {
 		logger.Error("failed to gracefully shut down http server", slog.Any("err", err))
 	}
-	if err := metricsSrv.Shutdown(shutdownCtx); err != nil {
-		logger.Error("failed to gracefully shut down metrics server", slog.Any("err", err))
-	}
-	if err := tel.Shutdown(shutdownCtx); err != nil {
-		logger.Error("failed to shut down telemetry", slog.Any("err", err))
+	if err := ob.Shutdown(shutdownCtx); err != nil {
+		logger.Error("failed to shut down observability", slog.Any("err", err))
 	}
 }
 
 // runCacheCleanup deletes expired cache rows within a fresh root span and
 // records the outcome to metrics.
-func runCacheCleanup(c *cache.Queries, logger *slog.Logger, inst *telemetry.Instruments) {
-	ctx, span := telemetry.Tracer().Start(context.Background(), "cache.cleanup")
+func runCacheCleanup(c *cache.Queries, logger *slog.Logger, inst *metrics.Instruments, tracer trace.Tracer) {
+	ctx, span := tracer.Start(context.Background(), "cache.cleanup")
 	defer span.End()
 
 	err := c.DeleteExpired(ctx)
@@ -272,5 +248,5 @@ func openSQLite(dsn, name string) (*sql.DB, error) {
 
 // metricStatus builds a status=ok|error measurement option.
 func metricStatus(status string) metric.MeasurementOption {
-	return metric.WithAttributes(telemetry.StatusKey.String(status))
+	return metric.WithAttributes(metrics.StatusKey.String(status))
 }

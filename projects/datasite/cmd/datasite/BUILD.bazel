@@ -14,12 +14,13 @@ go_library(
     visibility = ["//visibility:private"],
     deps = [
         "//lib/go/cache",
+        "//lib/go/o11y",
         "//projects/datasite/internal/controllers",
         "//projects/datasite/internal/db",
+        "//projects/datasite/internal/metrics",
         "//projects/datasite/internal/moviedb",
         "//projects/datasite/internal/oas",
         "//projects/datasite/internal/static",
-        "//projects/datasite/internal/telemetry",
         "//projects/datasite/internal/version",
         "@com_github_coreos_go_systemd_v22//daemon",
         "@com_github_cyruzin_golang_tmdb//:golang-tmdb",
@@ -28,12 +29,12 @@ go_library(
         "@com_github_joho_godotenv//:godotenv",
         "@com_github_riandyrn_otelchi//:otelchi",
         "@com_github_riandyrn_otelchi//metric",
-        "@com_github_systemd_slog_journal//:slog-journal",
         "@com_github_xsam_otelsql//:otelsql",
         "@io_opentelemetry_go_otel//attribute",
         "@io_opentelemetry_go_otel//codes",
         "@io_opentelemetry_go_otel//semconv/v1.26.0:v1_26_0",
         "@io_opentelemetry_go_otel_metric//:metric",
+        "@io_opentelemetry_go_otel_trace//:trace",
     ],
 )
 
