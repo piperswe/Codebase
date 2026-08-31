@@ -46,6 +46,7 @@ filegroup(
         "//projects/hello_world/hello_rs:hello_rs_packages",
         "//projects/hello_world/hello_ts:hello_ts_packages",
         "//projects/yago/cmd/yago:yago_packages",
+        "//projects/interface/cmd/interface:interface_packages",
     ],
     visibility = ["//visibility:public"],
 )
@@ -60,6 +61,7 @@ test_suite(
         "//projects/hello_world/hello_rs:hello_rs_install_tests",
         "//projects/hello_world/hello_ts:hello_ts_install_tests",
         "//projects/yago/cmd/yago:yago_install_tests",
+        "//projects/interface/cmd/interface:interface_install_tests",
     ],
     visibility = ["//visibility:public"],
 )
@@ -72,6 +74,7 @@ _OCI_IMAGES = [
     ("hello-rs", "//projects/hello_world/hello_rs:hello_rs_image"),
     ("hello-ts", "//projects/hello_world/hello_ts:hello_ts_image"),
     ("yago", "//projects/yago/cmd/yago:yago_image"),
+    ("interface", "//projects/interface/cmd/interface:interface_image"),
 ]
 
 [
