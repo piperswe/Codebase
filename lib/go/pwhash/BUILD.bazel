@@ -1,0 +1,19 @@
+load("@rules_go//go:def.bzl", "go_library", "go_test")
+
+go_library(
+    name = "pwhash",
+    srcs = [
+        "argon2id.go",
+        "pwhash.go",
+    ],
+    importpath = "github.com/piperswe/Codebase/lib/go/pwhash",
+    visibility = ["//visibility:public"],
+    deps = ["@org_golang_x_crypto//argon2"],
+)
+
+go_test(
+    name = "pwhash_test",
+    srcs = ["argon2id_test.go"],
+    embed = [":pwhash"],
+    deps = ["@org_golang_x_crypto//argon2"],
+)
