@@ -1,0 +1,39 @@
+lib/go/pwhash/argon2id_test.go
+  s_49bb4d0f754f97::t_214fa57ece265f 1-26,28-29,31,33,35-85,87-121,124-126,129-203
+  s_49bb4d0f754f97::t_0c210daf016d84 27,30,32,34,86,122-123,127-128
+lib/go/pwhash/BUILD.bazel
+  s_49bb4d0f754f97::t_4747bda52920d1 1-19
+lib/go/pwhash/pwhash.go
+  h_cb7f8177e9a94f 1-10
+lib/go/pwhash/argon2id.go
+  s_49bb4d0f754f97::t_214fa57ece265f 34-43,46,87
+  h_cb7f8177e9a94f 1-33,44-45,47-63,65,67,69-71,73-74,84-86,88-92
+  s_49bb4d0f754f97::t_0c210daf016d84 64,66,68,72,75-83
+MODULE.bazel
+  h_cb7f8177e9a94f 168
+go.mod
+  h_cb7f8177e9a94f 30
+go.sum
+  h_cb7f8177e9a94f 247-248
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.0",
+  "base_commit_sha": "c9afc0e0f76249a8611a5148f86df36282e1e9ed",
+  "prompts": {},
+  "humans": {
+    "h_cb7f8177e9a94f": {
+      "author": "Piper McCorkle <contact@piperswe.me>"
+    }
+  },
+  "sessions": {
+    "s_49bb4d0f754f97": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a0592e-aed0-7600-a67b-24b06c0fbeb7",
+        "model": "gpt-5.6-sol"
+      },
+      "human_author": "Piper McCorkle <contact@piperswe.me>"
+    }
+  }
+}
