@@ -9,6 +9,14 @@ sql:
         out: "projects/datasite/internal/db"
         sql_package: "database/sql"
   - engine: "sqlite"
+    queries: "projects/yago/internal/db/queries.sql"
+    schema: "projects/yago/internal/db/migrations"
+    gen:
+      go:
+        package: "db"
+        out: "projects/yago/internal/db"
+        sql_package: "database/sql"
+  - engine: "sqlite"
     queries: "lib/go/cache/queries.sql"
     schema: "lib/go/cache/migrations"
     gen:

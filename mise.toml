@@ -15,7 +15,7 @@ run = "bazel run //:gazelle"
 
 [tasks.refresh]
 description = "Update lockfiles for dependencies"
-run = "go mod tidy && pnpm install && REPIN=1 bazel run @maven//:pin && mise gazelle && bazel mod tidy"
+run = "go mod tidy && pnpm install && REPIN=1 bazel run @maven//:pin && bazel mod tidy && mise gazelle && bazel mod tidy"
 
 [tasks.build]
 description = "Build everything"
@@ -39,7 +39,7 @@ run = "npx oxfmt"
 
 [tasks.gencode]
 description = "Run `go generate` & `sqlc generate`"
-run = "bazel run @com_github_sqlc_dev_sqlc//cmd/sqlc -- generate && go generate ./... && mise gazelle"
+run = "bazel run @com_github_sqlc_dev_sqlc//cmd/sqlc -- generate -f $MISE_PROJECT_ROOT/sqlc.yaml && go generate ./... && mise gazelle"
 
 [tasks.deploy]
 description = "Deploy everything"

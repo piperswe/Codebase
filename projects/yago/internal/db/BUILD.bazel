@@ -1,0 +1,29 @@
+load("@rules_go//go:def.bzl", "go_library", "go_test")
+
+go_library(
+    name = "db",
+    srcs = [
+        "db.go",
+        "migrate.go",
+        "models.go",
+        "queries.sql.go",
+        "sqlite.go",
+    ],
+    embedsrcs = [
+        "migrations/000001_init.down.sql",
+        "migrations/000001_init.up.sql",
+    ],
+    importpath = "github.com/piperswe/Codebase/projects/yago/internal/db",
+    visibility = ["//projects/datasite:__subpackages__"],
+    deps = [
+        "//lib/go/dbmigrate",
+        "@org_modernc_sqlite//:sqlite",
+    ],
+)
+
+go_test(
+    name = "db_test",
+    srcs = ["migrate_test.go"],
+    embed = [":db"],
+    deps = ["@org_modernc_sqlite//:sqlite"],
+)

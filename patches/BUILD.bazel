@@ -1,0 +1,1 @@
+exports_files(["pg_query_go.patch"])
