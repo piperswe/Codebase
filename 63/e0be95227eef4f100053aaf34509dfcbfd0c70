@@ -1,0 +1,31 @@
+third_party/vendor.sh
+  s_f929f5510ff86a::t_977d0abd10142c 1-31,41-62,84-107,109-116,118-119,121-126
+  s_f929f5510ff86a::t_4a3dc4221db943 32-40
+  s_f929f5510ff86a::t_fa9916b2c1a74c 63-83,108,117,120
+third_party/MODULES.tsv
+  s_f929f5510ff86a::t_52c36831962de5 1-105
+third_party/modules.txt
+  s_f929f5510ff86a::t_73a8276491604f 1-921
+third_party/rewrite.tsv
+  s_f929f5510ff86a::t_89e1a824c74b37 1-103
+third_party/rewrite.pl
+  s_f929f5510ff86a::t_99ae36045a6d6f 1-25
+third_party/keep.txt
+  s_f929f5510ff86a::t_ce7af544bb285d 1-6800
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.0",
+  "base_commit_sha": "63e0be95227eef4f100053aaf34509dfcbfd0c70",
+  "prompts": {},
+  "sessions": {
+    "s_f929f5510ff86a": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "972e99c4-132e-45eb-be8e-4f37a625e65a",
+        "model": "claude-opus-5"
+      },
+      "human_author": null
+    }
+  }
+}
