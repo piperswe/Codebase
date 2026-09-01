@@ -1,0 +1,29 @@
+third_party/rewrite.pl
+  s_f929f5510ff86a::t_99ae36045a6d6f 1-25
+third_party/vendor.sh
+  s_f929f5510ff86a::t_977d0abd10142c 1-95
+third_party/keep.txt
+  s_f929f5510ff86a::t_ce7af544bb285d 1-6800
+third_party/MODULES.tsv
+  s_f929f5510ff86a::t_52c36831962de5 1-105
+third_party/modules.txt
+  s_f929f5510ff86a::t_73a8276491604f 1-921
+third_party/rewrite.tsv
+  s_f929f5510ff86a::t_89e1a824c74b37 1-103
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.0",
+  "base_commit_sha": "83fb79dd27d32c73dd2111191bd6b639dcb61090",
+  "prompts": {},
+  "sessions": {
+    "s_f929f5510ff86a": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "972e99c4-132e-45eb-be8e-4f37a625e65a",
+        "model": "claude-opus-5"
+      },
+      "human_author": "Piper McCorkle <contact@piperswe.me>"
+    }
+  }
+}
