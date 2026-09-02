@@ -1,23 +1,12 @@
 package db
 
 import (
-	"database/sql"
 	"testing"
 
-	_ "modernc.org/sqlite"
+	"github.com/piperswe/Codebase/lib/go/testdb"
 )
 
 func TestMigrate(t *testing.T) {
-	conn, err := sql.Open("sqlite", ":memory:")
-	if err != nil {
-		t.Fatal(err)
-	}
-	t.Cleanup(func() { conn.Close() })
-	// Each connection to :memory: gets its own database, so keep the pool
-	// at a single connection.
-	conn.SetMaxOpenConns(1)
-	err = Migrate(conn)
-	if err != nil {
-		t.Fatal(err)
-	}
+	_ = testdb.New(t, &Migrator{})
+	// if testdb.New succeeded, then the migrations successfully applied
 }

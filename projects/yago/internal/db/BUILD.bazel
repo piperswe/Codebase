@@ -7,7 +7,6 @@ go_library(
         "migrate.go",
         "models.go",
         "queries.sql.go",
-        "sqlite.go",
     ],
     embedsrcs = [
         "migrations/000001_init.down.sql",
@@ -17,7 +16,8 @@ go_library(
     visibility = ["//projects/datasite:__subpackages__"],
     deps = [
         "//lib/go/dbmigrate",
-        "@org_modernc_sqlite//:sqlite",
+        "@com_github_jackc_pgx_v5//:pgx",
+        "@com_github_jackc_pgx_v5//pgconn",
     ],
 )
 
@@ -25,5 +25,11 @@ go_test(
     name = "db_test",
     srcs = ["migrate_test.go"],
     embed = [":db"],
-    deps = ["@org_modernc_sqlite//:sqlite"],
+    tags = [
+        "local",
+        "no-sandbox",
+        "requires-docker",
+        "requires-network",
+    ],
+    deps = ["//lib/go/testdb"],
 )

@@ -4,6 +4,25 @@
 
 package db
 
+type PermissionAssignment struct {
+	ID         int32
+	RoleID     int32
+	Permission string
+}
+
+type Role struct {
+	ID   int32
+	Name string
+}
+
+type RoleAssignment struct {
+	ID     int32
+	UserID int32
+	RoleID int32
+}
+
 type User struct {
-	ID int64
+	ID           int32
+	EmailAddress string
+	PasswordHash string
 }

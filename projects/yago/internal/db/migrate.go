@@ -1,16 +1,22 @@
 package db
 
 import (
-	"database/sql"
+	"context"
 	"embed"
 
+	"github.com/jackc/pgx/v5"
 	"github.com/piperswe/Codebase/lib/go/dbmigrate"
 )
 
 //go:embed migrations
 var migrationsFS embed.FS
 
-// Migrate applies all pending schema migrations to the main database.
-func Migrate(conn *sql.DB) error {
-	return dbmigrate.Up(conn, migrationsFS, "migrations", "main")
+type Migrator struct{}
+
+func (m *Migrator) Migrate(ctx context.Context, conn *pgx.Conn) error {
+	return dbmigrate.UpPostgres(conn, migrationsFS, "migrations", "main")
+}
+
+func Migrate(conn *pgx.Conn) error {
+	return (&Migrator{}).Migrate(context.Background(), conn)
 }

@@ -9,13 +9,119 @@ import (
 	"context"
 )
 
-const getUser = `-- name: GetUser :one
-SELECT id FROM users WHERE id = ?
+const getRole = `-- name: GetRole :one
+SELECT id, name FROM roles WHERE id = $1
 `
 
-func (q *Queries) GetUser(ctx context.Context, id int64) (int64, error) {
-	row := q.db.QueryRowContext(ctx, getUser, id)
-	var id_2 int64
-	err := row.Scan(&id_2)
-	return id_2, err
+func (q *Queries) GetRole(ctx context.Context, id int32) (Role, error) {
+	row := q.db.QueryRow(ctx, getRole, id)
+	var i Role
+	err := row.Scan(&i.ID, &i.Name)
+	return i, err
+}
+
+const getRolePermissions = `-- name: GetRolePermissions :many
+SELECT permission FROM permission_assignments WHERE role_id = $1
+`
+
+func (q *Queries) GetRolePermissions(ctx context.Context, roleID int32) ([]string, error) {
+	rows, err := q.db.Query(ctx, getRolePermissions, roleID)
+	if err != nil {
+		return nil, err
+	}
+	defer rows.Close()
+	var items []string
+	for rows.Next() {
+		var permission string
+		if err := rows.Scan(&permission); err != nil {
+			return nil, err
+		}
+		items = append(items, permission)
+	}
+	if err := rows.Err(); err != nil {
+		return nil, err
+	}
+	return items, nil
+}
+
+const getUser = `-- name: GetUser :one
+SELECT id, email_address, password_hash FROM users WHERE id = $1
+`
+
+func (q *Queries) GetUser(ctx context.Context, id int32) (User, error) {
+	row := q.db.QueryRow(ctx, getUser, id)
+	var i User
+	err := row.Scan(&i.ID, &i.EmailAddress, &i.PasswordHash)
+	return i, err
+}
+
+const getUserPermissions = `-- name: GetUserPermissions :many
+SELECT DISTINCT permission
+FROM permission_assignments
+INNER JOIN role_assignments ON permission_assignments.role_id = role_assignments.role_id
+WHERE role_assignments.user_id = $1
+`
+
+func (q *Queries) GetUserPermissions(ctx context.Context, userID int32) ([]string, error) {
+	rows, err := q.db.Query(ctx, getUserPermissions, userID)
+	if err != nil {
+		return nil, err
+	}
+	defer rows.Close()
+	var items []string
+	for rows.Next() {
+		var permission string
+		if err := rows.Scan(&permission); err != nil {
+			return nil, err
+		}
+		items = append(items, permission)
+	}
+	if err := rows.Err(); err != nil {
+		return nil, err
+	}
+	return items, nil
+}
+
+const getUserRoles = `-- name: GetUserRoles :many
+SELECT role_id FROM role_assignments WHERE user_id = $1
+`
+
+func (q *Queries) GetUserRoles(ctx context.Context, userID int32) ([]int32, error) {
+	rows, err := q.db.Query(ctx, getUserRoles, userID)
+	if err != nil {
+		return nil, err
+	}
+	defer rows.Close()
+	var items []int32
+	for rows.Next() {
+		var role_id int32
+		if err := rows.Scan(&role_id); err != nil {
+			return nil, err
+		}
+		items = append(items, role_id)
+	}
+	if err := rows.Err(); err != nil {
+		return nil, err
+	}
+	return items, nil
+}
+
+const userHasPermission = `-- name: UserHasPermission :one
+SELECT 1
+FROM permission_assignments
+INNER JOIN role_assignments ON permission_assignments.role_id = role_assignments.role_id
+WHERE role_assignments.user_id = $1 AND permission_assignments.permission = $2
+LIMIT 1
+`
+
+type UserHasPermissionParams struct {
+	UserID     int32
+	Permission string
+}
+
+func (q *Queries) UserHasPermission(ctx context.Context, arg UserHasPermissionParams) (int32, error) {
+	row := q.db.QueryRow(ctx, userHasPermission, arg.UserID, arg.Permission)
+	var column_1 int32
+	err := row.Scan(&column_1)
+	return column_1, err
 }

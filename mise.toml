@@ -22,8 +22,12 @@ description = "Build everything"
 run = "bazel build //..."
 
 [tasks.test]
-description = "Test everything"
+description = "Test everything, except tests which require Docker"
 run = "bazel test //..."
+
+[tasks.dockertest]
+description = "Test everything, including tests which require Docker"
+run = "bazel test --config=docker //..."
 
 [tasks.setup-vscode]
 description = "Setup rust-analyzer in VSCode"
