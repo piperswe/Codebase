@@ -1,0 +1,2 @@
+db: docker run --name yagodb -it --rm -e POSTGRES_DB=yago -e POSTGRES_USER=yago -e POSTGRES_PASSWORD=yago -p 43256:5432 docker.io/library/postgres:18.6@sha256:4ef4dbc939d61acea57712655ddb4b4ab27419c913f94cca0cd57cb3ea3c2280
+yago: sleep 2 && DATABASE_URL="host=localhost port=43256 user=yago password=yago dbname=yago sslmode=disable" bazel run //projects/yago/cmd/yago

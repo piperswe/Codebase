@@ -48,3 +48,7 @@ run = "bazel run @com_github_sqlc_dev_sqlc//cmd/sqlc -- generate -f $MISE_PROJEC
 [tasks.deploy]
 description = "Deploy everything"
 run = "bazel run //projects/bazel_cache:deploy"
+
+[tasks."yago:start"]
+description = "Start the Yago application"
+run = "./tools/overmind start --procfile=./projects/yago/Procfile"

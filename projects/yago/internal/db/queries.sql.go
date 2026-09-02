@@ -7,14 +7,88 @@ package db
 
 import (
 	"context"
+
+	"github.com/jackc/pgx/v5/pgtype"
 )
+
+const createProfileWithUlid = `-- name: CreateProfileWithUlid :one
+INSERT INTO profiles (ulid, owner_id, username, display_name)
+VALUES ($1, $2, $3, $4)
+RETURNING id, ulid, owner_id, username, display_name
+`
+
+type CreateProfileWithUlidParams struct {
+	Ulid        string
+	OwnerID     int64
+	Username    string
+	DisplayName pgtype.Text
+}
+
+func (q *Queries) CreateProfileWithUlid(ctx context.Context, arg CreateProfileWithUlidParams) (Profile, error) {
+	row := q.db.QueryRow(ctx, createProfileWithUlid,
+		arg.Ulid,
+		arg.OwnerID,
+		arg.Username,
+		arg.DisplayName,
+	)
+	var i Profile
+	err := row.Scan(
+		&i.ID,
+		&i.Ulid,
+		&i.OwnerID,
+		&i.Username,
+		&i.DisplayName,
+	)
+	return i, err
+}
+
+const createUserWithUlid = `-- name: CreateUserWithUlid :one
+INSERT INTO users (ulid, email_address, password_hash)
+VALUES ($1, $2, $3)
+RETURNING id, ulid, email_address, password_hash
+`
+
+type CreateUserWithUlidParams struct {
+	Ulid         string
+	EmailAddress string
+	PasswordHash string
+}
+
+func (q *Queries) CreateUserWithUlid(ctx context.Context, arg CreateUserWithUlidParams) (User, error) {
+	row := q.db.QueryRow(ctx, createUserWithUlid, arg.Ulid, arg.EmailAddress, arg.PasswordHash)
+	var i User
+	err := row.Scan(
+		&i.ID,
+		&i.Ulid,
+		&i.EmailAddress,
+		&i.PasswordHash,
+	)
+	return i, err
+}
+
+const getProfile = `-- name: GetProfile :one
+SELECT id, ulid, owner_id, username, display_name FROM profiles WHERE id = $1
+`
+
+func (q *Queries) GetProfile(ctx context.Context, profileID int64) (Profile, error) {
+	row := q.db.QueryRow(ctx, getProfile, profileID)
+	var i Profile
+	err := row.Scan(
+		&i.ID,
+		&i.Ulid,
+		&i.OwnerID,
+		&i.Username,
+		&i.DisplayName,
+	)
+	return i, err
+}
 
 const getRole = `-- name: GetRole :one
 SELECT id, name FROM roles WHERE id = $1
 `
 
-func (q *Queries) GetRole(ctx context.Context, id int32) (Role, error) {
-	row := q.db.QueryRow(ctx, getRole, id)
+func (q *Queries) GetRole(ctx context.Context, roleID int64) (Role, error) {
+	row := q.db.QueryRow(ctx, getRole, roleID)
 	var i Role
 	err := row.Scan(&i.ID, &i.Name)
 	return i, err
@@ -24,7 +98,7 @@ const getRolePermissions = `-- name: GetRolePermissions :many
 SELECT permission FROM permission_assignments WHERE role_id = $1
 `
 
-func (q *Queries) GetRolePermissions(ctx context.Context, roleID int32) ([]string, error) {
+func (q *Queries) GetRolePermissions(ctx context.Context, roleID int64) ([]string, error) {
 	rows, err := q.db.Query(ctx, getRolePermissions, roleID)
 	if err != nil {
 		return nil, err
@@ -45,14 +119,30 @@ func (q *Queries) GetRolePermissions(ctx context.Context, roleID int32) ([]strin
 }
 
 const getUser = `-- name: GetUser :one
-SELECT id, email_address, password_hash FROM users WHERE id = $1
+SELECT id, ulid, email_address, password_hash FROM users WHERE id = $1
 `
 
-func (q *Queries) GetUser(ctx context.Context, id int32) (User, error) {
-	row := q.db.QueryRow(ctx, getUser, id)
+func (q *Queries) GetUser(ctx context.Context, userID int64) (User, error) {
+	row := q.db.QueryRow(ctx, getUser, userID)
 	var i User
-	err := row.Scan(&i.ID, &i.EmailAddress, &i.PasswordHash)
+	err := row.Scan(
+		&i.ID,
+		&i.Ulid,
+		&i.EmailAddress,
+		&i.PasswordHash,
+	)
 	return i, err
+}
+
+const getUserCount = `-- name: GetUserCount :one
+SELECT COUNT(*) FROM users
+`
+
+func (q *Queries) GetUserCount(ctx context.Context) (int64, error) {
+	row := q.db.QueryRow(ctx, getUserCount)
+	var count int64
+	err := row.Scan(&count)
+	return count, err
 }
 
 const getUserPermissions = `-- name: GetUserPermissions :many
@@ -62,7 +152,7 @@ INNER JOIN role_assignments ON permission_assignments.role_id = role_assignments
 WHERE role_assignments.user_id = $1
 `
 
-func (q *Queries) GetUserPermissions(ctx context.Context, userID int32) ([]string, error) {
+func (q *Queries) GetUserPermissions(ctx context.Context, userID int64) ([]string, error) {
 	rows, err := q.db.Query(ctx, getUserPermissions, userID)
 	if err != nil {
 		return nil, err
@@ -82,19 +172,49 @@ func (q *Queries) GetUserPermissions(ctx context.Context, userID int32) ([]strin
 	return items, nil
 }
 
+const getUserProfiles = `-- name: GetUserProfiles :many
+SELECT id, ulid, owner_id, username, display_name FROM profiles WHERE owner_id = $1
+`
+
+func (q *Queries) GetUserProfiles(ctx context.Context, userID int64) ([]Profile, error) {
+	rows, err := q.db.Query(ctx, getUserProfiles, userID)
+	if err != nil {
+		return nil, err
+	}
+	defer rows.Close()
+	var items []Profile
+	for rows.Next() {
+		var i Profile
+		if err := rows.Scan(
+			&i.ID,
+			&i.Ulid,
+			&i.OwnerID,
+			&i.Username,
+			&i.DisplayName,
+		); err != nil {
+			return nil, err
+		}
+		items = append(items, i)
+	}
+	if err := rows.Err(); err != nil {
+		return nil, err
+	}
+	return items, nil
+}
+
 const getUserRoles = `-- name: GetUserRoles :many
 SELECT role_id FROM role_assignments WHERE user_id = $1
 `
 
-func (q *Queries) GetUserRoles(ctx context.Context, userID int32) ([]int32, error) {
+func (q *Queries) GetUserRoles(ctx context.Context, userID int64) ([]int64, error) {
 	rows, err := q.db.Query(ctx, getUserRoles, userID)
 	if err != nil {
 		return nil, err
 	}
 	defer rows.Close()
-	var items []int32
+	var items []int64
 	for rows.Next() {
-		var role_id int32
+		var role_id int64
 		if err := rows.Scan(&role_id); err != nil {
 			return nil, err
 		}
@@ -106,22 +226,93 @@ func (q *Queries) GetUserRoles(ctx context.Context, userID int32) ([]int32, erro
 	return items, nil
 }
 
+const updateProfile = `-- name: UpdateProfile :one
+UPDATE profiles
+SET username = $1,
+    display_name = $2
+WHERE id = $3
+RETURNING id, ulid, owner_id, username, display_name
+`
+
+type UpdateProfileParams struct {
+	Username    string
+	DisplayName pgtype.Text
+	ProfileID   int64
+}
+
+func (q *Queries) UpdateProfile(ctx context.Context, arg UpdateProfileParams) (Profile, error) {
+	row := q.db.QueryRow(ctx, updateProfile, arg.Username, arg.DisplayName, arg.ProfileID)
+	var i Profile
+	err := row.Scan(
+		&i.ID,
+		&i.Ulid,
+		&i.OwnerID,
+		&i.Username,
+		&i.DisplayName,
+	)
+	return i, err
+}
+
+const updateUser = `-- name: UpdateUser :one
+UPDATE users
+SET email_address = $1,
+    password_hash = $2
+WHERE id = $3
+RETURNING id, ulid, email_address, password_hash
+`
+
+type UpdateUserParams struct {
+	EmailAddress string
+	PasswordHash string
+	UserID       int64
+}
+
+func (q *Queries) UpdateUser(ctx context.Context, arg UpdateUserParams) (User, error) {
+	row := q.db.QueryRow(ctx, updateUser, arg.EmailAddress, arg.PasswordHash, arg.UserID)
+	var i User
+	err := row.Scan(
+		&i.ID,
+		&i.Ulid,
+		&i.EmailAddress,
+		&i.PasswordHash,
+	)
+	return i, err
+}
+
+const userHasOneOfPermissions = `-- name: UserHasOneOfPermissions :one
+SELECT COUNT(*) > 0
+FROM permission_assignments
+INNER JOIN role_assignments ON permission_assignments.role_id = role_assignments.role_id
+WHERE role_assignments.user_id = $1 AND permission_assignments.permission = ANY($2::text[])
+`
+
+type UserHasOneOfPermissionsParams struct {
+	UserID      int64
+	Permissions []string
+}
+
+func (q *Queries) UserHasOneOfPermissions(ctx context.Context, arg UserHasOneOfPermissionsParams) (bool, error) {
+	row := q.db.QueryRow(ctx, userHasOneOfPermissions, arg.UserID, arg.Permissions)
+	var column_1 bool
+	err := row.Scan(&column_1)
+	return column_1, err
+}
+
 const userHasPermission = `-- name: UserHasPermission :one
-SELECT 1
+SELECT COUNT(*) > 0
 FROM permission_assignments
 INNER JOIN role_assignments ON permission_assignments.role_id = role_assignments.role_id
 WHERE role_assignments.user_id = $1 AND permission_assignments.permission = $2
-LIMIT 1
 `
 
 type UserHasPermissionParams struct {
-	UserID     int32
+	UserID     int64
 	Permission string
 }
 
-func (q *Queries) UserHasPermission(ctx context.Context, arg UserHasPermissionParams) (int32, error) {
+func (q *Queries) UserHasPermission(ctx context.Context, arg UserHasPermissionParams) (bool, error) {
 	row := q.db.QueryRow(ctx, userHasPermission, arg.UserID, arg.Permission)
-	var column_1 int32
+	var column_1 bool
 	err := row.Scan(&column_1)
 	return column_1, err
 }

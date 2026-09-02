@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+
+set -euxo pipefail
+
+bazel build @com_github_darthsim_overmind//:overmind
+exec $(bazel info bazel-bin)/external/gazelle++go_deps+com_github_darthsim_overmind/overmind_/overmind "$@"

@@ -1,12 +1,13 @@
 load("@rules_go//go:def.bzl", "go_library")
 
 go_library(
-    name = "tool",
+    name = "tools",
     srcs = ["tool.go"],
-    importpath = "github.com/piperswe/Codebase/projects/datasite/internal/tool",
-    visibility = ["//projects/datasite:__subpackages__"],
+    importpath = "github.com/piperswe/Codebase/tools",
+    visibility = ["//visibility:public"],
     deps = [
         "@com_github_a_h_templ//:templ",
+        "@com_github_darthsim_overmind//:overmind",
         "@com_github_ogen_go_ogen//:ogen",
         "@com_github_sqlc_dev_sqlc//:sqlc",
     ],

@@ -4,25 +4,38 @@
 
 package db
 
+import (
+	"github.com/jackc/pgx/v5/pgtype"
+)
+
 type PermissionAssignment struct {
-	ID         int32
-	RoleID     int32
+	ID         int64
+	RoleID     int64
 	Permission string
 }
 
+type Profile struct {
+	ID          int64
+	Ulid        string
+	OwnerID     int64
+	Username    string
+	DisplayName pgtype.Text
+}
+
 type Role struct {
-	ID   int32
+	ID   int64
 	Name string
 }
 
 type RoleAssignment struct {
-	ID     int32
-	UserID int32
-	RoleID int32
+	ID     int64
+	UserID int64
+	RoleID int64
 }
 
 type User struct {
-	ID           int32
+	ID           int64
+	Ulid         string
 	EmailAddress string
 	PasswordHash string
 }
