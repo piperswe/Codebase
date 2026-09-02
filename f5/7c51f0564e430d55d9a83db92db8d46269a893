@@ -1,0 +1,25 @@
+go.mod
+  s_70540a56d18158::t_4e108d495c1f07 168
+  s_70540a56d18158::t_e06f934b769658 42,131
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.0",
+  "base_commit_sha": "f57c51f0564e430d55d9a83db92db8d46269a893",
+  "prompts": {},
+  "humans": {
+    "h_cb7f8177e9a94f": {
+      "author": "Piper McCorkle <contact@piperswe.me>"
+    }
+  },
+  "sessions": {
+    "s_70540a56d18158": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a061a7-d75e-7070-a808-cc23efe2cc26",
+        "model": "gpt-5.6-sol"
+      },
+      "human_author": "Piper McCorkle <contact@piperswe.me>"
+    }
+  }
+}
