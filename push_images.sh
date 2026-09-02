@@ -19,7 +19,13 @@ runfiles_export_envvars
 
 set -euo pipefail
 
-for image in "$@"; do
+images=()
+while (( $# > 0 )) && [[ "$1" != -* ]]; do
+  images+=("$1")
+  shift
+done
+
+for image in "${images[@]}"; do
   pusher="${image%%=*}"
   if [[ ! -x "$pusher" ]]; then
     echo "Image pusher is not executable: $pusher" >&2
@@ -33,8 +39,8 @@ if [[ -z "${REGISTRY:-}" ]]; then
 fi
 
 registry="${REGISTRY%/}"
-for image in "$@"; do
+for image in "${images[@]}"; do
   pusher="${image%%=*}"
   repository="${image#*=}"
-  "$pusher" --repository "$registry/$repository"
+  "$pusher" --repository "$registry/$repository" "$@"
 done

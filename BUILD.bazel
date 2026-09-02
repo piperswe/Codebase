@@ -81,7 +81,6 @@ _OCI_IMAGES = [
     oci_push(
         name = "push_{}_image".format(repository.replace("-", "_")),
         image = image,
-        remote_tags = ["latest"],
     )
     for repository, image in _OCI_IMAGES
 ]

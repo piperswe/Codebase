@@ -1,9 +1,9 @@
-name: CI
+name: Git tag
 on:
   push:
-    branches: ["**"]
+    tags: ["**"]
 jobs:
-  build-test:
+  tag-images:
     runs-on: ubuntu-latest
     permissions:
       contents: read
@@ -21,23 +21,15 @@ jobs:
         run: echo "build --remote_cache=https://user:${{ secrets.BAZEL_CACHE_PASSWORD }}@bazel-cache.piperswe.me/Codebase" > user.bazelrc
       - name: Build
         run: mise build
-      - name: Test
-        run: bazel test --config=docker --test_output=all //...
       - name: Login to GitHub Container Registry
-        if: github.ref == 'refs/heads/main'
         env:
           GHCR_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: printf '%s' "$GHCR_TOKEN" | docker login ghcr.io --username "${{ github.actor }}" --password-stdin
       - name: Push Docker images
-        if: github.ref == 'refs/heads/main'
         env:
-          BRANCH_TAG: ${{ github.ref_name }}
-          COMMIT_TAG: ${{ github.sha }}
+          IMAGE_TAG: ${{ github.ref_name }}
           REGISTRY: ghcr.io/${{ github.repository }}
         run: |
           REGISTRY=$(printf '%s' "$REGISTRY" | tr '[:upper:]' '[:lower:]')
           export REGISTRY
-          bazel run //:push_images -- \
-            --tag "$BRANCH_TAG" \
-            --tag "$COMMIT_TAG" \
-            --tag latest
+          bazel run //:push_images -- --tag "$IMAGE_TAG"
