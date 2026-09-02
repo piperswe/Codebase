@@ -1,0 +1,119 @@
+projects/datasite/internal/controllers/cinemas_api_test.go
+  h_cb7f8177e9a94f 13-14
+projects/datasite/internal/metrics/metrics.go
+  h_cb7f8177e9a94f 12
+projects/datasite/internal/oas/BUILD.bazel
+  h_cb7f8177e9a94f 28
+projects/datasite/internal/controllers/movie_logs_api_test.go
+  h_cb7f8177e9a94f 11-12
+tools/gazelle/vitest/BUILD.bazel
+  h_cb7f8177e9a94f 6
+projects/datasite/internal/version/BUILD.bazel
+  h_cb7f8177e9a94f 6
+go.mod
+  h_cb7f8177e9a94f 1
+projects/yago/internal/rbac/resources.go
+  h_cb7f8177e9a94f 6
+projects/datasite/internal/moviedb/moviedb_test.go
+  h_cb7f8177e9a94f 10
+projects/datasite/cmd/datasite/router.go
+  h_cb7f8177e9a94f 9-11
+projects/datasite/cmd/datasite/main.go
+  h_cb7f8177e9a94f 16-21,137
+lib/go/cache/migrate.go
+  h_cb7f8177e9a94f 7
+projects/hello_world/hello_go/BUILD.bazel
+  h_cb7f8177e9a94f 9
+projects/yago/internal/db/migrate.go
+  h_cb7f8177e9a94f 6
+projects/datasite/internal/controllers/BUILD.bazel
+  h_cb7f8177e9a94f 15
+projects/datasite/internal/views/BUILD.bazel
+  h_cb7f8177e9a94f 18
+projects/datasite/internal/controllers/admin_dash.go
+  h_cb7f8177e9a94f 13
+projects/datasite/internal/controllers/admin_movie_logs.go
+  h_cb7f8177e9a94f 14-16
+projects/interface/cmd/interface/main.go
+  h_cb7f8177e9a94f 8
+lib/go/o11y/BUILD.bazel
+  h_cb7f8177e9a94f 11
+lib/go/testdb/BUILD.bazel
+  h_cb7f8177e9a94f 6
+projects/datasite/internal/views/page.templ
+  h_cb7f8177e9a94f 3
+projects/datasite/internal/db/migrate.go
+  h_cb7f8177e9a94f 7
+projects/datasite/internal/controllers/admin_import.go
+  h_cb7f8177e9a94f 15-17
+projects/datasite/internal/controllers/login.go
+  h_cb7f8177e9a94f 7
+projects/datasite/internal/controllers/public_movie_log.go
+  h_cb7f8177e9a94f 9-11
+projects/datasite/cmd/datasite/router_test.go
+  h_cb7f8177e9a94f 13
+projects/datasite/internal/static/BUILD.bazel
+  h_cb7f8177e9a94f 52
+lib/go/cache/BUILD.bazel
+  h_cb7f8177e9a94f 16
+projects/datasite/internal/controllers/admin_cinemas.go
+  h_cb7f8177e9a94f 9-10
+projects/yago/cmd/yago/BUILD.bazel
+  h_cb7f8177e9a94f 9
+projects/datasite/internal/db/BUILD.bazel
+  h_cb7f8177e9a94f 19
+projects/yago/internal/db/BUILD.bazel
+  h_cb7f8177e9a94f 16
+projects/datasite/cmd/datasite/datasite.env
+  h_cb7f8177e9a94f 7
+projects/datasite/internal/views/page_templ.go
+  h_cb7f8177e9a94f 8-10,12
+  h_cb7f8177e9a94f 11
+projects/datasite/internal/controllers/home_test.go
+  h_cb7f8177e9a94f 14
+projects/datasite/internal/moviedb/moviedb.go
+  h_cb7f8177e9a94f 9-10
+projects/interface/cmd/interface/BUILD.bazel
+  h_cb7f8177e9a94f 9,68
+projects/datasite/internal/metrics/BUILD.bazel
+  h_cb7f8177e9a94f 6
+lib/go/dbmigrate/BUILD.bazel
+  h_cb7f8177e9a94f 6
+platforms/packages.bzl
+  h_cb7f8177e9a94f 18
+projects/yago/cmd/yago/main.go
+  h_cb7f8177e9a94f 9-10
+projects/datasite/internal/views/home_test.go
+  h_cb7f8177e9a94f 8
+projects/datasite/cmd/datasite/BUILD.bazel
+  h_cb7f8177e9a94f 13
+projects/yago/internal/db/migrate_test.go
+  h_cb7f8177e9a94f 6
+projects/datasite/internal/controllers/api_handler.go
+  h_cb7f8177e9a94f 14-15
+projects/interface/internal/version/BUILD.bazel
+  h_cb7f8177e9a94f 6
+projects/datasite/internal/controllers/home.go
+  h_cb7f8177e9a94f 8-10
+lib/go/pwhash/BUILD.bazel
+  h_cb7f8177e9a94f 9
+projects/yago/internal/version/BUILD.bazel
+  h_cb7f8177e9a94f 6
+projects/datasite/internal/moviedb/BUILD.bazel
+  h_cb7f8177e9a94f 6
+projects/yago/internal/rbac/BUILD.bazel
+  h_cb7f8177e9a94f 10
+tools/gazelle/wrangler/BUILD.bazel
+  h_cb7f8177e9a94f 6
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.0",
+  "base_commit_sha": "a2a245e7d029d03397b792c0b37ea0913296e3ff",
+  "prompts": {},
+  "humans": {
+    "h_cb7f8177e9a94f": {
+      "author": "Piper McCorkle <contact@piperswe.me>"
+    }
+  }
+}
