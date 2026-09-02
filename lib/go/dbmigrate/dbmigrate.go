@@ -3,6 +3,7 @@
 package dbmigrate
 
 import (
+	"context"
 	"database/sql"
 	"errors"
 	"fmt"
@@ -39,17 +40,23 @@ func Up(conn *sql.DB, fsys fs.FS, path string, dbName string) error {
 	return src.Close()
 }
 
-func UpPostgres(conn *pgx.Conn, fsys fs.FS, path string, dbName string) error {
-	src, err := iofs.New(fsys, path)
+type PostgresMigrator struct {
+	FS     fs.FS
+	Path   string
+	DBName string
+}
+
+func (pm *PostgresMigrator) Migrate(ctx context.Context, conn *pgx.Conn) error {
+	src, err := iofs.New(pm.FS, pm.Path)
 	if err != nil {
 		return fmt.Errorf("load migrations: %w", err)
 	}
 	db := stdlib.OpenDB(*conn.Config())
-	drv, err := pgxmigrate.WithInstance(db, &pgxmigrate.Config{DatabaseName: dbName})
+	drv, err := pgxmigrate.WithInstance(db, &pgxmigrate.Config{DatabaseName: pm.DBName})
 	if err != nil {
 		return fmt.Errorf("init migration driver: %w", err)
 	}
-	m, err := migrate.NewWithInstance("iofs", src, dbName, drv)
+	m, err := migrate.NewWithInstance("iofs", src, pm.DBName, drv)
 	if err != nil {
 		return fmt.Errorf("init migrations: %w", err)
 	}

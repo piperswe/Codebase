@@ -7,6 +7,6 @@ import (
 )
 
 func TestMigrate(t *testing.T) {
-	_ = testdb.New(t, &Migrator{})
+	_ = testdb.New(t, &Migrator)
 	// if testdb.New succeeded, then the migrations successfully applied
 }
