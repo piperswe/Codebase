@@ -31,7 +31,7 @@ jobs:
       - name: Push Docker images
         if: github.ref == 'refs/heads/main'
         env:
-          REGISTRY: ghcr.io/${{ github.repository_owner }}/${{ github.repository }}
+          REGISTRY: ghcr.io/${{ github.repository }}
         run: |
           REGISTRY=$(printf '%s' "$REGISTRY" | tr '[:upper:]' '[:lower:]')
           export REGISTRY
