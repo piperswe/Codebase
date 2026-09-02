@@ -6,7 +6,7 @@ go_library(
         "argon2id.go",
         "pwhash.go",
     ],
-    importpath = "github.com/piperswe/Codebase/lib/go/pwhash",
+    importpath = "codebase.bid/lib/go/pwhash",
     visibility = ["//visibility:public"],
     deps = ["@org_golang_x_crypto//argon2"],
 )

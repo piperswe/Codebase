@@ -3,7 +3,7 @@ load("@rules_go//go:def.bzl", "go_library", "go_test")
 go_library(
     name = "moviedb",
     srcs = ["moviedb.go"],
-    importpath = "github.com/piperswe/Codebase/projects/datasite/internal/moviedb",
+    importpath = "codebase.bid/projects/datasite/internal/moviedb",
     visibility = ["//projects/datasite:__subpackages__"],
     deps = [
         "//lib/go/cache",

@@ -49,6 +49,6 @@ go_library(
         "static/js/bootstrap.min.js",
         "static/js/bootstrap.min.js.map",
     ],
-    importpath = "github.com/piperswe/Codebase/projects/datasite/internal/static",
+    importpath = "codebase.bid/projects/datasite/internal/static",
     visibility = ["//projects/datasite:__subpackages__"],
 )

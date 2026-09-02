@@ -3,7 +3,7 @@ load("@rules_go//go:def.bzl", "go_library")
 go_library(
     name = "testdb",
     srcs = ["testdb.go"],
-    importpath = "github.com/piperswe/Codebase/lib/go/testdb",
+    importpath = "codebase.bid/lib/go/testdb",
     visibility = ["//visibility:public"],
     deps = [
         "@com_github_jackc_pgx_v5//:pgx",

@@ -12,7 +12,7 @@ go_library(
         "login.go",
         "public_movie_log.go",
     ],
-    importpath = "github.com/piperswe/Codebase/projects/datasite/internal/controllers",
+    importpath = "codebase.bid/projects/datasite/internal/controllers",
     visibility = ["//projects/datasite:__subpackages__"],
     deps = [
         "//projects/datasite/internal/db",

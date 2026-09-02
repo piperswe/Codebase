@@ -3,7 +3,7 @@ package rbac
 import (
 	"context"
 
-	"github.com/piperswe/Codebase/projects/yago/internal/db"
+	"codebase.bid/projects/yago/internal/db"
 )
 
 type Resource string

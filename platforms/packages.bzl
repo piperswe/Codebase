@@ -15,7 +15,7 @@ _ARCHITECTURES = [
 
 _DEBIAN_TEST_IMAGE = "debian:13.5-slim"
 _FEDORA_TEST_IMAGE = "fedora:44"
-_HOMEPAGE = "https://github.com/piperswe/Codebase"
+_HOMEPAGE = "https://codebase.bid"
 _LICENSE = "AGPL-3.0-only"
 _MAINTAINER = "Piper McCorkle <contact@piperswe.me>"
 

@@ -10,7 +10,7 @@ go_library(
         "router.go",
     ],
     embedsrcs = ["openapi.yaml"],
-    importpath = "github.com/piperswe/Codebase/projects/datasite/cmd/datasite",
+    importpath = "codebase.bid/projects/datasite/cmd/datasite",
     visibility = ["//visibility:private"],
     deps = [
         "//lib/go/cache",

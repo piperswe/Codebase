@@ -3,7 +3,7 @@ package db
 import (
 	"testing"
 
-	"github.com/piperswe/Codebase/lib/go/testdb"
+	"codebase.bid/lib/go/testdb"
 )
 
 func TestMigrate(t *testing.T) {

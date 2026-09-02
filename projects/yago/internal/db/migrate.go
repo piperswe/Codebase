@@ -3,7 +3,7 @@ package db
 import (
 	"embed"
 
-	"github.com/piperswe/Codebase/lib/go/dbmigrate"
+	"codebase.bid/lib/go/dbmigrate"
 )
 
 //go:embed migrations

@@ -13,17 +13,17 @@ import (
 	"syscall"
 	"time"
 
+	"codebase.bid/lib/go/cache"
+	"codebase.bid/lib/go/o11y"
+	"codebase.bid/projects/datasite/internal/db"
+	"codebase.bid/projects/datasite/internal/metrics"
+	"codebase.bid/projects/datasite/internal/moviedb"
+	"codebase.bid/projects/datasite/internal/version"
 	"github.com/XSAM/otelsql"
 	"github.com/coreos/go-systemd/v22/daemon"
 	tmdb "github.com/cyruzin/golang-tmdb"
 	"github.com/go-chi/httplog/v3"
 	"github.com/joho/godotenv"
-	"github.com/piperswe/Codebase/lib/go/cache"
-	"github.com/piperswe/Codebase/lib/go/o11y"
-	"github.com/piperswe/Codebase/projects/datasite/internal/db"
-	"github.com/piperswe/Codebase/projects/datasite/internal/metrics"
-	"github.com/piperswe/Codebase/projects/datasite/internal/moviedb"
-	"github.com/piperswe/Codebase/projects/datasite/internal/version"
 	"go.opentelemetry.io/otel/attribute"
 	"go.opentelemetry.io/otel/codes"
 	"go.opentelemetry.io/otel/metric"
@@ -134,7 +134,7 @@ func main() {
 		logger.Error("failed to parse port", slog.Any("err", err))
 		os.Exit(1)
 	}
-	serverSrc := getenvOr("SERVER_SRC", "https://github.com/piperswe/Codebase/projects/datasite")
+	serverSrc := getenvOr("SERVER_SRC", "https://codebase.bid/projects/datasite")
 	adminAPIKey := getenvOr("ADMIN_API_KEY", "1234")
 	u := universe{
 		logger,

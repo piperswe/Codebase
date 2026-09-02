@@ -1,4 +1,4 @@
-module github.com/piperswe/Codebase
+module codebase.bid
 
 go 1.26.6
 

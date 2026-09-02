@@ -6,11 +6,11 @@ import (
 	"log/slog"
 	"net/http"
 
+	"codebase.bid/projects/datasite/internal/controllers"
+	"codebase.bid/projects/datasite/internal/oas"
+	"codebase.bid/projects/datasite/internal/static"
 	"github.com/go-chi/chi/v5"
 	"github.com/go-chi/httplog/v3"
-	"github.com/piperswe/Codebase/projects/datasite/internal/controllers"
-	"github.com/piperswe/Codebase/projects/datasite/internal/oas"
-	"github.com/piperswe/Codebase/projects/datasite/internal/static"
 	"github.com/riandyrn/otelchi"
 	otelchimetric "github.com/riandyrn/otelchi/metric"
 )

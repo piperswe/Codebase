@@ -11,10 +11,10 @@ import (
 	"strings"
 	"time"
 
+	"codebase.bid/projects/datasite/internal/db"
+	"codebase.bid/projects/datasite/internal/oas"
 	"github.com/go-faster/jx"
 	"github.com/ogen-go/ogen/ogenerrors"
-	"github.com/piperswe/Codebase/projects/datasite/internal/db"
-	"github.com/piperswe/Codebase/projects/datasite/internal/oas"
 )
 
 // APIHandler implements the generated oas.Handler and oas.SecurityHandler.

@@ -5,8 +5,8 @@ import (
 	"os"
 	"time"
 
+	"codebase.bid/projects/interface/internal/version"
 	"github.com/coreos/go-systemd/v22/daemon"
-	"github.com/piperswe/Codebase/projects/interface/internal/version"
 )
 
 func main() {

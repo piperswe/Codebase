@@ -13,7 +13,7 @@ go_library(
         "migrations/000001_init.down.sql",
         "migrations/000001_init.up.sql",
     ],
-    importpath = "github.com/piperswe/Codebase/projects/yago/internal/db",
+    importpath = "codebase.bid/projects/yago/internal/db",
     visibility = ["//projects/yago:__subpackages__"],
     deps = [
         "//lib/go/dbmigrate",

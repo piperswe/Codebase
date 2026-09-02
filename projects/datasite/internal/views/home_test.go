@@ -5,7 +5,7 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/piperswe/Codebase/projects/datasite/internal/version"
+	"codebase.bid/projects/datasite/internal/version"
 )
 
 func renderHome(t *testing.T, vm HomeViewModel) string {

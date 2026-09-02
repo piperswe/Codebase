@@ -9,7 +9,7 @@ import (
 // ScopeName is the instrumentation scope used for datasite's own spans and
 // metrics. It matches the module path by convention. Obtain a tracer for this
 // scope via o11y's (*O11y).Tracer(ScopeName).
-const ScopeName = "github.com/piperswe/Codebase/projects/datasite"
+const ScopeName = "codebase.bid/projects/datasite"
 
 // Instruments holds datasite's custom application metrics. Build once at
 // startup with NewInstruments and pass where needed.

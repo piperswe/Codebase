@@ -6,10 +6,10 @@ import (
 	"net/http"
 	"strconv"
 
+	"codebase.bid/projects/datasite/internal/db"
+	"codebase.bid/projects/datasite/internal/moviedb"
+	"codebase.bid/projects/datasite/internal/views"
 	"github.com/go-chi/chi/v5"
-	"github.com/piperswe/Codebase/projects/datasite/internal/db"
-	"github.com/piperswe/Codebase/projects/datasite/internal/moviedb"
-	"github.com/piperswe/Codebase/projects/datasite/internal/views"
 )
 
 type MovieLogController struct {

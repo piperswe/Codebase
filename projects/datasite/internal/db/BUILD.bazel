@@ -16,7 +16,7 @@ go_library(
         "migrations/000002_create_movie_log.down.sql",
         "migrations/000002_create_movie_log.up.sql",
     ],
-    importpath = "github.com/piperswe/Codebase/projects/datasite/internal/db",
+    importpath = "codebase.bid/projects/datasite/internal/db",
     visibility = ["//projects/datasite:__subpackages__"],
     deps = [
         "//lib/go/dbmigrate",

@@ -4,7 +4,7 @@ import (
 	"log/slog"
 	"net/http"
 
-	"github.com/piperswe/Codebase/projects/datasite/internal/views"
+	"codebase.bid/projects/datasite/internal/views"
 )
 
 type LoginController struct {

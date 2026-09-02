@@ -13,7 +13,7 @@ go_library(
         "migrations/000001_init.down.sql",
         "migrations/000001_init.up.sql",
     ],
-    importpath = "github.com/piperswe/Codebase/lib/go/cache",
+    importpath = "codebase.bid/lib/go/cache",
     visibility = ["//visibility:public"],
     deps = ["//lib/go/dbmigrate"],
 )

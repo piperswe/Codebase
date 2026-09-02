@@ -6,7 +6,7 @@ load("//platforms:packages.bzl", "linux_binary_packages")
 go_library(
     name = "yago_lib",
     srcs = ["main.go"],
-    importpath = "github.com/piperswe/Codebase/projects/yago/cmd/yago",
+    importpath = "codebase.bid/projects/yago/cmd/yago",
     visibility = ["//visibility:private"],
     deps = [
         "//projects/yago/internal/db",

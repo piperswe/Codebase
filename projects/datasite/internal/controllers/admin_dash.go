@@ -10,7 +10,7 @@ import (
 	"strconv"
 	"time"
 
-	"github.com/piperswe/Codebase/projects/datasite/internal/views"
+	"codebase.bid/projects/datasite/internal/views"
 )
 
 type AdminDashController struct {

@@ -6,9 +6,9 @@ import (
 	"os"
 	"time"
 
+	"codebase.bid/projects/yago/internal/db"
+	"codebase.bid/projects/yago/internal/version"
 	"github.com/coreos/go-systemd/v22/daemon"
-	"github.com/piperswe/Codebase/projects/yago/internal/db"
-	"github.com/piperswe/Codebase/projects/yago/internal/version"
 )
 
 func main() {

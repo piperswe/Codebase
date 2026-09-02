@@ -7,7 +7,7 @@ go_library(
         "permissions.go",
         "resources.go",
     ],
-    importpath = "github.com/piperswe/Codebase/projects/yago/internal/rbac",
+    importpath = "codebase.bid/projects/yago/internal/rbac",
     visibility = ["//projects/yago:__subpackages__"],
     deps = ["//projects/yago/internal/db"],
 )

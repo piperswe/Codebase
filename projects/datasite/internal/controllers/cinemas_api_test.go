@@ -10,8 +10,8 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/piperswe/Codebase/projects/datasite/internal/db"
-	"github.com/piperswe/Codebase/projects/datasite/internal/oas"
+	"codebase.bid/projects/datasite/internal/db"
+	"codebase.bid/projects/datasite/internal/oas"
 	_ "modernc.org/sqlite"
 )
 

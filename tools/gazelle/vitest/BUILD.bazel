@@ -3,7 +3,7 @@ load("@rules_go//go:def.bzl", "go_library", "go_test")
 go_library(
     name = "vitest",
     srcs = ["vitest.go"],
-    importpath = "github.com/piperswe/Codebase/tools/gazelle/vitest",
+    importpath = "codebase.bid/tools/gazelle/vitest",
     visibility = ["//visibility:public"],
     deps = [
         "@gazelle//language",
