@@ -3,7 +3,6 @@ module github.com/piperswe/Codebase
 go 1.26.6
 
 require (
-	github.com/DarthSim/overmind v2.0.1+incompatible
 	github.com/XSAM/otelsql v0.43.0
 	github.com/a-h/templ v0.3.1020
 	github.com/bazelbuild/bazel-gazelle v0.53.0
@@ -20,7 +19,6 @@ require (
 	github.com/oklog/ulid/v2 v2.1.2
 	github.com/prometheus/client_golang v1.24.1
 	github.com/riandyrn/otelchi v0.12.3
-	github.com/sqlc-dev/sqlc v1.31.1
 	github.com/systemd/slog-journal v0.1.2
 	github.com/testcontainers/testcontainers-go v0.44.0
 	github.com/testcontainers/testcontainers-go/modules/postgres v0.44.0
@@ -41,6 +39,7 @@ require (
 	dario.cat/mergo v1.0.2 // indirect
 	filippo.io/edwards25519 v1.1.1 // indirect
 	github.com/Azure/go-ansiterm v0.0.0-20250102033503-faa5f7b0171c // indirect
+	github.com/DarthSim/overmind v2.0.1+incompatible // indirect
 	github.com/Microsoft/go-winio v0.6.2 // indirect
 	github.com/a-h/parse v0.0.0-20250122154542-74294addb73e // indirect
 	github.com/andybalholm/brotli v1.2.2 // indirect
@@ -129,6 +128,7 @@ require (
 	github.com/spf13/cobra v1.10.2 // indirect
 	github.com/spf13/pflag v1.0.10 // indirect
 	github.com/sqlc-dev/doubleclick v1.0.0 // indirect
+	github.com/sqlc-dev/sqlc v1.31.1 // indirect
 	github.com/stretchr/testify v1.11.1 // indirect
 	github.com/tetratelabs/wazero v1.11.0 // indirect
 	github.com/tklauser/go-sysconf v0.4.0 // indirect
@@ -165,6 +165,7 @@ require (
 )
 
 tool (
+	github.com/DarthSim/overmind
 	github.com/a-h/templ/cmd/templ
 	github.com/ogen-go/ogen/cmd/ogen
 	github.com/sqlc-dev/sqlc/cmd/sqlc
