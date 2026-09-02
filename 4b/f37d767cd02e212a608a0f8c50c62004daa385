@@ -1,0 +1,23 @@
+.github/workflows/git-tag.yaml
+  s_53703b3b6410b0::t_2945a41cadd9e8 1-35
+push_images.sh
+  s_53703b3b6410b0::t_2945a41cadd9e8 22-28,42,45
+.github/workflows/ci.yaml
+  s_53703b3b6410b0::t_2945a41cadd9e8 34-35,40-43
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.0",
+  "base_commit_sha": "4bf37d767cd02e212a608a0f8c50c62004daa385",
+  "prompts": {},
+  "sessions": {
+    "s_53703b3b6410b0": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a062e8-edf8-7280-a83d-d475d8f052a8",
+        "model": "gpt-5.6-sol"
+      },
+      "human_author": "Piper McCorkle <contact@piperswe.me>"
+    }
+  }
+}
