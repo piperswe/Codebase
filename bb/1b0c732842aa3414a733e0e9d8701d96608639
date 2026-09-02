@@ -1,0 +1,18 @@
+projects/yago/internal/db/migrate_test.go
+  h_cb7f8177e9a94f 10
+projects/yago/internal/db/migrate.go
+  h_cb7f8177e9a94f 12-15
+lib/go/dbmigrate/dbmigrate.go
+  h_cb7f8177e9a94f 6,43-50,55,59
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.0",
+  "base_commit_sha": "bb1b0c732842aa3414a733e0e9d8701d96608639",
+  "prompts": {},
+  "humans": {
+    "h_cb7f8177e9a94f": {
+      "author": "Piper McCorkle <contact@piperswe.me>"
+    }
+  }
+}
