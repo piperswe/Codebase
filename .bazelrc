@@ -8,6 +8,16 @@ common --workspace_status_command=./platforms/workspace_status.sh
 build --@rules_rust//rust/toolchain/channel=stable
 build --remote_download_outputs=minimal
 
+# CI runs on a 4-vCPU runner where nearly every action is a remote cache hit.
+# Bazel sizes --jobs from the CPU count,
+# so HTTP cache round trips become the bottleneck at concurrency 4.
+# Local actions stay limited by --local_resources,
+# so a high job count does not overload the runner.
+common:ci --jobs=100
+common:ci --remote_max_connections=200
+common:ci --repository_cache=~/.cache/bazel-repo
+test:ci --test_output=errors
+
 try-import %workspace%/user.bazelrc
 
 test --test_tag_filters=-requires-docker

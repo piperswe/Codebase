@@ -17,12 +17,24 @@ jobs:
         uses: jdx/mise-action@v4
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v4
+      - name: Cache Bazel repository cache
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/bazel-repo
+          key: bazel-repo-${{ runner.os }}-${{ hashFiles('MODULE.bazel.lock', 'go.sum', 'pnpm-lock.yaml', 'maven_install.json') }}
+          restore-keys: |
+            bazel-repo-${{ runner.os }}-
       - name: Setup cache
-        run: echo "build --remote_cache=https://user:${{ secrets.BAZEL_CACHE_PASSWORD }}@bazel-cache.piperswe.me/Codebase" > user.bazelrc
-      - name: Build
-        run: mise build
-      - name: Test
-        run: bazel test --config=docker --test_output=all //...
+        run: |
+          {
+            echo "common --config=ci"
+            echo "build --remote_cache=https://user:${{ secrets.BAZEL_CACHE_PASSWORD }}@bazel-cache.piperswe.me/Codebase"
+          } > user.bazelrc
+      # `bazel test //...` also builds the non-test targets in the pattern,
+      # because `--build_tests_only` defaults to false.
+      # A separate `bazel build //...` step repeats that work.
+      - name: Build and test
+        run: bazel test --config=docker //...
       - name: Login to GitHub Container Registry
         if: github.ref == 'refs/heads/main'
         env:

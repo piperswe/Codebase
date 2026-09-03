@@ -17,8 +17,19 @@ jobs:
         uses: jdx/mise-action@v4
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v4
+      - name: Cache Bazel repository cache
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/bazel-repo
+          key: bazel-repo-${{ runner.os }}-${{ hashFiles('MODULE.bazel.lock', 'go.sum', 'pnpm-lock.yaml', 'maven_install.json') }}
+          restore-keys: |
+            bazel-repo-${{ runner.os }}-
       - name: Setup cache
-        run: echo "build --remote_cache=https://user:${{ secrets.BAZEL_CACHE_PASSWORD }}@bazel-cache.piperswe.me/Codebase" > user.bazelrc
+        run: |
+          {
+            echo "common --config=ci"
+            echo "build --remote_cache=https://user:${{ secrets.BAZEL_CACHE_PASSWORD }}@bazel-cache.piperswe.me/Codebase"
+          } > user.bazelrc
       - name: Build
         run: mise build
       - name: Login to GitHub Container Registry
