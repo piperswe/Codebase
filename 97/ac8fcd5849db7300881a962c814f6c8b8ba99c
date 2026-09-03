@@ -1,0 +1,16 @@
+MODULE.bazel
+  h_cb7f8177e9a94f 37-38
+.bazelrc
+  h_cb7f8177e9a94f 8
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.0",
+  "base_commit_sha": "97ac8fcd5849db7300881a962c814f6c8b8ba99c",
+  "prompts": {},
+  "humans": {
+    "h_cb7f8177e9a94f": {
+      "author": "Piper McCorkle <contact@piperswe.me>"
+    }
+  }
+}
