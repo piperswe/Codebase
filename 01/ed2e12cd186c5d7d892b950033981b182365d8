@@ -1,0 +1,31 @@
+projects/yago/internal/db/helpers.go
+  h_cb7f8177e9a94f 53-84
+projects/yago/cmd/yago/main.go
+  h_cb7f8177e9a94f 30-49
+go.mod
+  h_cb7f8177e9a94f 3
+projects/yago/internal/app/home/view.templ
+  h_cb7f8177e9a94f 3-7,9
+projects/yago/cmd/yago/router.go
+  h_cb7f8177e9a94f 17,29
+projects/yago/internal/app/home/handler.go
+  h_cb7f8177e9a94f 6,11,15-20,26-31
+  h_cb7f8177e9a94f 10,12
+projects/yago/internal/app/home/BUILD.bazel
+  h_cb7f8177e9a94f 12
+projects/yago/internal/app/home/view_templ.go
+  h_cb7f8177e9a94f 11-15,36-49
+projects/yago/internal/db/BUILD.bazel
+  h_cb7f8177e9a94f 29
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.0",
+  "base_commit_sha": "01ed2e12cd186c5d7d892b950033981b182365d8",
+  "prompts": {},
+  "humans": {
+    "h_cb7f8177e9a94f": {
+      "author": "Piper McCorkle <contact@piperswe.me>"
+    }
+  }
+}
