@@ -10,9 +10,9 @@ import (
 	"strings"
 	"testing"
 
+	"codebase.bid/lib/go/o11y"
 	"codebase.bid/projects/datasite/internal/db"
 	tmdb "github.com/cyruzin/golang-tmdb"
-	"github.com/go-chi/httplog/v3"
 	_ "modernc.org/sqlite"
 )
 
@@ -49,14 +49,13 @@ func newTestMux(t *testing.T, movies *fakeMovieDB) (http.Handler, *db.Queries) {
 	queries := db.New(conn)
 	mux := SetupMux(&universe{
 		logger:      slog.New(slog.DiscardHandler),
-		logFormat:   httplog.SchemaOTEL,
 		dbConn:      conn,
 		db:          queries,
 		movies:      movies,
 		serverSrc:   "https://example.org/src",
 		adminAPIKey: "test-key",
 	})
-	return mux, queries
+	return (&o11y.O11y{}).HTTPMiddleware(withChiRoutePattern(mux)), queries
 }
 
 func logMovieOn(t *testing.T, q *db.Queries, movieID int64, date int64) {

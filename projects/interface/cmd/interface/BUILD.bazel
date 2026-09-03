@@ -9,8 +9,8 @@ go_library(
     importpath = "codebase.bid/projects/interface/cmd/interface",
     visibility = ["//visibility:private"],
     deps = [
+        "//lib/go/notify",
         "//projects/interface/internal/version",
-        "@com_github_coreos_go_systemd_v22//daemon",
     ],
 )
 
@@ -60,15 +60,4 @@ linux_binary_packages(
     ],
     target_name = "interface",
     visibility = ["//visibility:public"],
-)
-
-go_library(
-    name = "yago_lib",
-    srcs = ["main.go"],
-    importpath = "codebase.bid/projects/interface/cmd/yago",
-    visibility = ["//visibility:private"],
-    deps = [
-        "//projects/interface/internal/version",
-        "@com_github_coreos_go_systemd_v22//daemon",
-    ],
 )

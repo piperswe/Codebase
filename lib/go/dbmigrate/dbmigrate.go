@@ -8,6 +8,7 @@ import (
 	"errors"
 	"fmt"
 	"io/fs"
+	"log/slog"
 
 	"github.com/golang-migrate/migrate/v4"
 	pgxmigrate "github.com/golang-migrate/migrate/v4/database/pgx/v5"
@@ -16,6 +17,16 @@ import (
 	"github.com/jackc/pgx/v5"
 	"github.com/jackc/pgx/v5/stdlib"
 )
+
+type slogLogger struct{}
+
+func (*slogLogger) Printf(format string, v ...interface{}) {
+	slog.Info(fmt.Sprintf(format, v...))
+}
+
+func (*slogLogger) Verbose() bool {
+	return true
+}
 
 // Up applies all pending migrations found at path within fsys to conn. It
 // does not close conn; callers keep using it afterwards.
@@ -32,6 +43,7 @@ func Up(conn *sql.DB, fsys fs.FS, path string, dbName string) error {
 	if err != nil {
 		return fmt.Errorf("init migrations: %w", err)
 	}
+	m.Log = &slogLogger{}
 	// Deliberately no m.Close(): the sqlite driver's Close() closes the
 	// underlying *sql.DB, which the application continues to use.
 	if err := m.Up(); err != nil && !errors.Is(err, migrate.ErrNoChange) {
@@ -60,6 +72,7 @@ func (pm *PostgresMigrator) Migrate(ctx context.Context, conn *pgx.Conn) error {
 	if err != nil {
 		return fmt.Errorf("init migrations: %w", err)
 	}
+	m.Log = &slogLogger{}
 	if err := m.Up(); err != nil && !errors.Is(err, migrate.ErrNoChange) {
 		return fmt.Errorf("apply migrations: %w", err)
 	}

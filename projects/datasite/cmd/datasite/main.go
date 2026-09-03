@@ -14,15 +14,14 @@ import (
 	"time"
 
 	"codebase.bid/lib/go/cache"
+	"codebase.bid/lib/go/notify"
 	"codebase.bid/lib/go/o11y"
 	"codebase.bid/projects/datasite/internal/db"
 	"codebase.bid/projects/datasite/internal/metrics"
 	"codebase.bid/projects/datasite/internal/moviedb"
 	"codebase.bid/projects/datasite/internal/version"
 	"github.com/XSAM/otelsql"
-	"github.com/coreos/go-systemd/v22/daemon"
 	tmdb "github.com/cyruzin/golang-tmdb"
-	"github.com/go-chi/httplog/v3"
 	"github.com/joho/godotenv"
 	"go.opentelemetry.io/otel/attribute"
 	"go.opentelemetry.io/otel/codes"
@@ -33,7 +32,6 @@ import (
 
 type universe struct {
 	logger      *slog.Logger
-	logFormat   *httplog.Schema
 	dbConn      *sql.DB
 	db          *db.Queries
 	cacheConn   *sql.DB
@@ -85,7 +83,6 @@ func main() {
 		logger.Error("observability failed to initialize; cannot continue")
 		os.Exit(1)
 	}
-	logFormat := ob.LogSchema()
 	appTracer := ob.Tracer(metrics.ScopeName)
 
 	instruments, err := metrics.NewInstruments()
@@ -138,7 +135,6 @@ func main() {
 	adminAPIKey := getenvOr("ADMIN_API_KEY", "1234")
 	u := universe{
 		logger,
-		logFormat,
 		dbConn,
 		dbQueries,
 		cacheConn,
@@ -150,16 +146,7 @@ func main() {
 	}
 	logger.Info("Config loaded")
 
-	watchdogInterval, err := daemon.SdWatchdogEnabled(false)
-	if err == nil {
-		go func(watchdogInterval time.Duration) {
-			for {
-				time.Sleep(watchdogInterval / 2)
-				_, _ = daemon.SdNotify(false, daemon.SdNotifyWatchdog)
-			}
-		}(watchdogInterval)
-	}
-	_, _ = daemon.SdNotify(false, daemon.SdNotifyReady)
+	notify.Ready()
 
 	go func(c *cache.Queries, logger *slog.Logger, inst *metrics.Instruments, tracer trace.Tracer) {
 		t := time.NewTicker(time.Hour)
@@ -171,13 +158,11 @@ func main() {
 	r := SetupMux(&u)
 
 	// Public application server.
-	srv := &http.Server{Addr: fmt.Sprintf(":%d", port), Handler: r}
+	srv := &http.Server{Addr: fmt.Sprintf(":%d", port), Handler: ob.HTTPMiddleware(withChiRoutePattern(r))}
 
 	ctx, stop := signal.NotifyContext(context.Background(), syscall.SIGINT, syscall.SIGTERM)
 	defer stop()
 
-	// Admin server (Prometheus /metrics + /healthz) owned by o11y. It shuts
-	// down on ctx cancellation.
 	go func() {
 		if err := ob.ServeAdmin(ctx, logger); err != nil {
 			logger.Error("admin server returned", slog.Any("err", err))
@@ -192,7 +177,7 @@ func main() {
 
 	<-ctx.Done()
 	logger.Info("shutting down")
-	_, _ = daemon.SdNotify(false, daemon.SdNotifyStopping)
+	notify.Stopping()
 
 	shutdownCtx, cancel := context.WithTimeout(context.Background(), 15*time.Second)
 	defer cancel()

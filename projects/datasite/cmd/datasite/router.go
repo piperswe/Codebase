@@ -10,37 +10,25 @@ import (
 	"codebase.bid/projects/datasite/internal/oas"
 	"codebase.bid/projects/datasite/internal/static"
 	"github.com/go-chi/chi/v5"
-	"github.com/go-chi/httplog/v3"
-	"github.com/riandyrn/otelchi"
-	otelchimetric "github.com/riandyrn/otelchi/metric"
 )
 
 //go:embed openapi.yaml
 var openAPISpec []byte
 
+// withChiRoutePattern exposes Chi's low-cardinality route template through the
+// standard Request.Pattern field consumed by the outer HTTP instrumentation.
+func withChiRoutePattern(router chi.Router) http.Handler {
+	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		routeContext := chi.NewRouteContext()
+		if router.Match(routeContext, r.Method, r.URL.Path) {
+			r.Pattern = routeContext.RoutePattern()
+		}
+		router.ServeHTTP(w, r)
+	})
+}
+
 func SetupMux(u *universe) chi.Router {
 	r := chi.NewRouter()
-	// Server spans first so trace IDs are in context for httplog's OTEL schema
-	// and downstream handlers. Route patterns keep span names low-cardinality.
-	r.Use(otelchi.Middleware("datasite", otelchi.WithChiRoutes(r)))
-	// HTTP server metrics for the non-ogen routes, exported to the global
-	// (Prometheus-backed) MeterProvider.
-	metricCfg := otelchimetric.NewBaseConfig("datasite")
-	r.Use(
-		otelchimetric.NewServerRequestDuration(metricCfg),
-		otelchimetric.NewServerActiveRequests(metricCfg),
-		otelchimetric.NewServerResponseBodySize(metricCfg),
-	)
-	r.Use(httplog.RequestLogger(u.logger, &httplog.Options{
-		// Level defines the verbosity of the request logs:
-		// slog.LevelDebug - log all responses (incl. OPTIONS)
-		// slog.LevelInfo  - log responses (excl. OPTIONS)
-		// slog.LevelWarn  - log 4xx and 5xx responses only (except for 429)
-		// slog.LevelError - log 5xx responses only
-		Level:         slog.LevelInfo,
-		Schema:        u.logFormat,
-		RecoverPanics: true,
-	}))
 	r.Use(func(h http.Handler) http.Handler {
 		return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 			w.Header().Add("Server-Src", u.serverSrc)

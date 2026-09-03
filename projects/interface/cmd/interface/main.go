@@ -3,10 +3,9 @@ package main
 import (
 	"fmt"
 	"os"
-	"time"
 
+	"codebase.bid/lib/go/notify"
 	"codebase.bid/projects/interface/internal/version"
-	"github.com/coreos/go-systemd/v22/daemon"
 )
 
 func main() {
@@ -14,15 +13,6 @@ func main() {
 		fmt.Printf("interface %s", version.Version)
 		return
 	}
-	watchdogInterval, err := daemon.SdWatchdogEnabled(false)
-	if err == nil {
-		go func(watchdogInterval time.Duration) {
-			for {
-				time.Sleep(watchdogInterval / 2)
-				_, _ = daemon.SdNotify(false, daemon.SdNotifyWatchdog)
-			}
-		}(watchdogInterval)
-	}
-	_, _ = daemon.SdNotify(false, daemon.SdNotifyReady)
+	notify.Ready()
 	fmt.Println("Hello, world!")
 }

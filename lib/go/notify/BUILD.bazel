@@ -1,0 +1,9 @@
+load("@rules_go//go:def.bzl", "go_library")
+
+go_library(
+    name = "notify",
+    srcs = ["notify.go"],
+    importpath = "codebase.bid/lib/go/notify",
+    visibility = ["//visibility:public"],
+    deps = ["@com_github_coreos_go_systemd_v22//daemon"],
+)

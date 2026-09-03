@@ -5,13 +5,22 @@ load("//platforms:packages.bzl", "linux_binary_packages")
 
 go_library(
     name = "yago_lib",
-    srcs = ["main.go"],
+    srcs = [
+        "main.go",
+        "router.go",
+    ],
     importpath = "codebase.bid/projects/yago/cmd/yago",
     visibility = ["//visibility:private"],
     deps = [
+        "//lib/go/notify",
+        "//lib/go/o11y",
+        "//projects/yago/internal/app/home",
         "//projects/yago/internal/db",
         "//projects/yago/internal/version",
-        "@com_github_coreos_go_systemd_v22//daemon",
+        "@com_github_go_chi_chi_v5//:chi",
+        "@com_github_go_chi_httplog_v3//:httplog",
+        "@com_github_joho_godotenv//:godotenv",
+        "@com_github_valkey_io_valkey_go//:valkey-go",
     ],
 )
 

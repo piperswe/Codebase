@@ -43,7 +43,7 @@ run = "npx oxfmt"
 
 [tasks.gencode]
 description = "Run `go generate` & `sqlc generate`"
-run = "bazel run @com_github_sqlc_dev_sqlc//cmd/sqlc -- generate -f $MISE_PROJECT_ROOT/sqlc.yaml && go generate ./... && mise gazelle"
+run = "bazel run @com_github_sqlc_dev_sqlc//cmd/sqlc -- generate -f $MISE_PROJECT_ROOT/sqlc.yaml && bazel run --run_in_cwd @com_github_a_h_templ//cmd/templ -- generate && go generate ./... && mise gazelle"
 
 [tasks.deploy]
 description = "Deploy everything"

@@ -1,0 +1,16 @@
+load("@rules_go//go:def.bzl", "go_library")
+
+go_library(
+    name = "home",
+    srcs = [
+        "handler.go",
+        "view_templ.go",
+    ],
+    importpath = "codebase.bid/projects/yago/internal/app/home",
+    visibility = ["//projects/yago:__subpackages__"],
+    deps = [
+        "@com_github_a_h_templ//:templ",
+        "@com_github_a_h_templ//runtime",
+        "@com_github_go_chi_chi_v5//:chi",
+    ],
+)

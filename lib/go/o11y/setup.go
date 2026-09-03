@@ -69,6 +69,7 @@ func setup(ctx context.Context, cfg Config, deps setupDependencies) (*O11y, *slo
 		return nil, nil, errors.Wrap(err, "setup logging")
 	}
 	deps.setDefaultLogger(logger)
+	o.logger = logger
 	o.logSchema = httplog.SchemaOTEL
 
 	res, err := deps.newResource(ctx, serviceName, cfg.ServiceVersion)

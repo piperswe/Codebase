@@ -43,7 +43,7 @@ func (o *O11y) adminHandler() http.Handler {
 		w.WriteHeader(http.StatusOK)
 		_, _ = w.Write([]byte("ok"))
 	})
-	return mux
+	return o.HTTPMiddleware(mux)
 }
 
 type adminServer interface {

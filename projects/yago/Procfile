@@ -1,2 +1,3 @@
-db: docker run --name yagodb -it --rm -e POSTGRES_DB=yago -e POSTGRES_USER=yago -e POSTGRES_PASSWORD=yago -p 43256:5432 docker.io/library/postgres:18.6@sha256:4ef4dbc939d61acea57712655ddb4b4ab27419c913f94cca0cd57cb3ea3c2280
-yago: sleep 2 && DATABASE_URL="host=localhost port=43256 user=yago password=yago dbname=yago sslmode=disable" bazel run //projects/yago/cmd/yago
+db: docker rm -f yagodb; docker run --name yagodb -it --rm -e POSTGRES_DB=yago -e POSTGRES_USER=yago -e POSTGRES_PASSWORD=yago -p 43256:5432 docker.io/library/postgres:18.6@sha256:4ef4dbc939d61acea57712655ddb4b4ab27419c913f94cca0cd57cb3ea3c2280
+valkey: docker rm -f yagovalkey; docker run --name yagovalkey -it --rm -p 43257:6379 docker.io/valkey/valkey:9.1.2@sha256:a91d34ab33975b1054e26f1bd9995b268f7e0c507b5ded7f3d181a1a25521630
+yago: bazel build //projects/yago/cmd/yago && sleep 5 && DATABASE_URL="host=localhost port=43256 user=yago password=yago dbname=yago sslmode=disable" VALKEY_ADDR="localhost:43257" $(bazel info bazel-bin)/projects/yago/cmd/yago/yago_/yago

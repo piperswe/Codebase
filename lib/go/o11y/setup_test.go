@@ -58,6 +58,9 @@ func TestSetupConfiguresRequiredComponents(t *testing.T) {
 	if logger == nil || defaultLogger != logger {
 		t.Fatal("returned logger was not installed as the default")
 	}
+	if o.logger != logger {
+		t.Fatal("returned logger was not retained for request logging")
+	}
 	if logName != "catalog" || resourceName != "catalog" {
 		t.Errorf("service name: logging=%q resource=%q, want catalog", logName, resourceName)
 	}

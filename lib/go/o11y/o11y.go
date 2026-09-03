@@ -11,6 +11,7 @@ package o11y
 
 import (
 	"context"
+	"log/slog"
 
 	"github.com/go-chi/httplog/v3"
 	"github.com/go-faster/errors"
@@ -29,12 +30,13 @@ type Config struct {
 }
 
 // O11y holds the configured providers, the Prometheus registry backing the
-// /metrics endpoint, and the httplog schema for request logging. Call Shutdown
-// to flush and stop the exporters.
+// /metrics endpoint, and the logger and schema for request logging. Call
+// Shutdown to flush and stop the exporters.
 type O11y struct {
 	registry    *prometheus.Registry
 	tracer      tracerProvider // nil when no OTLP endpoint is configured
 	meter       meterProvider
+	logger      *slog.Logger
 	logSchema   *httplog.Schema
 	serviceName string
 }

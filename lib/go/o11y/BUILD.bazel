@@ -4,6 +4,7 @@ go_library(
     name = "o11y",
     srcs = [
         "admin.go",
+        "http.go",
         "logging.go",
         "o11y.go",
         "setup.go",
@@ -17,6 +18,7 @@ go_library(
         "@com_github_prometheus_client_golang//prometheus/collectors",
         "@com_github_prometheus_client_golang//prometheus/promhttp",
         "@com_github_systemd_slog_journal//:slog-journal",
+        "@io_opentelemetry_go_contrib_instrumentation_net_http_otelhttp//:otelhttp",
         "@io_opentelemetry_go_otel//:otel",
         "@io_opentelemetry_go_otel//propagation",
         "@io_opentelemetry_go_otel//semconv/v1.26.0:v1_26_0",
@@ -35,6 +37,7 @@ go_test(
     srcs = [
         "admin_test.go",
         "exporters_test.go",
+        "http_test.go",
         "logging_test.go",
         "o11y_test.go",
         "setup_errors_test.go",
@@ -43,6 +46,7 @@ go_test(
     ],
     embed = [":o11y"],
     deps = [
+        "@com_github_go_chi_chi_v5//:chi",
         "@com_github_go_chi_httplog_v3//:httplog",
         "@com_github_prometheus_client_golang//prometheus",
         "@com_github_systemd_slog_journal//:slog-journal",
@@ -52,6 +56,10 @@ go_test(
         "@io_opentelemetry_go_otel_metric//:metric",
         "@io_opentelemetry_go_otel_metric//noop",
         "@io_opentelemetry_go_otel_sdk//resource",
+        "@io_opentelemetry_go_otel_sdk//trace",
+        "@io_opentelemetry_go_otel_sdk//trace/tracetest",
+        "@io_opentelemetry_go_otel_sdk_metric//:metric",
+        "@io_opentelemetry_go_otel_sdk_metric//metricdata",
         "@io_opentelemetry_go_otel_trace//:trace",
         "@io_opentelemetry_go_otel_trace//noop",
     ],

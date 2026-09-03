@@ -11,6 +11,7 @@ import (
 	"testing"
 
 	"github.com/prometheus/client_golang/prometheus"
+	"go.opentelemetry.io/otel/sdk/resource"
 )
 
 func TestAdminAddrFromEnv(t *testing.T) {
@@ -59,6 +60,44 @@ func TestAdminHandlerMetrics(t *testing.T) {
 	}
 	if !strings.Contains(response.Body.String(), "o11y_test_value 42") {
 		t.Errorf("metrics body does not contain test gauge:\n%s", response.Body.String())
+	}
+}
+
+func TestAdminHandlerExposesHTTPMetrics(t *testing.T) {
+	registry := prometheus.NewRegistry()
+	meterProvider, err := newMeterProvider(registry, resource.Empty())
+	if err != nil {
+		t.Fatal(err)
+	}
+	t.Cleanup(func() { _ = meterProvider.Shutdown(context.Background()) })
+	o := &O11y{registry: registry, meter: meterProvider}
+	handler := o.adminHandler()
+
+	healthResponse := httptest.NewRecorder()
+	handler.ServeHTTP(healthResponse, httptest.NewRequest(http.MethodGet, "http://admin.test/healthz", nil))
+	if healthResponse.Code != http.StatusOK {
+		t.Fatalf("health status=%d, want %d", healthResponse.Code, http.StatusOK)
+	}
+
+	// The first scrape records /metrics after its response is complete. The
+	// second scrape can therefore observe both admin routes.
+	handler.ServeHTTP(httptest.NewRecorder(), httptest.NewRequest(http.MethodGet, "http://admin.test/metrics", nil))
+	metricsResponse := httptest.NewRecorder()
+	handler.ServeHTTP(metricsResponse, httptest.NewRequest(http.MethodGet, "http://admin.test/metrics", nil))
+	body := metricsResponse.Body.String()
+	for _, metric := range []string{
+		"http_server_request_duration_seconds",
+		"http_server_request_body_size_bytes",
+		"http_server_response_body_size_bytes",
+	} {
+		if !strings.Contains(body, metric) {
+			t.Errorf("metrics body does not contain %q", metric)
+		}
+	}
+	for _, route := range []string{"/healthz", "/metrics"} {
+		if !strings.Contains(body, `http_route="`+route+`"`) {
+			t.Errorf("metrics body does not contain route %q", route)
+		}
 	}
 }
 
