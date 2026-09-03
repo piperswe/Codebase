@@ -32,7 +32,9 @@ binary_oci_image(
     name = "hello_go_image",
     base = "distroless_base",
     binary = ":hello_go_linux_{arch}",
+    description = "Hello world implemented in Go",
     entrypoint = ["/hello_go"],
+    title = "hello-go",
     visibility = ["//visibility:public"],
 )
 

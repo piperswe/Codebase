@@ -9,12 +9,15 @@ if ! git_root="$(git rev-parse --show-toplevel 2>/dev/null)"; then
   echo "STABLE_DEB_VERSION 0.0.0"
   echo "STABLE_RPM_VERSION 0.0.0"
   echo "STABLE_RPM_RELEASE 1"
+  echo "STABLE_IMAGE_VERSION 0.0.0"
+  echo "STABLE_GIT_REVISION unknown"
   exit 0
 fi
 
 cd "$git_root"
 
 sha="$(git rev-parse --short=12 HEAD)"
+revision="$(git rev-parse HEAD)"
 tag="$(git describe --tags --match 'v[0-9]*.[0-9]*.[0-9]*' --abbrev=0 2>/dev/null || true)"
 
 case "$tag" in
@@ -47,3 +50,5 @@ echo "STABLE_INTERFACE_VERSION $deb_version"
 echo "STABLE_DEB_VERSION $deb_version"
 echo "STABLE_RPM_VERSION $base"
 echo "STABLE_RPM_RELEASE $rpm_release"
+echo "STABLE_IMAGE_VERSION $deb_version"
+echo "STABLE_GIT_REVISION $revision"

@@ -24,7 +24,9 @@ binary_oci_image(
     name = "hello_rs_image",
     base = "distroless_cc",
     binary = ":hello_rs_linux_{arch}",
+    description = "Hello world implemented in Rust",
     entrypoint = ["/hello_rs"],
+    title = "hello-rs",
     visibility = ["//visibility:public"],
 )
 

@@ -46,7 +46,9 @@ binary_oci_image(
     name = "yago_image",
     base = "distroless_base",
     binary = ":yago_linux_{arch}",
+    description = "Social media website",
     entrypoint = ["/yago"],
+    title = "yago",
     visibility = ["//visibility:public"],
 )
 

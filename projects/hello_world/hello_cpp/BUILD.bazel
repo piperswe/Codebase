@@ -24,7 +24,9 @@ binary_oci_image(
     name = "hello_cpp_image",
     base = "distroless_cc",
     binary = ":hello_cpp_linux_{arch}",
+    description = "Hello world implemented in C++",
     entrypoint = ["/hello_cpp"],
+    title = "hello-cpp",
     visibility = ["//visibility:public"],
 )
 

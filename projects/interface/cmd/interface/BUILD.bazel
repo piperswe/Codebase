@@ -36,7 +36,9 @@ binary_oci_image(
     name = "interface_image",
     base = "distroless_base",
     binary = ":interface_linux_{arch}",
+    description = "Social media website",
     entrypoint = ["/interface"],
+    title = "interface",
     visibility = ["//visibility:public"],
 )
 

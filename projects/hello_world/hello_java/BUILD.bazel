@@ -19,11 +19,13 @@ binary_oci_image(
     name = "hello_java_image",
     base = "distroless_java",
     binary = ":Hello_deploy.jar",
+    description = "Hello world implemented in Java",
     entrypoint = [
         "java",
         "-jar",
         "/Hello_deploy.jar",
     ],
+    title = "hello-java",
     visibility = ["//visibility:public"],
 )
 

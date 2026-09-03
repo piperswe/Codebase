@@ -72,7 +72,9 @@ binary_oci_image(
     name = "datasite_image",
     base = "distroless_base",
     binary = ":datasite_linux_{arch}",
+    description = "Movie log web application",
     entrypoint = ["/datasite"],
+    title = "datasite",
     visibility = ["//visibility:public"],
 )
 

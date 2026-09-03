@@ -50,8 +50,10 @@ multiarch_oci_image(
     name = "hello_ts_image",
     base = "distroless_nodejs",
     cmd = ["projects/hello_world/hello_ts/hello.js"],
+    description = "Hello world implemented in TypeScript",
     entrypoint = ["/nodejs/bin/node"],
     tars = [":hello_ts_linux_{arch}_app_layer"],
+    title = "hello-ts",
     visibility = ["//visibility:public"],
     workdir = "/app/projects/hello_world/hello_ts/hello_ts.runfiles/_main",
 )
