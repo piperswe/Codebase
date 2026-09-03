@@ -50,3 +50,35 @@ func (q *Queries) CreateProfile(ctx context.Context, arg CreateProfileWithUlidPa
 	}
 	return q.CreateProfileWithUlid(ctx, arg)
 }
+
+func (q *Queries) TxVal[T any](ctx context.Context, fn func(*Queries) (T, error)) (T, error) {
+	var zero T
+	db, ok := q.db.(*pgx.Conn)
+	if !ok {
+		return zero, fmt.Errorf("invalid database connection")
+	}
+	tx, err := db.Begin(ctx)
+	if err != nil {
+		return zero, err
+	}
+	defer func() {
+		if err != nil {
+			_ = tx.Rollback(ctx)
+		}
+	}()
+	txQueries := &Queries{db: tx}
+	result, err := fn(txQueries)
+	if err != nil {
+		_ = tx.Rollback(ctx)
+		return zero, err
+	}
+	return result, tx.Commit(ctx)
+}
+
+func (q *Queries) Tx(ctx context.Context, fn func(*Queries) error) error {
+	_, err := q.TxVal(ctx, func(txQueries *Queries) (struct{}, error) {
+		err := fn(txQueries)
+		return struct{}{}, err
+	})
+	return err
+}

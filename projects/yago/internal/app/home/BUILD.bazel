@@ -9,6 +9,7 @@ go_library(
     importpath = "codebase.bid/projects/yago/internal/app/home",
     visibility = ["//projects/yago:__subpackages__"],
     deps = [
+        "//projects/yago/internal/db",
         "@com_github_a_h_templ//:templ",
         "@com_github_a_h_templ//runtime",
         "@com_github_go_chi_chi_v5//:chi",

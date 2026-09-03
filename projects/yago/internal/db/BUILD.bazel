@@ -26,6 +26,7 @@ go_library(
 
 go_test(
     name = "db_test",
+    size = "small",
     srcs = [
         "migrate_test.go",
         "queries_test.go",
@@ -41,5 +42,4 @@ go_test(
         "//lib/go/testdb",
         "@com_github_jackc_pgx_v5//pgtype",
     ],
-    size="small",
 )

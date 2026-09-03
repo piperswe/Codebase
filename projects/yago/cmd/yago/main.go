@@ -27,6 +27,26 @@ type universe struct {
 	vk        valkey.Client
 }
 
+func (u *universe) O11y() *o11y.O11y {
+	return u.o11y
+}
+
+func (u *universe) Logger() *slog.Logger {
+	return u.logger
+}
+
+func (u *universe) LogFormat() *httplog.Schema {
+	return u.logFormat
+}
+
+func (u *universe) Queries() *db.Queries {
+	return u.queries
+}
+
+func (u *universe) Valkey() valkey.Client {
+	return u.vk
+}
+
 func main() {
 	if len(os.Args) > 1 && os.Args[1] == "smoke" {
 		fmt.Printf("yago %s", version.Version)

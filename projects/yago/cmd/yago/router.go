@@ -14,7 +14,7 @@ func notYetImplemented(w http.ResponseWriter, r *http.Request) {
 func NewRouter(u *universe) *chi.Mux {
 	r := chi.NewRouter()
 	r.Use(u.o11y.HTTPMiddleware)
-	home.RegisterRoutes(r)
+	home.RegisterRoutes(r, u)
 	r.Get("/profiles", notYetImplemented)
 	r.Post("/profiles", notYetImplemented)
 	r.Get("/profiles/{id}", notYetImplemented)
@@ -26,6 +26,7 @@ func NewRouter(u *universe) *chi.Mux {
 	r.Post("/friends/circles", notYetImplemented)
 	r.Post("/friends/circles/{id}", notYetImplemented)
 	r.Post("/friends/circles/{id}/delete", notYetImplemented)
+	r.Get("/timeline", notYetImplemented)
 	r.Get("/posts", notYetImplemented)
 	r.Post("/posts", notYetImplemented)
 	r.Post("/posts/{id}", notYetImplemented)

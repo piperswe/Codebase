@@ -1,5 +1,10 @@
 package home
 
-templ HomeView() {
+type HomeViewModel struct {
+    UserCount int64
+}
+
+templ HomeView(vm HomeViewModel) {
     <h1>Home</h1>
+    <p>User count: { vm.UserCount }</p>
 }
