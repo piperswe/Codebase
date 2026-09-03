@@ -5,13 +5,134 @@
 package db
 
 import (
+	"database/sql/driver"
+	"fmt"
+
 	"github.com/jackc/pgx/v5/pgtype"
 )
+
+type FriendshipStatus string
+
+const (
+	FriendshipStatusPending  FriendshipStatus = "pending"
+	FriendshipStatusAccepted FriendshipStatus = "accepted"
+	FriendshipStatusRejected FriendshipStatus = "rejected"
+)
+
+func (e *FriendshipStatus) Scan(src interface{}) error {
+	switch s := src.(type) {
+	case []byte:
+		*e = FriendshipStatus(s)
+	case string:
+		*e = FriendshipStatus(s)
+	default:
+		return fmt.Errorf("unsupported scan type for FriendshipStatus: %T", src)
+	}
+	return nil
+}
+
+type NullFriendshipStatus struct {
+	FriendshipStatus FriendshipStatus
+	Valid            bool // Valid is true if FriendshipStatus is not NULL
+}
+
+// Scan implements the Scanner interface.
+func (ns *NullFriendshipStatus) Scan(value interface{}) error {
+	if value == nil {
+		ns.FriendshipStatus, ns.Valid = "", false
+		return nil
+	}
+	ns.Valid = true
+	return ns.FriendshipStatus.Scan(value)
+}
+
+// Value implements the driver Valuer interface.
+func (ns NullFriendshipStatus) Value() (driver.Value, error) {
+	if !ns.Valid {
+		return nil, nil
+	}
+	return string(ns.FriendshipStatus), nil
+}
+
+type PostVisibility string
+
+const (
+	PostVisibilityPublic  PostVisibility = "public"
+	PostVisibilityPrivate PostVisibility = "private"
+)
+
+func (e *PostVisibility) Scan(src interface{}) error {
+	switch s := src.(type) {
+	case []byte:
+		*e = PostVisibility(s)
+	case string:
+		*e = PostVisibility(s)
+	default:
+		return fmt.Errorf("unsupported scan type for PostVisibility: %T", src)
+	}
+	return nil
+}
+
+type NullPostVisibility struct {
+	PostVisibility PostVisibility
+	Valid          bool // Valid is true if PostVisibility is not NULL
+}
+
+// Scan implements the Scanner interface.
+func (ns *NullPostVisibility) Scan(value interface{}) error {
+	if value == nil {
+		ns.PostVisibility, ns.Valid = "", false
+		return nil
+	}
+	ns.Valid = true
+	return ns.PostVisibility.Scan(value)
+}
+
+// Value implements the driver Valuer interface.
+func (ns NullPostVisibility) Value() (driver.Value, error) {
+	if !ns.Valid {
+		return nil, nil
+	}
+	return string(ns.PostVisibility), nil
+}
+
+type Circle struct {
+	ID     int64
+	Ulid   string
+	UserID int64
+	Name   string
+}
+
+type CircleMembership struct {
+	ID        int64
+	CircleID  int64
+	ProfileID int64
+}
+
+type Friendship struct {
+	ID          int64
+	RequesterID int64
+	AddresseeID int64
+	Status      FriendshipStatus
+}
 
 type PermissionAssignment struct {
 	ID         int64
 	RoleID     int64
 	Permission string
+}
+
+type Post struct {
+	ID          int64
+	UserID      int64
+	Content     string
+	PublishedAt pgtype.Timestamptz
+}
+
+type PostShare struct {
+	ID       int64
+	PostID   int64
+	CircleID int64
 }
 
 type Profile struct {
@@ -20,6 +141,14 @@ type Profile struct {
 	OwnerID     int64
 	Username    string
 	DisplayName pgtype.Text
+}
+
+type ProfilePost struct {
+	ID         int64
+	Ulid       string
+	ProfileID  int64
+	PostID     int64
+	Visibility PostVisibility
 }
 
 type Role struct {

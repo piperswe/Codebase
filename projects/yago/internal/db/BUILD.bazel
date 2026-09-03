@@ -26,7 +26,10 @@ go_library(
 
 go_test(
     name = "db_test",
-    srcs = ["migrate_test.go"],
+    srcs = [
+        "migrate_test.go",
+        "queries_test.go",
+    ],
     embed = [":db"],
     tags = [
         "local",
@@ -34,5 +37,9 @@ go_test(
         "requires-docker",
         "requires-network",
     ],
-    deps = ["//lib/go/testdb"],
+    deps = [
+        "//lib/go/testdb",
+        "@com_github_jackc_pgx_v5//pgtype",
+    ],
+    size="small",
 )

@@ -11,6 +11,67 @@ import (
 	"github.com/jackc/pgx/v5/pgtype"
 )
 
+const acceptUserFriendRequest = `-- name: AcceptUserFriendRequest :one
+UPDATE friendships
+SET status = 'accepted'
+WHERE id = $1
+RETURNING id, requester_id, addressee_id, status
+`
+
+func (q *Queries) AcceptUserFriendRequest(ctx context.Context, friendshipID int64) (Friendship, error) {
+	row := q.db.QueryRow(ctx, acceptUserFriendRequest, friendshipID)
+	var i Friendship
+	err := row.Scan(
+		&i.ID,
+		&i.RequesterID,
+		&i.AddresseeID,
+		&i.Status,
+	)
+	return i, err
+}
+
+const addProfileToCircle = `-- name: AddProfileToCircle :one
+INSERT INTO circle_memberships (circle_id, profile_id)
+VALUES ($1, $2)
+RETURNING id, circle_id, profile_id
+`
+
+type AddProfileToCircleParams struct {
+	CircleID  int64
+	ProfileID int64
+}
+
+func (q *Queries) AddProfileToCircle(ctx context.Context, arg AddProfileToCircleParams) (CircleMembership, error) {
+	row := q.db.QueryRow(ctx, addProfileToCircle, arg.CircleID, arg.ProfileID)
+	var i CircleMembership
+	err := row.Scan(&i.ID, &i.CircleID, &i.ProfileID)
+	return i, err
+}
+
+const createPost = `-- name: CreatePost :one
+INSERT INTO posts (user_id, content, published_at)
+VALUES ($1, $2, $3)
+RETURNING id, user_id, content, published_at
+`
+
+type CreatePostParams struct {
+	UserID      int64
+	Content     string
+	PublishedAt pgtype.Timestamptz
+}
+
+func (q *Queries) CreatePost(ctx context.Context, arg CreatePostParams) (Post, error) {
+	row := q.db.QueryRow(ctx, createPost, arg.UserID, arg.Content, arg.PublishedAt)
+	var i Post
+	err := row.Scan(
+		&i.ID,
+		&i.UserID,
+		&i.Content,
+		&i.PublishedAt,
+	)
+	return i, err
+}
+
 const createProfileWithUlid = `-- name: CreateProfileWithUlid :one
 INSERT INTO profiles (ulid, owner_id, username, display_name)
 VALUES ($1, $2, $3, $4)
@@ -42,6 +103,29 @@ func (q *Queries) CreateProfileWithUlid(ctx context.Context, arg CreateProfileWi
 	return i, err
 }
 
+const createUserFriendRequest = `-- name: CreateUserFriendRequest :one
+INSERT INTO friendships (requester_id, addressee_id, status)
+VALUES ($1, $2, 'pending')
+RETURNING id, requester_id, addressee_id, status
+`
+
+type CreateUserFriendRequestParams struct {
+	RequesterID int64
+	AddresseeID int64
+}
+
+func (q *Queries) CreateUserFriendRequest(ctx context.Context, arg CreateUserFriendRequestParams) (Friendship, error) {
+	row := q.db.QueryRow(ctx, createUserFriendRequest, arg.RequesterID, arg.AddresseeID)
+	var i Friendship
+	err := row.Scan(
+		&i.ID,
+		&i.RequesterID,
+		&i.AddresseeID,
+		&i.Status,
+	)
+	return i, err
+}
+
 const createUserWithUlid = `-- name: CreateUserWithUlid :one
 INSERT INTO users (ulid, email_address, password_hash)
 VALUES ($1, $2, $3)
@@ -66,6 +150,94 @@ func (q *Queries) CreateUserWithUlid(ctx context.Context, arg CreateUserWithUlid
 	return i, err
 }
 
+const deletePost = `-- name: DeletePost :one
+DELETE FROM posts
+WHERE id = $1
+RETURNING id, user_id, content, published_at
+`
+
+func (q *Queries) DeletePost(ctx context.Context, postID int64) (Post, error) {
+	row := q.db.QueryRow(ctx, deletePost, postID)
+	var i Post
+	err := row.Scan(
+		&i.ID,
+		&i.UserID,
+		&i.Content,
+		&i.PublishedAt,
+	)
+	return i, err
+}
+
+const getPost = `-- name: GetPost :one
+SELECT id, user_id, content, published_at FROM posts WHERE id = $1
+`
+
+func (q *Queries) GetPost(ctx context.Context, postID int64) (Post, error) {
+	row := q.db.QueryRow(ctx, getPost, postID)
+	var i Post
+	err := row.Scan(
+		&i.ID,
+		&i.UserID,
+		&i.Content,
+		&i.PublishedAt,
+	)
+	return i, err
+}
+
+const getPostCircleShares = `-- name: GetPostCircleShares :many
+SELECT id, post_id, circle_id FROM post_shares WHERE post_id = $1
+`
+
+func (q *Queries) GetPostCircleShares(ctx context.Context, postID int64) ([]PostShare, error) {
+	rows, err := q.db.Query(ctx, getPostCircleShares, postID)
+	if err != nil {
+		return nil, err
+	}
+	defer rows.Close()
+	var items []PostShare
+	for rows.Next() {
+		var i PostShare
+		if err := rows.Scan(&i.ID, &i.PostID, &i.CircleID); err != nil {
+			return nil, err
+		}
+		items = append(items, i)
+	}
+	if err := rows.Err(); err != nil {
+		return nil, err
+	}
+	return items, nil
+}
+
+const getPostProfiles = `-- name: GetPostProfiles :many
+SELECT id, ulid, profile_id, post_id, visibility FROM profile_posts WHERE post_id = $1
+`
+
+func (q *Queries) GetPostProfiles(ctx context.Context, postID int64) ([]ProfilePost, error) {
+	rows, err := q.db.Query(ctx, getPostProfiles, postID)
+	if err != nil {
+		return nil, err
+	}
+	defer rows.Close()
+	var items []ProfilePost
+	for rows.Next() {
+		var i ProfilePost
+		if err := rows.Scan(
+			&i.ID,
+			&i.Ulid,
+			&i.ProfileID,
+			&i.PostID,
+			&i.Visibility,
+		); err != nil {
+			return nil, err
+		}
+		items = append(items, i)
+	}
+	if err := rows.Err(); err != nil {
+		return nil, err
+	}
+	return items, nil
+}
+
 const getProfile = `-- name: GetProfile :one
 SELECT id, ulid, owner_id, username, display_name FROM profiles WHERE id = $1
 `
@@ -81,6 +253,186 @@ func (q *Queries) GetProfile(ctx context.Context, profileID int64) (Profile, err
 		&i.DisplayName,
 	)
 	return i, err
+}
+
+const getProfilePost = `-- name: GetProfilePost :one
+SELECT id, ulid, profile_id, post_id, visibility
+FROM profile_posts
+WHERE id = $1
+`
+
+func (q *Queries) GetProfilePost(ctx context.Context, profilePostID int64) (ProfilePost, error) {
+	row := q.db.QueryRow(ctx, getProfilePost, profilePostID)
+	var i ProfilePost
+	err := row.Scan(
+		&i.ID,
+		&i.Ulid,
+		&i.ProfileID,
+		&i.PostID,
+		&i.Visibility,
+	)
+	return i, err
+}
+
+const getProfilePosts = `-- name: GetProfilePosts :many
+SELECT posts.id, posts.user_id, posts.content, posts.published_at, profile_posts.id AS profile_post_id, profile_posts.visibility, profile_posts.ulid
+FROM profile_posts
+INNER JOIN posts ON posts.id = profile_posts.post_id
+WHERE profile_posts.profile_id = $1
+`
+
+type GetProfilePostsRow struct {
+	ID            int64
+	UserID        int64
+	Content       string
+	PublishedAt   pgtype.Timestamptz
+	ProfilePostID int64
+	Visibility    PostVisibility
+	Ulid          string
+}
+
+func (q *Queries) GetProfilePosts(ctx context.Context, profileID int64) ([]GetProfilePostsRow, error) {
+	rows, err := q.db.Query(ctx, getProfilePosts, profileID)
+	if err != nil {
+		return nil, err
+	}
+	defer rows.Close()
+	var items []GetProfilePostsRow
+	for rows.Next() {
+		var i GetProfilePostsRow
+		if err := rows.Scan(
+			&i.ID,
+			&i.UserID,
+			&i.Content,
+			&i.PublishedAt,
+			&i.ProfilePostID,
+			&i.Visibility,
+			&i.Ulid,
+		); err != nil {
+			return nil, err
+		}
+		items = append(items, i)
+	}
+	if err := rows.Err(); err != nil {
+		return nil, err
+	}
+	return items, nil
+}
+
+const getProfilePostsVisibleToUser = `-- name: GetProfilePostsVisibleToUser :many
+WITH user_profiles AS (
+    SELECT id FROM profiles WHERE owner_id = $4
+)
+SELECT posts.id, posts.user_id, posts.content, posts.published_at, profile_posts.id AS profile_post_id, profile_posts.visibility, profile_posts.ulid
+FROM profile_posts
+INNER JOIN posts ON posts.id = profile_posts.post_id
+WHERE profile_posts.profile_id = $1
+    AND posts.published_at < $2
+    AND (
+        profile_posts.visibility = 'public'
+        OR EXISTS (
+            SELECT 1
+            FROM post_shares
+            INNER JOIN circle_memberships ON circle_memberships.circle_id = post_shares.circle_id
+            INNER JOIN user_profiles ON user_profiles.id = circle_memberships.profile_id
+            WHERE post_shares.post_id = profile_posts.post_id
+        )
+    )
+ORDER BY posts.published_at, posts.id DESC
+LIMIT $3
+`
+
+type GetProfilePostsVisibleToUserParams struct {
+	ProfileID       int64
+	PublishedBefore pgtype.Timestamptz
+	PageSize        int32
+	UserID          int64
+}
+
+type GetProfilePostsVisibleToUserRow struct {
+	ID            int64
+	UserID        int64
+	Content       string
+	PublishedAt   pgtype.Timestamptz
+	ProfilePostID int64
+	Visibility    PostVisibility
+	Ulid          string
+}
+
+func (q *Queries) GetProfilePostsVisibleToUser(ctx context.Context, arg GetProfilePostsVisibleToUserParams) ([]GetProfilePostsVisibleToUserRow, error) {
+	rows, err := q.db.Query(ctx, getProfilePostsVisibleToUser,
+		arg.ProfileID,
+		arg.PublishedBefore,
+		arg.PageSize,
+		arg.UserID,
+	)
+	if err != nil {
+		return nil, err
+	}
+	defer rows.Close()
+	var items []GetProfilePostsVisibleToUserRow
+	for rows.Next() {
+		var i GetProfilePostsVisibleToUserRow
+		if err := rows.Scan(
+			&i.ID,
+			&i.UserID,
+			&i.Content,
+			&i.PublishedAt,
+			&i.ProfilePostID,
+			&i.Visibility,
+			&i.Ulid,
+		); err != nil {
+			return nil, err
+		}
+		items = append(items, i)
+	}
+	if err := rows.Err(); err != nil {
+		return nil, err
+	}
+	return items, nil
+}
+
+const getProfilesInCircle = `-- name: GetProfilesInCircle :many
+SELECT profiles.id, profiles.ulid, profiles.owner_id, profiles.username, profiles.display_name, circle_memberships.id AS circle_membership_id
+FROM profiles
+INNER JOIN circle_memberships ON circle_memberships.profile_id = profiles.id
+WHERE circle_memberships.circle_id = $1
+`
+
+type GetProfilesInCircleRow struct {
+	ID                 int64
+	Ulid               string
+	OwnerID            int64
+	Username           string
+	DisplayName        pgtype.Text
+	CircleMembershipID int64
+}
+
+func (q *Queries) GetProfilesInCircle(ctx context.Context, circleID int64) ([]GetProfilesInCircleRow, error) {
+	rows, err := q.db.Query(ctx, getProfilesInCircle, circleID)
+	if err != nil {
+		return nil, err
+	}
+	defer rows.Close()
+	var items []GetProfilesInCircleRow
+	for rows.Next() {
+		var i GetProfilesInCircleRow
+		if err := rows.Scan(
+			&i.ID,
+			&i.Ulid,
+			&i.OwnerID,
+			&i.Username,
+			&i.DisplayName,
+			&i.CircleMembershipID,
+		); err != nil {
+			return nil, err
+		}
+		items = append(items, i)
+	}
+	if err := rows.Err(); err != nil {
+		return nil, err
+	}
+	return items, nil
 }
 
 const getRole = `-- name: GetRole :one
@@ -134,6 +486,37 @@ func (q *Queries) GetUser(ctx context.Context, userID int64) (User, error) {
 	return i, err
 }
 
+const getUserCircles = `-- name: GetUserCircles :many
+SELECT circles.id, circles.ulid, circles.user_id, circles.name
+FROM circles
+WHERE circles.user_id = $1
+`
+
+func (q *Queries) GetUserCircles(ctx context.Context, userID int64) ([]Circle, error) {
+	rows, err := q.db.Query(ctx, getUserCircles, userID)
+	if err != nil {
+		return nil, err
+	}
+	defer rows.Close()
+	var items []Circle
+	for rows.Next() {
+		var i Circle
+		if err := rows.Scan(
+			&i.ID,
+			&i.Ulid,
+			&i.UserID,
+			&i.Name,
+		); err != nil {
+			return nil, err
+		}
+		items = append(items, i)
+	}
+	if err := rows.Err(); err != nil {
+		return nil, err
+	}
+	return items, nil
+}
+
 const getUserCount = `-- name: GetUserCount :one
 SELECT COUNT(*) FROM users
 `
@@ -143,6 +526,141 @@ func (q *Queries) GetUserCount(ctx context.Context) (int64, error) {
 	var count int64
 	err := row.Scan(&count)
 	return count, err
+}
+
+const getUserFriends = `-- name: GetUserFriends :many
+SELECT profiles.id, profiles.ulid, profiles.owner_id, profiles.username, profiles.display_name, friendships.id AS friendship_id, friendships.status AS friendship_status
+FROM profiles
+INNER JOIN friendships ON profiles.id = friendships.addressee_id OR profiles.id = friendships.requester_id
+WHERE (friendships.requester_id = $1 OR friendships.addressee_id = $1) AND profiles.id != $1 AND friendships.status = 'accepted'
+`
+
+type GetUserFriendsRow struct {
+	ID               int64
+	Ulid             string
+	OwnerID          int64
+	Username         string
+	DisplayName      pgtype.Text
+	FriendshipID     int64
+	FriendshipStatus FriendshipStatus
+}
+
+func (q *Queries) GetUserFriends(ctx context.Context, profileID int64) ([]GetUserFriendsRow, error) {
+	rows, err := q.db.Query(ctx, getUserFriends, profileID)
+	if err != nil {
+		return nil, err
+	}
+	defer rows.Close()
+	var items []GetUserFriendsRow
+	for rows.Next() {
+		var i GetUserFriendsRow
+		if err := rows.Scan(
+			&i.ID,
+			&i.Ulid,
+			&i.OwnerID,
+			&i.Username,
+			&i.DisplayName,
+			&i.FriendshipID,
+			&i.FriendshipStatus,
+		); err != nil {
+			return nil, err
+		}
+		items = append(items, i)
+	}
+	if err := rows.Err(); err != nil {
+		return nil, err
+	}
+	return items, nil
+}
+
+const getUserIncomingFriendshipRequests = `-- name: GetUserIncomingFriendshipRequests :many
+SELECT profiles.id, profiles.ulid, profiles.owner_id, profiles.username, profiles.display_name, friendships.id AS friendship_id, friendships.status AS friendship_status
+FROM profiles
+INNER JOIN friendships ON profiles.id = friendships.requester_id
+WHERE friendships.addressee_id = $1 AND friendships.status = 'pending'
+`
+
+type GetUserIncomingFriendshipRequestsRow struct {
+	ID               int64
+	Ulid             string
+	OwnerID          int64
+	Username         string
+	DisplayName      pgtype.Text
+	FriendshipID     int64
+	FriendshipStatus FriendshipStatus
+}
+
+func (q *Queries) GetUserIncomingFriendshipRequests(ctx context.Context, profileID int64) ([]GetUserIncomingFriendshipRequestsRow, error) {
+	rows, err := q.db.Query(ctx, getUserIncomingFriendshipRequests, profileID)
+	if err != nil {
+		return nil, err
+	}
+	defer rows.Close()
+	var items []GetUserIncomingFriendshipRequestsRow
+	for rows.Next() {
+		var i GetUserIncomingFriendshipRequestsRow
+		if err := rows.Scan(
+			&i.ID,
+			&i.Ulid,
+			&i.OwnerID,
+			&i.Username,
+			&i.DisplayName,
+			&i.FriendshipID,
+			&i.FriendshipStatus,
+		); err != nil {
+			return nil, err
+		}
+		items = append(items, i)
+	}
+	if err := rows.Err(); err != nil {
+		return nil, err
+	}
+	return items, nil
+}
+
+const getUserOutgoingFriendshipRequests = `-- name: GetUserOutgoingFriendshipRequests :many
+SELECT profiles.id, profiles.ulid, profiles.owner_id, profiles.username, profiles.display_name, friendships.id AS friendship_id, friendships.status AS friendship_status
+FROM profiles
+INNER JOIN friendships ON profiles.id = friendships.addressee_id
+WHERE friendships.requester_id = $1 AND friendships.status = 'pending'
+`
+
+type GetUserOutgoingFriendshipRequestsRow struct {
+	ID               int64
+	Ulid             string
+	OwnerID          int64
+	Username         string
+	DisplayName      pgtype.Text
+	FriendshipID     int64
+	FriendshipStatus FriendshipStatus
+}
+
+func (q *Queries) GetUserOutgoingFriendshipRequests(ctx context.Context, profileID int64) ([]GetUserOutgoingFriendshipRequestsRow, error) {
+	rows, err := q.db.Query(ctx, getUserOutgoingFriendshipRequests, profileID)
+	if err != nil {
+		return nil, err
+	}
+	defer rows.Close()
+	var items []GetUserOutgoingFriendshipRequestsRow
+	for rows.Next() {
+		var i GetUserOutgoingFriendshipRequestsRow
+		if err := rows.Scan(
+			&i.ID,
+			&i.Ulid,
+			&i.OwnerID,
+			&i.Username,
+			&i.DisplayName,
+			&i.FriendshipID,
+			&i.FriendshipStatus,
+		); err != nil {
+			return nil, err
+		}
+		items = append(items, i)
+	}
+	if err := rows.Err(); err != nil {
+		return nil, err
+	}
+	return items, nil
 }
 
 const getUserPermissions = `-- name: GetUserPermissions :many
@@ -165,6 +683,37 @@ func (q *Queries) GetUserPermissions(ctx context.Context, userID int64) ([]strin
 			return nil, err
 		}
 		items = append(items, permission)
+	}
+	if err := rows.Err(); err != nil {
+		return nil, err
+	}
+	return items, nil
+}
+
+const getUserPosts = `-- name: GetUserPosts :many
+SELECT id, user_id, content, published_at
+FROM posts
+WHERE user_id = $1
+`
+
+func (q *Queries) GetUserPosts(ctx context.Context, userID int64) ([]Post, error) {
+	rows, err := q.db.Query(ctx, getUserPosts, userID)
+	if err != nil {
+		return nil, err
+	}
+	defer rows.Close()
+	var items []Post
+	for rows.Next() {
+		var i Post
+		if err := rows.Scan(
+			&i.ID,
+			&i.UserID,
+			&i.Content,
+			&i.PublishedAt,
+		); err != nil {
+			return nil, err
+		}
+		items = append(items, i)
 	}
 	if err := rows.Err(); err != nil {
 		return nil, err
@@ -224,6 +773,163 @@ func (q *Queries) GetUserRoles(ctx context.Context, userID int64) ([]int64, erro
 		return nil, err
 	}
 	return items, nil
+}
+
+const rejectUserFriendRequest = `-- name: RejectUserFriendRequest :one
+UPDATE friendships
+SET status = 'rejected'
+WHERE id = $1
+RETURNING id, requester_id, addressee_id, status
+`
+
+func (q *Queries) RejectUserFriendRequest(ctx context.Context, friendshipID int64) (Friendship, error) {
+	row := q.db.QueryRow(ctx, rejectUserFriendRequest, friendshipID)
+	var i Friendship
+	err := row.Scan(
+		&i.ID,
+		&i.RequesterID,
+		&i.AddresseeID,
+		&i.Status,
+	)
+	return i, err
+}
+
+const removeProfileFromCircle = `-- name: RemoveProfileFromCircle :one
+DELETE FROM circle_memberships
+WHERE id = $1
+RETURNING id, circle_id, profile_id
+`
+
+func (q *Queries) RemoveProfileFromCircle(ctx context.Context, circleMembershipID int64) (CircleMembership, error) {
+	row := q.db.QueryRow(ctx, removeProfileFromCircle, circleMembershipID)
+	var i CircleMembership
+	err := row.Scan(&i.ID, &i.CircleID, &i.ProfileID)
+	return i, err
+}
+
+const sharePostOnProfileWithUlid = `-- name: SharePostOnProfileWithUlid :one
+INSERT INTO profile_posts (ulid, profile_id, post_id, visibility)
+VALUES ($1, $2, $3, $4)
+RETURNING id, ulid, profile_id, post_id, visibility
+`
+
+type SharePostOnProfileWithUlidParams struct {
+	Ulid       string
+	ProfileID  int64
+	PostID     int64
+	Visibility PostVisibility
+}
+
+func (q *Queries) SharePostOnProfileWithUlid(ctx context.Context, arg SharePostOnProfileWithUlidParams) (ProfilePost, error) {
+	row := q.db.QueryRow(ctx, sharePostOnProfileWithUlid,
+		arg.Ulid,
+		arg.ProfileID,
+		arg.PostID,
+		arg.Visibility,
+	)
+	var i ProfilePost
+	err := row.Scan(
+		&i.ID,
+		&i.Ulid,
+		&i.ProfileID,
+		&i.PostID,
+		&i.Visibility,
+	)
+	return i, err
+}
+
+const sharePostToCircle = `-- name: SharePostToCircle :one
+INSERT INTO post_shares (post_id, circle_id)
+VALUES ($1, $2)
+RETURNING id, post_id, circle_id
+`
+
+type SharePostToCircleParams struct {
+	PostID   int64
+	CircleID int64
+}
+
+func (q *Queries) SharePostToCircle(ctx context.Context, arg SharePostToCircleParams) (PostShare, error) {
+	row := q.db.QueryRow(ctx, sharePostToCircle, arg.PostID, arg.CircleID)
+	var i PostShare
+	err := row.Scan(&i.ID, &i.PostID, &i.CircleID)
+	return i, err
+}
+
+const unfriend = `-- name: Unfriend :one
+DELETE FROM friendships
+WHERE id = $1
+RETURNING id, requester_id, addressee_id, status
+`
+
+func (q *Queries) Unfriend(ctx context.Context, friendshipID int64) (Friendship, error) {
+	row := q.db.QueryRow(ctx, unfriend, friendshipID)
+	var i Friendship
+	err := row.Scan(
+		&i.ID,
+		&i.RequesterID,
+		&i.AddresseeID,
+		&i.Status,
+	)
+	return i, err
+}
+
+const unsharePostFromCircle = `-- name: UnsharePostFromCircle :one
+DELETE FROM post_shares
+WHERE id = $1
+RETURNING id, post_id, circle_id
+`
+
+func (q *Queries) UnsharePostFromCircle(ctx context.Context, postShareID int64) (PostShare, error) {
+	row := q.db.QueryRow(ctx, unsharePostFromCircle, postShareID)
+	var i PostShare
+	err := row.Scan(&i.ID, &i.PostID, &i.CircleID)
+	return i, err
+}
+
+const unsharePostOnProfile = `-- name: UnsharePostOnProfile :one
+DELETE FROM profile_posts
+WHERE id = $1
+RETURNING id, ulid, profile_id, post_id, visibility
+`
+
+func (q *Queries) UnsharePostOnProfile(ctx context.Context, profilePostID int64) (ProfilePost, error) {
+	row := q.db.QueryRow(ctx, unsharePostOnProfile, profilePostID)
+	var i ProfilePost
+	err := row.Scan(
+		&i.ID,
+		&i.Ulid,
+		&i.ProfileID,
+		&i.PostID,
+		&i.Visibility,
+	)
+	return i, err
+}
+
+const updatePost = `-- name: UpdatePost :one
+UPDATE posts
+SET content = $1,
+    published_at = $2
+WHERE id = $3
+RETURNING id, user_id, content, published_at
+`
+
+type UpdatePostParams struct {
+	Content     string
+	PublishedAt pgtype.Timestamptz
+	PostID      int64
+}
+
+func (q *Queries) UpdatePost(ctx context.Context, arg UpdatePostParams) (Post, error) {
+	row := q.db.QueryRow(ctx, updatePost, arg.Content, arg.PublishedAt, arg.PostID)
+	var i Post
+	err := row.Scan(
+		&i.ID,
+		&i.UserID,
+		&i.Content,
+		&i.PublishedAt,
+	)
+	return i, err
 }
 
 const updateProfile = `-- name: UpdateProfile :one
