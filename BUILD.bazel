@@ -8,7 +8,6 @@ gazelle_binary(
     name = "gazelle_bin",
     languages = DEFAULT_LANGUAGES + [
         "@gazelle_cc//language/cc",
-        "@contrib_rules_jvm//java/gazelle",
         "@aspect_gazelle_js",
         "//tools/gazelle/wrangler",
         "//tools/gazelle/vitest",
@@ -40,11 +39,6 @@ filegroup(
     name = "packages",
     srcs = [
         "//projects/datasite/cmd/datasite:datasite_packages",
-        "//projects/hello_world/hello_cpp:hello_cpp_packages",
-        "//projects/hello_world/hello_go:hello_go_packages",
-        "//projects/hello_world/hello_java:hello_java_packages",
-        "//projects/hello_world/hello_rs:hello_rs_packages",
-        "//projects/hello_world/hello_ts:hello_ts_packages",
         "//projects/interface/cmd/interface:interface_packages",
         "//projects/yago/cmd/yago:yago_packages",
     ],
@@ -55,11 +49,6 @@ test_suite(
     name = "package_install_tests",
     tests = [
         "//projects/datasite/cmd/datasite:datasite_install_tests",
-        "//projects/hello_world/hello_cpp:hello_cpp_install_tests",
-        "//projects/hello_world/hello_go:hello_go_install_tests",
-        "//projects/hello_world/hello_java:hello_java_install_tests",
-        "//projects/hello_world/hello_rs:hello_rs_install_tests",
-        "//projects/hello_world/hello_ts:hello_ts_install_tests",
         "//projects/interface/cmd/interface:interface_install_tests",
         "//projects/yago/cmd/yago:yago_install_tests",
     ],
@@ -68,11 +57,6 @@ test_suite(
 
 _OCI_IMAGES = [
     ("datasite", "//projects/datasite/cmd/datasite:datasite_image"),
-    ("hello-cpp", "//projects/hello_world/hello_cpp:hello_cpp_image"),
-    ("hello-go", "//projects/hello_world/hello_go:hello_go_image"),
-    ("hello-java", "//projects/hello_world/hello_java:hello_java_image"),
-    ("hello-rs", "//projects/hello_world/hello_rs:hello_rs_image"),
-    ("hello-ts", "//projects/hello_world/hello_ts:hello_ts_image"),
     ("yago", "//projects/yago/cmd/yago:yago_image"),
     ("interface", "//projects/interface/cmd/interface:interface_image"),
 ]
