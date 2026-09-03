@@ -1,0 +1,121 @@
+lib/go/o11y/setup_test.go
+  s_e26a266df7b902::t_a667c54aef4a19 61-63
+lib/go/o11y/BUILD.bazel
+  s_e4e5483828389c::t_de0c5304e00c9e 7,21
+  s_e4e5483828389c::t_21815f560f58a1 40,49,59-62
+projects/datasite/cmd/datasite/BUILD.bazel
+  s_e26a266df7b902::t_8965dcf210879d 52
+  s_e26a266df7b902::t_38b699c7579825 17
+projects/yago/cmd/yago/router.go
+  h_cb7f8177e9a94f 1-38
+projects/datasite/cmd/datasite/router_test.go
+  s_e26a266df7b902::t_8965dcf210879d 13,58
+mise.toml
+  h_cb7f8177e9a94f 46
+projects/yago/internal/app/home/view.templ
+  h_cb7f8177e9a94f 1-5
+projects/datasite/cmd/datasite/main.go
+  h_cb7f8177e9a94f 17,149,180
+  s_e4e5483828389c::t_b6d60400f5a9a9 161
+projects/datasite/cmd/datasite/router.go
+  s_e4e5483828389c::t_b6d60400f5a9a9 18-29
+projects/yago/internal/app/home/handler.go
+  h_cb7f8177e9a94f 1-20
+lib/go/dbmigrate/dbmigrate.go
+  h_cb7f8177e9a94f 11,21-24,26-30,46,75
+  h_cb7f8177e9a94f 25
+lib/go/o11y/o11y.go
+  s_e26a266df7b902::t_a667c54aef4a19 14,33-34,39
+projects/interface/cmd/interface/main.go
+  h_cb7f8177e9a94f 7,16
+lib/go/o11y/http.go
+  s_e4e5483828389c::t_0587511c82a7d9 10-11,40-41,50-52,58
+  s_e26a266df7b902::t_8c3b1169806d18 44-46
+  s_e4e5483828389c::t_b6d60400f5a9a9 6,42-43,47-49,60-66
+  s_e4e5483828389c::t_de0c5304e00c9e 1-3,5,7,9,12-13,18-20,23-32,39,67
+  s_e26a266df7b902::t_a667c54aef4a19 4,8,14-17,21-22,33-38,53-57,59
+projects/interface/cmd/interface/BUILD.bazel
+  h_cb7f8177e9a94f 12
+go.mod
+  s_e4e5483828389c::t_de0c5304e00c9e 26
+  h_cb7f8177e9a94f 24,151
+lib/go/o11y/http_test.go
+  s_e4e5483828389c::t_145cafef6340f7 80,82-83,161-162
+  s_e26a266df7b902::t_a667c54aef4a19 4,6,24-45,53,55-64
+  s_e26a266df7b902::t_bac0018a7a2227 14
+  s_e4e5483828389c::t_64001465f71e37 1-3,5,7-13,15-23,65-79,81,84-87,95-100,102-127,130-160,163-225
+  s_e26a266df7b902::t_4617720eb83f3e 46-52,54
+  s_e4e5483828389c::t_b6d60400f5a9a9 88-94,128-129
+  s_e4e5483828389c::t_30c285c01785ad 101
+lib/go/notify/notify.go
+  h_cb7f8177e9a94f 1-42
+lib/go/o11y/admin_test.go
+  s_e4e5483828389c::t_64001465f71e37 14,66-101
+  s_e4e5483828389c::t_dc5c585bbfa65a 102-103
+lib/go/o11y/setup.go
+  s_e26a266df7b902::t_a667c54aef4a19 72
+projects/yago/Procfile
+  h_cb7f8177e9a94f 1-3
+lib/go/o11y/admin.go
+  s_e4e5483828389c::t_de0c5304e00c9e 46
+projects/yago/cmd/yago/main.go
+  h_cb7f8177e9a94f 6-7,9-10,13-14,17-19,22-29,35-60,72-87,89-91,97-127
+  h_cb7f8177e9a94f 88
+MODULE.bazel
+  h_cb7f8177e9a94f 181
+go.sum
+  h_cb7f8177e9a94f 211-212,293-294,347-348,375-376
+lib/go/notify/BUILD.bazel
+  h_cb7f8177e9a94f 1-9
+projects/datasite/internal/views/admin_cinemas_templ.go
+  h_cb7f8177e9a94f 69,82,204,217,230,243
+projects/datasite/internal/views/admin_dash_templ.go
+  h_cb7f8177e9a94f 84,97,116,147,170,194,276,289,311,324,337,350,363,385,398,420,433
+projects/datasite/internal/views/admin_import_templ.go
+  h_cb7f8177e9a94f 121,134,147,165,178,191,222
+projects/datasite/internal/views/admin_movie_logs_templ.go
+  h_cb7f8177e9a94f 86,99,112,133,146,217,235,248,335,353,366,384,397,415,428,451,470,483,501,514,541,587,635
+projects/datasite/internal/views/home_templ.go
+  h_cb7f8177e9a94f 61,74,97,128,141
+projects/datasite/internal/views/page_templ.go
+  h_cb7f8177e9a94f 8-11,49,62
+projects/datasite/internal/views/public_movie_log_templ.go
+  h_cb7f8177e9a94f 68,81,99,117,158
+projects/datasite/internal/views/star_display_templ.go
+  h_cb7f8177e9a94f 44,57,70
+projects/yago/cmd/yago/BUILD.bazel
+  h_cb7f8177e9a94f 8-11,15-17,20-23
+projects/yago/internal/app/home/BUILD.bazel
+  h_cb7f8177e9a94f 1-16
+projects/yago/internal/app/home/view_templ.go
+  h_cb7f8177e9a94f 1-40
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.0",
+  "base_commit_sha": "d9317cf400d8dbf6aec668f880150b95e808b803",
+  "prompts": {},
+  "humans": {
+    "h_cb7f8177e9a94f": {
+      "author": "Piper McCorkle <contact@piperswe.me>"
+    }
+  },
+  "sessions": {
+    "s_e26a266df7b902": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a06718-b2c2-7851-bf47-70e4d001d70b",
+        "model": "gpt-5.6-sol"
+      },
+      "human_author": "Piper McCorkle <contact@piperswe.me>"
+    },
+    "s_e4e5483828389c": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a0645f-4b17-7e20-99b7-a9f4e237b8ce",
+        "model": "gpt-5.6-sol"
+      },
+      "human_author": "Piper McCorkle <contact@piperswe.me>"
+    }
+  }
+}
