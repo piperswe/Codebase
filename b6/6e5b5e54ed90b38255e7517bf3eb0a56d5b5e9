@@ -1,0 +1,51 @@
+projects/yago/internal/db/migrate_test.go
+  h_cb7f8177e9a94f 6,10-11
+sqlc.yaml
+  h_cb7f8177e9a94f 11,18
+mise.toml
+  h_cb7f8177e9a94f 25,28-30
+  h_cb7f8177e9a94f 31
+projects/yago/internal/db/migrations/000001_init.up.sql
+  h_cb7f8177e9a94f 2-4,6-32
+projects/yago/internal/db/migrations/000001_init.down.sql
+  h_cb7f8177e9a94f 1-11
+projects/yago/internal/db/migrate.go
+  h_cb7f8177e9a94f 4,7,14-21
+lib/go/testdb/testdb.go
+  h_cb7f8177e9a94f 1-62
+lib/go/dbmigrate/dbmigrate.go
+  h_cb7f8177e9a94f 12,15-16,41-59
+  h_cb7f8177e9a94f 60
+projects/yago/internal/db/BUILD.bazel
+  h_cb7f8177e9a94f 28-32
+  h_cb7f8177e9a94f 19-20,33-34
+projects/yago/internal/db/queries.sql
+  h_cb7f8177e9a94f 2-24
+MODULE.bazel
+  h_cb7f8177e9a94f 170,174,178-179,181
+go.mod
+  h_cb7f8177e9a94f 16,23-24,39,41-42,53-56,58,61,63-64,66,69,75,82,87-89,92-100,106-107,113-114,122,124,128,130-131,134,136
+go.sum
+  h_cb7f8177e9a94f 3-4,7-10,12-13,43-50,55-56,58-59,68-71,74-79,82-83,88-89,109-111,116-117,136-137,163-166,171-192,205-208,221-222,226-227,249-250,253-254,265-266,274-277,280-283,292-293,296-297,353-356,359-360,397-398,427-428
+lib/go/dbmigrate/BUILD.bazel
+  h_cb7f8177e9a94f 10,13-14
+lib/go/testdb/BUILD.bazel
+  h_cb7f8177e9a94f 1-14
+projects/yago/internal/db/db.go
+  h_cb7f8177e9a94f 9-11,15-17,28
+projects/yago/internal/db/models.go
+  h_cb7f8177e9a94f 7-23,25-27
+projects/yago/internal/db/queries.sql.go
+  h_cb7f8177e9a94f 12-46,48-86,89-126
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.0",
+  "base_commit_sha": "b66e5b5e54ed90b38255e7517bf3eb0a56d5b5e9",
+  "prompts": {},
+  "humans": {
+    "h_cb7f8177e9a94f": {
+      "author": "Piper McCorkle <contact@piperswe.me>"
+    }
+  }
+}

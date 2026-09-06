@@ -1,0 +1,14 @@
+MODULE.bazel.lock
+  h_cb7f8177e9a94f 165,168,171,221,229,232,352,354-355,357,360-361,364,366,368-377,380,382-403
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.0",
+  "base_commit_sha": "d6091fe203fd4e9d7182120b109fe057e2beda76",
+  "prompts": {},
+  "humans": {
+    "h_cb7f8177e9a94f": {
+      "author": "Piper McCorkle <contact@piperswe.me>"
+    }
+  }
+}

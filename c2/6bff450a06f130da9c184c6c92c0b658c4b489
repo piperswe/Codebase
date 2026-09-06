@@ -1,0 +1,96 @@
+lib/go/o11y/logging_test.go
+  s_58def608ee4a46::t_2ac71c57d94448 1-102
+projects/datasite/internal/moviedb/moviedb.go
+  s_56aa12d8a47280::t_828a86d1a4ab0e 11
+  s_56aa12d8a47280::t_b2ac8cc350c8b5 43,157,170-171
+  s_56aa12d8a47280::t_5acced8a6181e9 58,94,125,140
+  s_56aa12d8a47280::t_20e1293c38e395 44,47,53
+projects/datasite/cmd/datasite/datasite.env
+  s_56aa12d8a47280::t_0cf557d132e145 9-12
+projects/datasite/internal/metrics/BUILD.bazel
+  s_56aa12d8a47280::t_87b27baeb701e6 1-13
+lib/go/o11y/setup_errors_test.go
+  s_58def608ee4a46::t_781b448efe02a9 1-68
+projects/datasite/internal/metrics/metrics.go
+  s_56aa12d8a47280::t_9436fed8a9c63e 1
+  s_56aa12d8a47280::t_43b52c1b907ec9 10-11
+projects/datasite/internal/moviedb/moviedb_test.go
+  s_56aa12d8a47280::t_e346640e0df0e9 12,16-17
+  s_56aa12d8a47280::t_a5cb57b025c19b 51,67,131,141
+  s_56aa12d8a47280::t_6864f803dea7d7 92,114
+  s_56aa12d8a47280::t_963abaa887254a 18
+lib/go/o11y/exporters_test.go
+  s_58def608ee4a46::t_2ac71c57d94448 1-71
+projects/datasite/cmd/datasite/main.go
+  s_56aa12d8a47280::t_45f9fd30650be8 61-64,67-70,78,80-83,88-90
+  s_56aa12d8a47280::t_01c3109acd45f5 24
+  s_56aa12d8a47280::t_336d49b3745b4e 71-74
+  s_56aa12d8a47280::t_c257202e83b7ae 164,167,169
+  s_56aa12d8a47280::t_f9fd3c5cd2f9f2 179-180,182-183,202-203
+  s_56aa12d8a47280::t_68067629683282 22,31
+  s_56aa12d8a47280::t_8d104085173247 130
+  s_56aa12d8a47280::t_08b642d1478a9d 84-87
+  s_56aa12d8a47280::t_dd38869600b7a5 209-210
+  s_56aa12d8a47280::t_23c33d239027ff 91
+  s_56aa12d8a47280::t_277dcb0d01ac33 251
+lib/go/o11y/o11y.go
+  s_58def608ee4a46::t_35288441f8bddd 1-84
+projects/datasite/internal/moviedb/BUILD.bazel
+  s_56aa12d8a47280::t_87b27baeb701e6 10
+  s_56aa12d8a47280::t_ae4169adf20605 26
+BUILD.bazel
+  s_56aa12d8a47280::t_2ea8a4d93db218 49,64
+lib/go/o11y/test_helpers_test.go
+  s_58def608ee4a46::t_fe4b10ee3b5588 1-102
+lib/go/o11y/admin_test.go
+  s_58def608ee4a46::t_c32b23a1564b76 1-162
+lib/go/o11y/setup.go
+  s_58def608ee4a46::t_35288441f8bddd 1,5,8,15,21,24-33,36-74,76,79,84-85,89,91,93,95-96,98,100,103,106-114,117-125,128-131,133-144
+lib/go/o11y/admin.go
+  s_58def608ee4a46::t_35288441f8bddd 1-84
+projects/datasite/cmd/datasite/BUILD.bazel
+  s_56aa12d8a47280::t_ae4169adf20605 17,37
+  s_56aa12d8a47280::t_87b27baeb701e6 20
+lib/go/o11y/logging.go
+  s_58def608ee4a46::t_35288441f8bddd 1-68
+lib/go/o11y/o11y_test.go
+  s_58def608ee4a46::t_fe4b10ee3b5588 1-74
+lib/go/o11y/setup_test.go
+  s_58def608ee4a46::t_525691ce789a41 1-213
+lib/go/o11y/BUILD.bazel
+  s_58def608ee4a46::t_6f3e9e0b13405c 6-9,35-39,41-43
+  s_58def608ee4a46::t_6412a6ff84112a 1,32-34,44-56
+  s_58def608ee4a46::t_781b448efe02a9 40
+  s_56aa12d8a47280::t_ae4169adf20605 4,11-12,14,19,57-58
+projects/interface/cmd/interface/BUILD.bazel
+  s_56aa12d8a47280::t_2ea8a4d93db218 19
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.0",
+  "base_commit_sha": "c26bff450a06f130da9c184c6c92c0b658c4b489",
+  "prompts": {},
+  "humans": {
+    "h_cb7f8177e9a94f": {
+      "author": "Piper McCorkle <contact@piperswe.me>"
+    }
+  },
+  "sessions": {
+    "s_56aa12d8a47280": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "ses_fa7de8d5bffeTuq0ssif8shqMJ",
+        "model": "claude-opus-4-8"
+      },
+      "human_author": "Piper McCorkle <contact@piperswe.me>"
+    },
+    "s_58def608ee4a46": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a0583e-0146-7d21-b8ae-72716b1f46f4",
+        "model": "gpt-5.6-sol"
+      },
+      "human_author": "Piper McCorkle <contact@piperswe.me>"
+    }
+  }
+}

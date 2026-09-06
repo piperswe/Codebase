@@ -1,0 +1,34 @@
+MODULE.bazel
+  s_dd03aca8cace82::t_2b996739657ee3 185
+MODULE.bazel.lock
+  s_415d912c1297c1::t_df05320c8e511b 329-330,2722-2723,2728,2805
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.0",
+  "base_commit_sha": "78dad8ee50e3ad8a2d84f301ad551d80e801098c",
+  "prompts": {},
+  "humans": {
+    "h_cb7f8177e9a94f": {
+      "author": "Piper McCorkle <contact@piperswe.me>"
+    }
+  },
+  "sessions": {
+    "s_415d912c1297c1": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a06272-88f5-7140-a4c6-fc491fd95699",
+        "model": "gpt-5.6-sol"
+      },
+      "human_author": "Piper McCorkle <contact@piperswe.me>"
+    },
+    "s_dd03aca8cace82": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a0626a-49d9-7692-9278-cd202fc56bc3",
+        "model": "gpt-5.6-sol"
+      },
+      "human_author": "Piper McCorkle <contact@piperswe.me>"
+    }
+  }
+}

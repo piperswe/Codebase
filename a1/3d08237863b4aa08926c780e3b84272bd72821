@@ -1,0 +1,54 @@
+projects/yago/internal/db/BUILD.bazel
+  h_cb7f8177e9a94f 7,17,22-23
+projects/yago/Procfile
+  h_cb7f8177e9a94f 1-2
+projects/yago/internal/rbac/resources.go
+  h_cb7f8177e9a94f 1-72
+tools/tool.go
+  h_cb7f8177e9a94f 1-10
+projects/yago/internal/db/migrations/000001_init.up.sql
+  h_cb7f8177e9a94f 2-3,8,12,17-18,26-28,35-47
+  h_cb7f8177e9a94f 34
+projects/yago/internal/db/helpers.go
+  h_cb7f8177e9a94f 1-52
+mise.toml
+  h_cb7f8177e9a94f 51-54
+projects/yago/internal/db/queries.sql
+  h_cb7f8177e9a94f 1-3,5,7-32,35,38,41-44,50,53,56-59,62
+  h_cb7f8177e9a94f 6,54-55
+projects/yago/internal/rbac/actions.go
+  h_cb7f8177e9a94f 1-9
+projects/yago/internal/rbac/permissions.go
+  h_cb7f8177e9a94f 1-10
+projects/yago/cmd/yago/main.go
+  h_cb7f8177e9a94f 4,10,19-29,41-46
+MODULE.bazel
+  h_cb7f8177e9a94f 181
+go.mod
+  h_cb7f8177e9a94f 6,20,92,116,159
+go.sum
+  h_cb7f8177e9a94f 12-13,169-170,209-210,215,230-231,363,399-400
+projects/yago/cmd/yago/BUILD.bazel
+  h_cb7f8177e9a94f 12
+projects/yago/internal/db/models.go
+  h_cb7f8177e9a94f 7-10,12-13,17-24,26,31-33,37-38
+projects/yago/internal/db/queries.sql.go
+  h_cb7f8177e9a94f 10-11,14-85,90-91,101,122,125-126,128-133,137-147,155,175-204,209,215,217,229-300,302,309,313,315
+projects/yago/internal/rbac/BUILD.bazel
+  h_cb7f8177e9a94f 1-13
+tools/BUILD.bazel
+  h_cb7f8177e9a94f 4,6-7,10
+tools/overmind
+  h_cb7f8177e9a94f 1-6
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.0",
+  "base_commit_sha": "a13d08237863b4aa08926c780e3b84272bd72821",
+  "prompts": {},
+  "humans": {
+    "h_cb7f8177e9a94f": {
+      "author": "Piper McCorkle <contact@piperswe.me>"
+    }
+  }
+}

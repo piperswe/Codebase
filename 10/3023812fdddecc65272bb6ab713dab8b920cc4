@@ -1,0 +1,33 @@
+projects/hello_world/hello_java/BUILD.bazel
+  h_cb7f8177e9a94f 13
+platforms/workspace_status.sh
+  h_cb7f8177e9a94f 7,44
+projects/yago/cmd/yago/BUILD.bazel
+  h_cb7f8177e9a94f 1-59
+  h_cb7f8177e9a94f 60-63
+projects/hello_world/hello_java/Hello.java
+  h_cb7f8177e9a94f 1
+projects/yago/cmd/yago/main.go
+  h_cb7f8177e9a94f 3,5-10,13-26
+  h_b69f76d174a58c 1-2,4,11-12,27-28
+projects/yago/internal/version/BUILD.bazel
+  h_cb7f8177e9a94f 1-9
+mise.toml
+  h_cb7f8177e9a94f 5,46
+projects/yago/internal/version/version.go
+  h_cb7f8177e9a94f 1-3
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.23",
+  "base_commit_sha": "103023812fdddecc65272bb6ab713dab8b920cc4",
+  "prompts": {},
+  "humans": {
+    "h_b69f76d174a58c": {
+      "author": "Piper McCorkle <piper.mccorkle@grafana.com>"
+    },
+    "h_cb7f8177e9a94f": {
+      "author": "Piper McCorkle <contact@piperswe.me>"
+    }
+  }
+}

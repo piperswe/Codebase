@@ -1,0 +1,28 @@
+.bazelrc
+  s_3128f9653770cd::t_6dc4499abd6f28 11-20
+.github/workflows/git-tag.yaml
+  s_3128f9653770cd::t_dad3a0255726fd 20-26,28-32
+.github/workflows/ci.yaml
+  s_3128f9653770cd::t_dad3a0255726fd 20-26,28-37
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.0",
+  "base_commit_sha": "c429774f6689b1d5a992a760ef97e06c2f584a0d",
+  "prompts": {},
+  "humans": {
+    "h_cb7f8177e9a94f": {
+      "author": "Piper McCorkle <contact@piperswe.me>"
+    }
+  },
+  "sessions": {
+    "s_3128f9653770cd": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "f40a911f-d962-4c20-8ee6-b47036a9e1aa",
+        "model": "claude-opus-5"
+      },
+      "human_author": "Piper McCorkle <contact@piperswe.me>"
+    }
+  }
+}

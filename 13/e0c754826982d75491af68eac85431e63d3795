@@ -1,0 +1,51 @@
+platforms/workspace_status.sh
+  s_b451b737be4358::t_2bae279484ab34 12-13,20,53-54
+projects/hello_world/hello_go/BUILD.bazel
+  s_b451b737be4358::t_87290588b5e250 35
+  s_b451b737be4358::t_7da0a747524056 37
+projects/interface/cmd/interface/BUILD.bazel
+  s_b451b737be4358::t_87290588b5e250 39
+  s_b451b737be4358::t_7da0a747524056 41
+platforms/oci.bzl
+  s_b451b737be4358::t_82645414904939 29
+  s_b451b737be4358::t_21f2708529d19f 11-28,30-91,95,112,115,126,129,135,138
+projects/datasite/cmd/datasite/BUILD.bazel
+  s_b451b737be4358::t_7da0a747524056 77
+  s_b451b737be4358::t_87290588b5e250 75
+projects/hello_world/hello_cpp/BUILD.bazel
+  s_b451b737be4358::t_87290588b5e250 27
+  s_b451b737be4358::t_7da0a747524056 29
+projects/hello_world/hello_rs/BUILD.bazel
+  s_b451b737be4358::t_87290588b5e250 27
+  s_b451b737be4358::t_7da0a747524056 29
+projects/yago/cmd/yago/BUILD.bazel
+  s_b451b737be4358::t_87290588b5e250 49
+  s_b451b737be4358::t_7da0a747524056 51
+projects/hello_world/hello_java/BUILD.bazel
+  s_b451b737be4358::t_87290588b5e250 22
+  s_b451b737be4358::t_7da0a747524056 28
+projects/hello_world/hello_ts/BUILD.bazel
+  s_b451b737be4358::t_87290588b5e250 53
+  s_b451b737be4358::t_7da0a747524056 56
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.0",
+  "base_commit_sha": "13e0c754826982d75491af68eac85431e63d3795",
+  "prompts": {},
+  "humans": {
+    "h_cb7f8177e9a94f": {
+      "author": "Piper McCorkle <contact@piperswe.me>"
+    }
+  },
+  "sessions": {
+    "s_b451b737be4358": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "c1c9f7e0-56bf-43a2-a386-f3b6436f11a2",
+        "model": "claude-opus-5"
+      },
+      "human_author": "Piper McCorkle <contact@piperswe.me>"
+    }
+  }
+}
