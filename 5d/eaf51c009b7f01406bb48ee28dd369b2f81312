@@ -1,0 +1,29 @@
+package.json
+  s_6347c760e1c837::t_b1bdd49beb2e0f 12-14
+projects/datasite/internal/static/BUILD.bazel
+  s_6347c760e1c837::t_ec7acee31e16f1 1,6,8,11-15,21
+  s_6347c760e1c837::t_8d1407bdd971f5 2,5,7,9-10,16-17
+pnpm-lock.yaml
+  s_6347c760e1c837::t_6a1b045c6e9cf9 10-13,701-703,984-988,1730-1731,1912-1915
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.2",
+  "base_commit_sha": "5deaf51c009b7f01406bb48ee28dd369b2f81312",
+  "prompts": {},
+  "humans": {
+    "h_cb7f8177e9a94f": {
+      "author": "Piper McCorkle <contact@piperswe.me>"
+    }
+  },
+  "sessions": {
+    "s_6347c760e1c837": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a02669-acb6-7d41-bfb6-3fff1ddf2529",
+        "model": "gpt-5.6-sol"
+      },
+      "human_author": "Piper McCorkle <contact@piperswe.me>"
+    }
+  }
+}
