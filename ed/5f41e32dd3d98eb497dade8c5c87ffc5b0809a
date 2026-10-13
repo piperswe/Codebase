@@ -1,0 +1,294 @@
+projects/memode/internal/store/migrations/000001_base.down.sql
+  s_e198382ffc383c::t_a24cbd4d45fd6b 1-5
+lib/go/codemode/codemode_test.go
+  s_e198382ffc383c::t_92bf3aa7fb160d 22-26,119-131
+  s_e198382ffc383c::t_e2e0eda31a38eb 1-21,27-118,132-186
+lib/go/dav/dav.go
+  s_e198382ffc383c::t_113d0b865d58d7 353,356,359,362,408,414,417,420,423
+  s_e198382ffc383c::t_9ded0d5b90f0be 1-44,46-141,143,145-146,150,154-155,157-226,233-310,312-349,352,354-355,357-358,360-361,363-407,409-413,415-416,418-419,421-422,424-427
+  s_e198382ffc383c::t_384e966edd67f6 45
+  s_e198382ffc383c::t_fac833b86f2722 147,151
+  s_e198382ffc383c::t_edc1a1a3077526 156,227-232
+  s_e198382ffc383c::t_86f9de38a8385e 142,144,148-149,152-153,311,350-351
+lib/go/dav/BUILD.bazel
+  s_e198382ffc383c::t_6a00444b4cd038 1-27
+projects/memode/internal/services/dav_integration_test.go
+  s_e198382ffc383c::t_384e966edd67f6 61,74,77
+  s_e198382ffc383c::t_3ef8906bc36c29 1-6,8,10-13,16-17,20-27,29-30
+  s_e198382ffc383c::t_2643c1d9133d15 62,97
+  s_e198382ffc383c::t_615b2c7a87ac32 9,18-19
+  s_e198382ffc383c::t_799f149749e196 7,14-15,28,31-60,63-73,75-76,78-96,98-126
+projects/memode/cmd/memode/main.go
+  s_e198382ffc383c::t_2d1a896a3fbae0 1-4,8,11,18-21,72
+  s_e198382ffc383c::t_e5d3bce873787a 7,9-10,12,15,39-40,48-49,51-62
+  s_e198382ffc383c::t_6a4cf4ee04d0ea 5-6,13,17,22,24-32,34-38
+  s_e198382ffc383c::t_6d829dc6d88917 14,23,33,41-46,50,63-71
+  s_e198382ffc383c::t_b7ca39f6f401ef 16
+  s_e198382ffc383c::t_2059a094152b41 47
+go.mod
+  s_e198382ffc383c::t_acf068aa3375aa 91
+  s_e198382ffc383c::t_a624d428d6249f 125
+  s_e198382ffc383c::t_8b0267b639f869 6
+  s_e198382ffc383c::t_7e994e06a1c051 13,16-17
+  s_e198382ffc383c::t_8ee0512b8a550b 31,105,161,181
+  s_e198382ffc383c::t_d8607ac49e6536 24,76,97,110-112,156,212
+  s_e198382ffc383c::t_d9461dac7a4533 22
+  s_e198382ffc383c::t_979c4fa7a6faae 171
+  s_e198382ffc383c::t_b1fce0341fe792 14-15
+projects/memode/internal/services/mail/greenmail_test.go
+  s_e198382ffc383c::t_17f7415c367a16 67,151-157,161
+  s_e198382ffc383c::t_4883b4bb79b703 33-35,137,144-147
+  s_e198382ffc383c::t_6d97b3dea5fd51 1-6,8-32,36-40,44-45,47-66,68-136,138-142,148-150,158-160,162-165
+  s_e198382ffc383c::t_b544d4e4367e8b 7,41-43,46
+  s_e198382ffc383c::t_3eb12dad29462e 143
+projects/memode/internal/server/server_test.go
+  s_e198382ffc383c::t_069548a16a1029 1-4,6-25,27-89,91-148
+  s_e198382ffc383c::t_6d829dc6d88917 26
+  s_e198382ffc383c::t_233600dbb47023 5,90
+projects/memode/internal/store/migrations/000002_mail.down.sql
+  s_e198382ffc383c::t_8057022602f5f9 1-6
+lib/go/oauthas/BUILD.bazel
+  s_e198382ffc383c::t_d9461dac7a4533 1-15
+projects/memode/internal/services/telegram/BUILD.bazel
+  s_e198382ffc383c::t_3d9388e74c48f5 1-27
+lib/go/oauthas/oauthas_test.go
+  s_e198382ffc383c::t_bdd814b8ae2368 7-8,10,95-96,99-107,207,221,235,301,313
+  s_e198382ffc383c::t_56d306a2c0c9c7 112-115,118,133,140
+  s_e198382ffc383c::t_5dc0648dfd12a6 134
+  s_e198382ffc383c::t_e9231b934751bd 81-82,84-85
+  s_e198382ffc383c::t_2e9dc204cc21c9 1-6,9,11-80,83,86-94,97-98,108-111,116-117,119-132,135-139,141-206,208-220,222-234,236-287,293-300,303-312
+  s_e198382ffc383c::t_8ae9e31146baf9 288-292,302
+projects/memode/internal/services/mail/write.go
+  s_e198382ffc383c::t_e8b4dae41fb33e 1-8,10-20,24-33,35,38,40,42-50,54-56,67-80,83-99,110,114,116-157
+  s_e198382ffc383c::t_bc12901e4a519e 9,21-23,34,36-37,39,41,51-53,57-66,81-82,100-109,112-113,115
+  s_e198382ffc383c::t_449d5b96f0cfe1 111
+projects/memode/internal/server/consent.templ
+  s_e198382ffc383c::t_8bd93377efaa1b 1-66
+projects/memode/internal/store/migrations/000002_mail.up.sql
+  s_e198382ffc383c::t_fbc4011c30719f 1-48
+projects/memode/internal/config/config.go
+  s_e198382ffc383c::t_6d829dc6d88917 33-34,68-69
+  s_e198382ffc383c::t_17f7415c367a16 6,147-148,170-176
+  s_e198382ffc383c::t_6fb475bf15a575 1-5,7-14,17-29,35-40,44-64,70-74,76-80,86-104,107,109-113,117,119-120,188-193,197-208
+  s_e198382ffc383c::t_e9231b934751bd 30-32,65-67,194-196
+  s_e198382ffc383c::t_d0f4581eeb111b 121-132
+  s_e198382ffc383c::t_4e657e6b0adc08 149-153
+  s_e198382ffc383c::t_eadfbd6ed018e2 41-43,75,81-85,105-106,108,114-116,118
+  s_e198382ffc383c::t_675aa9f4c742c1 154-169
+  s_e198382ffc383c::t_6dcb435f7023cc 15-16
+  s_e198382ffc383c::t_3d70108427000c 133-146,177-187
+projects/memode/internal/server/oauth_test.go
+  s_e198382ffc383c::t_58c316501e34d2 30,79
+  s_e198382ffc383c::t_d75d6ff18115c3 173
+  s_e198382ffc383c::t_5e6e2f83ab9bcd 36-56
+  s_e198382ffc383c::t_357e2d60f1228a 186
+  s_e198382ffc383c::t_81376dd13df09f 1-6,8-29,31-35,57-78,80-172,174-185,187-212,214-319
+  s_e198382ffc383c::t_5a33b5eb4f045a 213
+  s_e198382ffc383c::t_e9231b934751bd 7
+projects/memode/internal/services/mail/store.go
+  s_e198382ffc383c::t_7ae20ca3d868d8 72-74
+  s_e198382ffc383c::t_e9231b934751bd 15-26,179
+  s_e198382ffc383c::t_710e5e540c297b 1-14,27-71,75-178,180-230,232-247
+  s_e198382ffc383c::t_a5052e62791fd7 231
+projects/memode/internal/services/mail/BUILD.bazel
+  s_e198382ffc383c::t_c5a7455a97b7d5 1-37
+projects/memode/internal/store/BUILD.bazel
+  s_e198382ffc383c::t_c5a7455a97b7d5 9-10
+  s_e198382ffc383c::t_0406e3d50c33e7 1-5,12-24
+  s_e198382ffc383c::t_8b0267b639f869 6-8,11
+projects/memode/internal/version/BUILD.bazel
+  s_e198382ffc383c::t_fb231cad826f94 1-8
+projects/memode/internal/server/server.go
+  s_e198382ffc383c::t_2378b212dc25ff 1-5,7-12,14,16-20,26-51,56-78,85-96
+  s_e198382ffc383c::t_6d829dc6d88917 21-25,52-55,79-84
+  s_e198382ffc383c::t_2b8dd1e195caf5 6
+  s_e198382ffc383c::t_9f7b68ab0825a4 13,15
+projects/memode/internal/services/kagi/BUILD.bazel
+  s_e198382ffc383c::t_691275ab9d392f 1-23
+projects/memode/internal/services/registry.go
+  s_e198382ffc383c::t_b1956d41ff3cab 1-12,16,18-35,49-51,55-56,63-69,78,80-82
+  s_e198382ffc383c::t_c1f9eefb513d57 15,45-47,76-77
+  s_e198382ffc383c::t_1bac79342f64a4 17,42,44,74-75
+  s_e198382ffc383c::t_01e1a23abe5101 43
+  s_e198382ffc383c::t_e3aad2db239a33 13-14,36-41,70-73
+  s_e198382ffc383c::t_2059a094152b41 52-54,57-62
+  s_e198382ffc383c::t_632a6b7a1faad5 48,79
+projects/memode/internal/services/contacts/BUILD.bazel
+  s_e198382ffc383c::t_6a00444b4cd038 1-13
+projects/memode/internal/services/telegram/telegram_test.go
+  s_e198382ffc383c::t_e5be2b9c9d5e2b 1-7,9-54,59,61-80,82,87,90-114,116-130,132-147,149-152,154-172,174-175,177,179,181-182,184-190
+  s_e198382ffc383c::t_10e3ad9d703fe9 55-58,60,83-86,88-89
+  s_e198382ffc383c::t_91f20be7f2515a 148,153
+  s_e198382ffc383c::t_01e1a23abe5101 8,81,115,131,173,176,178,180,183
+projects/memode/internal/server/codemode.go
+  s_e198382ffc383c::t_2b8dd1e195caf5 12,42,55
+  s_e198382ffc383c::t_150e513d610c9f 1-11,13-41,44-54,56-85,87,89-103
+  s_e198382ffc383c::t_e9231b934751bd 43,86,88
+projects/memode/internal/oauthstore/BUILD.bazel
+  s_e198382ffc383c::t_dbf1e1513be607 1-4,9-10,12
+  s_e198382ffc383c::t_d9461dac7a4533 5-8,11
+projects/memode/internal/server/BUILD.bazel
+  s_e198382ffc383c::t_dbf1e1513be607 1-6,10-15,17-19,23-28,34-37,39,42-44
+  s_e198382ffc383c::t_d9461dac7a4533 7,9,16,22,29,31-33,41
+  s_e198382ffc383c::t_82f306de5d4176 8,20-21
+  s_e198382ffc383c::t_d6322f7b97fd7b 30,38,40
+projects/memode/internal/services/mail/remote.go
+  s_e198382ffc383c::t_17f7415c367a16 25,29,40-47,49
+  s_e198382ffc383c::t_46df3e87864988 188,217-220,223
+  s_e198382ffc383c::t_e86599847be95d 15,386-387
+  s_e198382ffc383c::t_0952b98976e0c6 8,19,30,34,60,68-70,72,76-77,87-88,94,97-98,100,140,145,167-175,177,179,181-187,189-195,197-216,221-222,224-231,267,280,316-317,319-322,324-325,330-331,334,338-341,343-344,346-347,350-354,356-357,359-375,377-378
+  s_e198382ffc383c::t_25c8b56d3534a0 196,278
+  s_e198382ffc383c::t_449d5b96f0cfe1 318,329,332,396-404
+  s_e198382ffc383c::t_2e64d623618905 115,117-119,176,180,263,294
+  s_e198382ffc383c::t_d4330e48535f36 1-7,9-14,16-18,20-24,26-28,31-33,35,37-39,50-57,59,61-67,71,73-75,78-82,84-86,89-93,95-96,101-114,116,120-139,141-144,146-166,232-257,259-262,265-266,268-272,274-277,281-288,290-293,296-307,309-315,323,326-328,333,335-337,342,345,348-349,355,358,376,379-385,388-395,405
+  s_e198382ffc383c::t_217fb93a5bf9b3 99,178,264,279,295
+  s_e198382ffc383c::t_48aa00e614d01e 36,48,58,83,258,273,289,308
+projects/memode/internal/store/store.go
+  s_e198382ffc383c::t_68f61457f76976 1-11,14-25,31-49
+  s_e198382ffc383c::t_753a2a813065d8 12-13,26-30
+projects/datasite/internal/static/BUILD.bazel
+  s_fd9971d75e7f5f::t_8ed6f336f2e7fa 21
+projects/memode/.env.example
+  s_e198382ffc383c::t_9cc16d2dfbf21a 1-32
+projects/memode/internal/version/version.go
+  s_e198382ffc383c::t_fcc1a941fe18fb 1-5
+projects/memode/internal/config/BUILD.bazel
+  s_e198382ffc383c::t_0406e3d50c33e7 1-7,12
+  s_e198382ffc383c::t_dbf1e1513be607 8-11
+projects/memode/internal/services/mail/mail.go
+  s_e198382ffc383c::t_c9e45dce58a23f 1-24,27-30,32-38,42,44,50-121
+  s_e198382ffc383c::t_eadfbd6ed018e2 39-41,43,45-49
+  s_e198382ffc383c::t_17f7415c367a16 25-26,31
+lib/go/dav/dav_test.go
+  s_e198382ffc383c::t_733f12242cca92 1-21,24-27,29-30,32-85,87-114,116-141,143,145-149,151-155,159-200,202-239
+  s_e198382ffc383c::t_e15e6c9604a52c 115
+  s_e198382ffc383c::t_929b197c61cf34 22-23,28,31,86,142,144,150,201
+  s_e198382ffc383c::t_0017df6b3e8aef 156-158
+projects/memode/README.md
+  s_e198382ffc383c::t_8725e84fcbb3b6 1-284
+projects/memode/internal/davtest/BUILD.bazel
+  s_e198382ffc383c::t_d6322f7b97fd7b 1-14
+lib/go/codemode/codemode.go
+  s_e198382ffc383c::t_f19c9761c85ded 134
+  s_e198382ffc383c::t_6fb90e4aec07b4 1-6,13-132,135-158,160-163,165-170,175,177,179-180,184-190,193-268,270-315
+  s_e198382ffc383c::t_2643c1d9133d15 7-12
+  s_e198382ffc383c::t_b7660ea712dd78 159,171-174,176,178,181-183,191-192,269
+  s_e198382ffc383c::t_e6b54ba9ca6cb4 133
+  s_e198382ffc383c::t_44b053986a8002 164
+projects/memode/internal/services/mail/sync.go
+  s_e198382ffc383c::t_794343e943fef5 1-14,17,20-31,34-36,41-42,54-93
+  s_e198382ffc383c::t_e9231b934751bd 15-16,18-19
+  s_e198382ffc383c::t_ad15adb134ebc7 32-33,37-40,43-53
+projects/memode/internal/server/consent.go
+  s_e198382ffc383c::t_9f7b68ab0825a4 13
+  s_e198382ffc383c::t_fdf2f4056ea203 28,32,37-45
+  s_e198382ffc383c::t_ee4079523896d7 1-12,14-27,29-31,33-36,46-110
+projects/memode/internal/server/e2e_test.go
+  s_e198382ffc383c::t_58c316501e34d2 8,53,56,105,112,126
+  s_e198382ffc383c::t_2059a094152b41 60
+  s_e198382ffc383c::t_5d8f23f9275317 1-7,9-52,54-55,57-59,61-104,106-111,113-125,127-135
+projects/memode/internal/services/telegram/telegram.go
+  s_e198382ffc383c::t_a2c62352e51d8b 1-36,40-578
+  s_e198382ffc383c::t_01e1a23abe5101 37-39
+projects/memode/internal/services/kagi/kagi_test.go
+  s_e198382ffc383c::t_53c45077dc7e09 21-23
+  s_e198382ffc383c::t_c1f9eefb513d57 1-20,24-35,37-69,73-87
+  s_e198382ffc383c::t_4e657e6b0adc08 36,70-72
+projects/memode/PLAN.md
+  s_e198382ffc383c::t_eed3acf916b659 8-34,38-44,46-51,57,59-79,101-127,135-152,156-162,166-169,188-189,203-206
+  s_e198382ffc383c::t_4b0a5c1dccbb9b 45,82-100,128-134,186-187,190-196,201-202
+  s_e198382ffc383c::t_d4364e7e249ae0 181-182
+  s_e198382ffc383c::t_630d879ae03891 197-200
+  s_e198382ffc383c::t_688ceae9d303b6 1-7,35-37,52-56,58,80-81,153-155,163-165,170-172,183-185
+  s_e198382ffc383c::t_99198f2d05ce4b 173-180
+lib/go/codemode/bridge.go
+  s_e198382ffc383c::t_06c725fdb7bc23 35
+  s_e198382ffc383c::t_6f382f8eb15fb3 1-5,7-34,36-118,130-143
+  s_e198382ffc383c::t_92bf3aa7fb160d 6,119-129
+projects/memode/internal/oauthstore/store.go
+  s_e198382ffc383c::t_eefa3ceeb65d37 1-13,15-209
+  s_e198382ffc383c::t_728a66a02aeedd 14
+projects/memode/internal/davtest/davtest.go
+  s_e198382ffc383c::t_eadfbd6ed018e2 33-35,81-83,97-99
+  s_e198382ffc383c::t_f5f40552e959f2 1-32,36-80,84-96,100-132
+projects/memode/internal/services/calendar/calendar.go
+  s_e198382ffc383c::t_384e966edd67f6 62,64,123-124,126-130
+  s_e198382ffc383c::t_2643c1d9133d15 151-153
+  s_e198382ffc383c::t_41a4a98d443985 1-18,23-61,63,65-122,125,131-150,154-194
+  s_e198382ffc383c::t_1eec83a8d83daa 19-22
+projects/memode/cmd/memode/BUILD.bazel
+  s_e198382ffc383c::t_0406e3d50c33e7 8,10,14-16
+  s_e198382ffc383c::t_c5a7455a97b7d5 13
+  s_e198382ffc383c::t_d9461dac7a4533 11
+  s_e198382ffc383c::t_dbf1e1513be607 9,12
+  s_e198382ffc383c::t_fb231cad826f94 1-7,17-23
+lib/go/oauthas/oauthas.go
+  s_e198382ffc383c::t_72d1a64de07ca0 420-424
+  s_e198382ffc383c::t_900e1d87465c81 1-14,16-118,120-149,152-340,342-358,365-369,372-375,378-379,382,384-419
+  s_e198382ffc383c::t_e9231b934751bd 15,119,150-151,359-364,376-377,380-381,383
+  s_e198382ffc383c::t_37298562665c6e 341
+  s_e198382ffc383c::t_a910ceed86d9fe 370-371
+projects/memode/internal/services/mail/store_test.go
+  s_e198382ffc383c::t_ba315feb1259de 1-4,6-110,112-115,118-120,122-124,126,148-149
+  s_e198382ffc383c::t_eade665e260947 111
+  s_e198382ffc383c::t_7ae20ca3d868d8 116-117,121,125
+  s_e198382ffc383c::t_bab24a7a424469 5,127-147
+projects/memode/internal/services/kagi/kagi.go
+  s_e198382ffc383c::t_e9f8980e079fee 1-31,33-69
+  s_e198382ffc383c::t_4e657e6b0adc08 32
+projects/memode/internal/store/store_test.go
+  s_e198382ffc383c::t_d6b36411635868 1-9,12-21,29-33
+  s_e198382ffc383c::t_28f8f2a514bc53 10-11,22-28
+lib/go/codemode/BUILD.bazel
+  s_e198382ffc383c::t_8b0267b639f869 1-18
+projects/memode/internal/oauthstore/grants.go
+  s_e198382ffc383c::t_06ea2bc6a0e1df 1-4,6-69
+  s_e198382ffc383c::t_5495a6a13dba23 5
+projects/memode/internal/services/contacts/contacts.go
+  s_e198382ffc383c::t_c3264164c146ac 149-151
+  s_e198382ffc383c::t_53bde2167aff03 1-148,152-172
+projects/memode/internal/server/oauth.go
+  s_e198382ffc383c::t_e9231b934751bd 9,138
+  s_e198382ffc383c::t_728a66a02aeedd 8
+  s_e198382ffc383c::t_46c711f91c857d 1-7,10-137,139-161
+projects/memode/internal/services/calendar/BUILD.bazel
+  s_e198382ffc383c::t_6a00444b4cd038 1-13
+MODULE.bazel
+  s_e198382ffc383c::t_3d9388e74c48f5 153
+projects/memode/internal/services/BUILD.bazel
+  s_e198382ffc383c::t_6a00444b4cd038 1,11-12,16-25,27-28
+  s_e198382ffc383c::t_691275ab9d392f 13
+  s_e198382ffc383c::t_c5a7455a97b7d5 2-10,14,29-30
+  s_e198382ffc383c::t_3d9388e74c48f5 15
+  s_e198382ffc383c::t_d6322f7b97fd7b 26
+projects/memode/internal/server/consent_templ.go
+  s_e198382ffc383c::t_82f306de5d4176 1-205
+go.sum
+  s_e198382ffc383c::t_15f9ae88a945f1 22-23,61-62,106-119,143-144,161-162,171-172,183-192,242-243,266-267,328-329,334-335,341-342,370-371,401-403,457,463-464,469-471,477-479,485,487,489-490,492,495-497,501-504,509,513-515,582-583,586-587
+projects/memode/internal/store/migrations/000001_base.up.sql
+  s_e198382ffc383c::t_10d0be17ecd964 1-40
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "ed5f41e32dd3d98eb497dade8c5c87ffc5b0809a",
+  "prompts": {},
+  "sessions": {
+    "s_e198382ffc383c": {
+      "agent_id": {
+        "tool": "pi",
+        "id": "01a136f1-19ff-711f-91c9-581dd1860a2b",
+        "model": "gemini-4-argon"
+      },
+      "human_author": "Piper McCorkle <contact@piperswe.me>"
+    },
+    "s_fd9971d75e7f5f": {
+      "agent_id": {
+        "tool": "pi",
+        "id": "01a13773-c458-741e-b565-ca4bdea51aca",
+        "model": "gemini-4-argon"
+      },
+      "human_author": "Piper McCorkle <contact@piperswe.me>"
+    }
+  }
+}
