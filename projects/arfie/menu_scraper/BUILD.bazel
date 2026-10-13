@@ -1,0 +1,49 @@
+load("@rules_go//go:def.bzl", "go_binary", "go_library", "go_test")
+
+go_library(
+    name = "menu_scraper_lib",
+    srcs = [
+        "agent.go",
+        "main.go",
+        "menu.go",
+        "provider.go",
+    ],
+    embedsrcs = ["menu.schema.json"],
+    importpath = "codebase.bid/projects/arfie/menu_scraper",
+    visibility = ["//visibility:private"],
+    deps = [
+        "//lib/go/fetchweb",
+        "//lib/go/kagi",
+        "@com_github_anthropics_anthropic_sdk_go//option",
+        "@com_github_grafana_ai_sdk//:ai-sdk",
+        "@com_github_grafana_ai_sdk//output",
+        "@com_github_grafana_ai_sdk//provider",
+        "@com_github_grafana_ai_sdk//schema",
+        "@com_github_grafana_ai_sdk_providers_anthropic//:anthropic",
+        "@com_github_grafana_ai_sdk_providers_openai//:openai",
+        "@com_github_grafana_ai_sdk_providers_openai_compatible//:openai-compatible",
+        "@com_github_openai_openai_go_v3//option",
+    ],
+)
+
+go_binary(
+    name = "menu_scraper",
+    embed = [":menu_scraper_lib"],
+    visibility = ["//visibility:public"],
+)
+
+go_test(
+    name = "menu_scraper_test",
+    srcs = [
+        "provider_test.go",
+        "scraper_test.go",
+    ],
+    embed = [":menu_scraper_lib"],
+    deps = [
+        "//lib/go/fetchweb",
+        "//lib/go/kagi",
+        "@com_github_grafana_ai_sdk//provider",
+        "@com_github_grafana_ai_sdk_providers_openai//:openai",
+        "@com_github_openai_openai_go_v3//option",
+    ],
+)

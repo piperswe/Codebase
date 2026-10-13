@@ -1,0 +1,15 @@
+load("@rules_go//go:def.bzl", "go_library", "go_test")
+
+go_library(
+    name = "kagi",
+    srcs = ["kagi.go"],
+    importpath = "codebase.bid/lib/go/kagi",
+    visibility = ["//visibility:public"],
+    deps = ["//lib/go/fetchweb"],
+)
+
+go_test(
+    name = "kagi_test",
+    srcs = ["kagi_test.go"],
+    embed = [":kagi"],
+)

@@ -1,0 +1,109 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Restaurant menu extraction v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "status", "restaurant", "selection_rationale", "extracted_at", "menus", "sources", "warnings"],
+  "properties": {
+    "schema_version": {"type": "string", "enum": ["1"]},
+    "status": {"type": "string", "enum": ["ok", "partial", "not_found", "error"]},
+    "restaurant": {"anyOf": [{"$ref": "#/$defs/restaurant"}, {"type": "null"}]},
+    "selection_rationale": {"type": ["string", "null"]},
+    "extracted_at": {"type": "string", "format": "date-time"},
+    "menus": {"type": "array", "items": {"$ref": "#/$defs/menu"}},
+    "sources": {"type": "array", "items": {"$ref": "#/$defs/source"}},
+    "warnings": {"type": "array", "items": {"type": "string"}}
+  },
+  "$defs": {
+    "restaurant": {
+      "type": "object", "additionalProperties": false,
+      "required": ["name", "city", "address", "website"],
+      "properties": {
+        "name": {"type": "string", "minLength": 1},
+        "city": {"type": ["string", "null"]},
+        "address": {"type": ["string", "null"]},
+        "website": {"type": ["string", "null"]}
+      }
+    },
+    "price": {
+      "type": "object", "additionalProperties": false,
+      "required": ["label", "text", "amount", "currency"],
+      "properties": {
+        "label": {"type": ["string", "null"]},
+        "text": {"type": "string", "description": "Verbatim displayed price, including ranges, supplements, or market price."},
+        "amount": {"type": ["string", "null"], "pattern": "^-?[0-9]+(\\.[0-9]+)?$", "description": "Exact decimal amount only when unambiguous; null for a range or market price. Option prices retain the displayed supplement."},
+        "currency": {"type": ["string", "null"], "pattern": "^[A-Z]{3}$", "description": "ISO currency only when supported by source evidence; do not guess from an ambiguous symbol."}
+      }
+    },
+    "option": {
+      "type": "object", "additionalProperties": false,
+      "required": ["name", "description", "prices"],
+      "properties": {
+        "name": {"type": "string", "minLength": 1},
+        "description": {"type": ["string", "null"]},
+        "prices": {"type": "array", "items": {"$ref": "#/$defs/price"}}
+      }
+    },
+    "option_group": {
+      "type": "object", "additionalProperties": false,
+      "required": ["name", "min_selections", "max_selections", "options"],
+      "properties": {
+        "name": {"type": "string", "minLength": 1},
+        "min_selections": {"type": ["integer", "null"], "minimum": 0},
+        "max_selections": {"type": ["integer", "null"], "minimum": 0},
+        "options": {"type": "array", "items": {"$ref": "#/$defs/option"}}
+      }
+    },
+    "source_ref": {
+      "type": "object", "additionalProperties": false,
+      "required": ["source_id", "page"],
+      "properties": {
+        "source_id": {"type": "string", "minLength": 1},
+        "page": {"type": ["integer", "null"], "minimum": 1, "description": "One-based PDF page number; null for HTML/images or unknown pages."}
+      }
+    },
+    "item": {
+      "type": "object", "additionalProperties": false,
+      "required": ["name", "description", "prices", "option_groups", "dietary_labels", "allergens", "notes", "sources"],
+      "properties": {
+        "name": {"type": "string", "minLength": 1},
+        "description": {"type": ["string", "null"]},
+        "prices": {"type": "array", "items": {"$ref": "#/$defs/price"}},
+        "option_groups": {"type": "array", "items": {"$ref": "#/$defs/option_group"}},
+        "dietary_labels": {"type": "array", "items": {"type": "string"}, "description": "Only labels explicitly stated by the source."},
+        "allergens": {"type": "array", "items": {"type": "string"}, "description": "Only allergens explicitly stated by the source; absence does not mean allergen-free."},
+        "notes": {"type": "array", "items": {"type": "string"}},
+        "sources": {"type": "array", "minItems": 1, "items": {"$ref": "#/$defs/source_ref"}}
+      }
+    },
+    "section": {
+      "type": "object", "additionalProperties": false,
+      "required": ["name", "description", "items"],
+      "properties": {
+        "name": {"type": "string", "minLength": 1},
+        "description": {"type": ["string", "null"]},
+        "items": {"type": "array", "items": {"$ref": "#/$defs/item"}}
+      }
+    },
+    "menu": {
+      "type": "object", "additionalProperties": false,
+      "required": ["name", "availability", "notes", "sections"],
+      "properties": {
+        "name": {"type": "string", "minLength": 1},
+        "availability": {"type": ["string", "null"]},
+        "notes": {"type": "array", "items": {"type": "string"}},
+        "sections": {"type": "array", "items": {"$ref": "#/$defs/section"}}
+      }
+    },
+    "source": {
+      "type": "object", "additionalProperties": false,
+      "required": ["id", "url", "media_type", "retrieved_at"],
+      "properties": {
+        "id": {"type": "string", "minLength": 1},
+        "url": {"type": "string"},
+        "media_type": {"type": "string"},
+        "retrieved_at": {"type": "string", "format": "date-time"}
+      }
+    }
+  }
+}

@@ -1,0 +1,202 @@
+package main
+
+import "fmt"
+import "strings"
+
+templ menuPage(result Result) {
+	<!DOCTYPE html>
+	<html lang="en">
+		<head>
+			<meta charset="UTF-8"/>
+			<meta name="viewport" content="width=device-width, initial-scale=1"/>
+			<title>{ pageTitle(result) } · Menu</title>
+			@templ.Raw("<style>" + menuCSS + "</style>")
+		</head>
+		<body>
+			<main>
+				<header class="restaurant">
+					<p class="eyebrow">Restaurant menu</p>
+					<h1>{ pageTitle(result) }</h1>
+					if result.Restaurant != nil {
+						if hasText(result.Restaurant.City) {
+							<p>{ *result.Restaurant.City }</p>
+						}
+						if hasText(result.Restaurant.Address) {
+							<p>{ *result.Restaurant.Address }</p>
+						}
+						if hasText(result.Restaurant.Website) {
+							<p>@externalLink(*result.Restaurant.Website, "Restaurant website")</p>
+						}
+					}
+				</header>
+				if result.Status != "ok" || len(result.Warnings) > 0 {
+					<aside class="warnings" aria-label="Extraction warnings">
+						if result.Status != "ok" {
+							<p><strong>{ statusText(result.Status) }</strong></p>
+						}
+						@notes(result.Warnings)
+					</aside>
+				}
+				if len(result.Menus) > 1 {
+					<nav aria-label="Menus">
+						for i, menu := range result.Menus {
+							<a href={ fmt.Sprintf("#menu-%d", i+1) }>{ menu.Name }</a>
+						}
+					</nav>
+				}
+				{{ anchors := sourceAnchors(result.Sources) }}
+				if len(result.Menus) == 0 {
+					<p class="empty">No menu items are available.</p>
+				}
+				for i, menu := range result.Menus {
+					<section class="menu" id={ fmt.Sprintf("menu-%d", i+1) }>
+						<header class="menu-heading">
+							<h2>{ menu.Name }</h2>
+							if hasText(menu.Availability) {
+								<p class="availability">{ *menu.Availability }</p>
+							}
+						</header>
+						if len(menu.Notes) > 0 {
+							<div class="menu-notes">@notes(menu.Notes)</div>
+						}
+						if len(menu.Sections) == 0 {
+							<p class="empty">No sections are available for this menu.</p>
+						}
+						for _, section := range menu.Sections {
+							<section class="menu-section">
+								<h3>{ section.Name }</h3>
+								if hasText(section.Description) {
+									<p class="section-description">{ *section.Description }</p>
+								}
+								if len(section.Items) == 0 {
+									<p class="empty">No items are available in this section.</p>
+								}
+								for _, item := range section.Items {
+									@menuItem(item, anchors)
+								}
+							</section>
+						}
+					</section>
+				}
+				<footer>
+					<details class="extraction">
+						<summary>Extraction details and sources</summary>
+						<dl>
+							<dt>Status</dt><dd>{ result.Status }</dd>
+							<dt>Schema version</dt><dd>{ result.SchemaVersion }</dd>
+							if result.ExtractedAt != "" {
+								<dt>Extracted at</dt><dd><time datetime={ result.ExtractedAt }>{ result.ExtractedAt }</time></dd>
+							}
+							if hasText(result.SelectionRationale) {
+								<dt>Restaurant selection</dt><dd>{ *result.SelectionRationale }</dd>
+							}
+						</dl>
+						if len(result.Sources) > 0 {
+							<h2 class="sources-heading">Sources</h2>
+							<ol class="source-list">
+								for i, source := range result.Sources {
+									<li id={ fmt.Sprintf("source-%d", i+1) }>
+										<strong>{ source.ID }</strong><br/>
+										@externalLink(source.URL, source.URL)
+										<p>{ source.MediaType } · Retrieved <time datetime={ source.RetrievedAt }>{ source.RetrievedAt }</time></p>
+									</li>
+								}
+							</ol>
+						}
+					</details>
+				</footer>
+			</main>
+		</body>
+	</html>
+}
+
+templ menuItem(item Item, anchors map[string]string) {
+	<article class="item">
+		<div class="item-heading">
+			<h4>{ item.Name }</h4>
+			@prices(item.Prices)
+		</div>
+		if hasText(item.Description) {
+			<p class="description">{ *item.Description }</p>
+		}
+		if len(item.DietaryLabels) > 0 {
+			<ul class="dietary" aria-label="Dietary labels">
+				for _, label := range item.DietaryLabels {
+					<li>{ label }</li>
+				}
+			</ul>
+		}
+		if len(item.Allergens) > 0 {
+			<p class="allergens"><strong>Allergens:</strong> { strings.Join(item.Allergens, ", ") }</p>
+		}
+		@notes(item.Notes)
+		for _, group := range item.OptionGroups {
+			<div class="option-group">
+				<h5>{ group.Name }</h5>
+				if limits := selectionLimits(group); limits != "" {
+					<p class="limits">{ limits }</p>
+				}
+				<ul class="options">
+					for _, option := range group.Options {
+						<li>
+							<div class="option-heading"><span>{ option.Name }</span>@prices(option.Prices)</div>
+							if hasText(option.Description) {
+								<p class="description">{ *option.Description }</p>
+							}
+						</li>
+					}
+				</ul>
+			</div>
+		}
+		if len(item.Sources) > 0 {
+			<p class="citations">
+				Sources:
+				for _, ref := range item.Sources {
+					<span class="citation">
+						if anchor, ok := anchors[ref.SourceID]; ok {
+							<a href={ "#" + anchor }>{ ref.SourceID }</a>
+						} else {
+							<span>{ ref.SourceID }</span>
+						}
+						if ref.Page != nil {
+							{ fmt.Sprintf(" (p. %d)", *ref.Page) }
+						}
+					</span>
+				}
+			</p>
+		}
+	</article>
+}
+
+templ prices(values []Price) {
+	if len(values) > 0 {
+		<ul class="prices" aria-label="Prices">
+			for _, price := range values {
+				<li>
+					if hasText(price.Label) {
+						<span class="price-label">{ *price.Label }:</span>
+					}
+					<span class="price">{ price.Text }</span>
+				</li>
+			}
+		</ul>
+	}
+}
+
+templ notes(values []string) {
+	if len(values) > 0 {
+		<ul class="notes">
+			for _, note := range values {
+				<li>{ note }</li>
+			}
+		</ul>
+	}
+}
+
+templ externalLink(value string, label string) {
+	if httpURL(value) {
+		<a href={ value }>{ label }</a>
+	} else {
+		<span>{ value }</span>
+	}
+}

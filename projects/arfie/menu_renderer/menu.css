@@ -1,0 +1,86 @@
+:root {
+  color-scheme: light;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  color: #292b25;
+  background: #f6f4ee;
+  line-height: 1.55;
+}
+* { box-sizing: border-box; }
+body { margin: 0; }
+main { max-width: 960px; margin: auto; padding: 48px 32px; }
+a { color: #365b39; text-underline-offset: 3px; overflow-wrap: anywhere; }
+a:hover { color: #172d1a; }
+a:focus-visible, summary:focus-visible { outline: 3px solid #8a6526; outline-offset: 4px; }
+h1, h2, h3, h4, h5, p { margin: 0; }
+h1, h2 { font-family: Georgia, "Times New Roman", serif; line-height: 1.15; }
+h1 { font-size: clamp(2.2rem, 6vw, 3.6rem); margin: 8px 0 20px; }
+h2 { font-size: 2rem; }
+h3 { font-size: 1rem; letter-spacing: .07em; text-transform: uppercase; color: #365b39; border-bottom: 2px solid #365b39; padding-bottom: 10px; }
+h4 { font-size: 1.05rem; font-weight: 650; }
+h5 { font-size: .92rem; }
+h1, h2, h3, h4, h5 { overflow-wrap: anywhere; }
+.restaurant { border-top: 5px solid #365b39; padding-top: 24px; padding-bottom: 28px; }
+.restaurant p + p { margin-top: 4px; }
+.eyebrow { font-size: .75rem; text-transform: uppercase; letter-spacing: .18em; font-weight: 700; color: #365b39; }
+.warnings { padding: 16px 20px; background: #fff0cc; border-left: 4px solid #977024; margin: 0 0 24px; overflow-wrap: anywhere; }
+.warnings .notes { margin-bottom: 0; }
+nav { display: flex; flex-wrap: wrap; gap: 8px; padding: 0 0 24px; }
+nav a { border: 1px solid #c7cdbf; border-radius: 4px; padding: 6px 12px; font-size: .85rem; text-decoration: none; }
+.menu { margin-top: 32px; scroll-margin-top: 24px; }
+.menu + .menu { border-top: 1px solid #c7cdbf; padding-top: 32px; }
+.menu-heading { margin-bottom: 20px; }
+.availability { margin-top: 8px; color: #5b5e53; }
+.menu-notes { font-size: .88rem; padding: 12px 20px; background: #eeede5; border-radius: 4px; }
+.notes { padding-left: 20px; margin: 8px 0; font-size: .88rem; overflow-wrap: anywhere; }
+.notes li + li { margin-top: 4px; }
+.menu-section { margin-top: 30px; }
+.section-description { margin-top: 12px; color: #5b5e53; }
+.item { padding: 20px 0; border-bottom: 1px solid #dedfd6; }
+.item-heading, .option-heading { display: flex; justify-content: space-between; align-items: baseline; gap: 12px 24px; }
+.item-heading h4, .option-heading > span { flex: 1; min-width: 0; overflow-wrap: anywhere; }
+.prices { list-style: none; padding: 0; margin: 0; text-align: right; flex: 0 1 45%; font-size: .94rem; overflow-wrap: anywhere; }
+.price { font-variant-numeric: tabular-nums; font-weight: 650; }
+.price-label { color: #5b5e53; margin-right: 5px; }
+.description { font-size: .94rem; margin-top: 6px; color: #5b5e53; white-space: pre-line; overflow-wrap: anywhere; }
+.dietary { display: flex; flex-wrap: wrap; gap: 6px; list-style: none; padding: 0; margin: 10px 0; }
+.dietary li { font-size: .75rem; background: #e5ebde; color: #365b39; padding: 2px 8px; border-radius: 3px; }
+.allergens { font-size: .85rem; margin-top: 8px; overflow-wrap: anywhere; }
+.option-group { border-left: 2px solid #c7cdbf; padding-left: 16px; margin-top: 14px; }
+.limits { color: #5b5e53; font-size: .8rem; margin-top: 2px; }
+.options { list-style: none; padding: 0; margin: 8px 0 0; font-size: .9rem; }
+.options > li + li { margin-top: 10px; }
+.options .prices, .options .description { font-size: .85rem; }
+.citations { font-size: .75rem; color: #66695f; margin-top: 12px; }
+.citation { display: inline-block; margin-left: 8px; overflow-wrap: anywhere; max-width: 100%; }
+.empty { color: #5b5e53; padding: 20px 0; }
+footer { margin-top: 40px; border-top: 1px solid #c7cdbf; padding-top: 20px; font-size: .85rem; }
+summary { cursor: pointer; color: #365b39; font-weight: 650; }
+dl { margin: 20px 0; }
+dt { font-weight: 650; margin-top: 12px; }
+dd { margin: 2px 0 0; overflow-wrap: anywhere; }
+.sources-heading { font-family: inherit; font-size: 1rem; }
+.source-list { padding-left: 24px; }
+.source-list li { margin: 16px 0; scroll-margin-top: 24px; overflow-wrap: anywhere; }
+.source-list li:target { background: #fff0cc; outline: 6px solid #fff0cc; }
+.source-list p { color: #5b5e53; margin-top: 4px; }
+@media (max-width: 540px) {
+  main { padding: 24px 18px; }
+  h2 { font-size: 1.65rem; }
+  .item-heading, .option-heading { flex-direction: column; gap: 4px; }
+  .prices { text-align: left; flex-basis: auto; }
+  .menu-notes { padding: 10px 12px; }
+}
+@media print {
+  @page { margin: 16mm; }
+  :root { background: white; color: black; font-size: 10pt; }
+  main { max-width: none; padding: 0; }
+  nav { display: none; }
+  h1 { font-size: 26pt; }
+  h2 { font-size: 20pt; }
+  h3, h4, h5, .menu-heading { break-after: avoid; }
+  .item { break-inside: avoid; }
+  a { color: inherit; }
+  .warnings, .menu-notes, .dietary li { background: none; }
+  details::details-content { display: block; content-visibility: visible; }
+  details > summary { display: none; }
+}

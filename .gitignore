@@ -4,3 +4,5 @@ node_modules/
 .vscode/settings.json
 .wrangler
 user.bazelrc
+.env
+.envrc

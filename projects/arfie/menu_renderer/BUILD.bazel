@@ -1,0 +1,31 @@
+load("@rules_go//go:def.bzl", "go_binary", "go_library", "go_test")
+
+go_library(
+    name = "menu_renderer_lib",
+    srcs = [
+        "main.go",
+        "menu.go",
+        "menu_templ.go",
+        "render.go",
+    ],
+    embedsrcs = ["menu.css"],
+    importpath = "codebase.bid/projects/arfie/menu_renderer",
+    visibility = ["//visibility:private"],
+    deps = [
+        "@com_github_a_h_templ//:templ",
+        "@com_github_a_h_templ//runtime",
+    ],
+)
+
+go_binary(
+    name = "menu_renderer",
+    embed = [":menu_renderer_lib"],
+    visibility = ["//visibility:public"],
+)
+
+go_test(
+    name = "menu_renderer_test",
+    srcs = ["main_test.go"],
+    embed = [":menu_renderer_lib"],
+    deps = ["@org_golang_x_net//html"],
+)

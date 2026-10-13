@@ -1,0 +1,21 @@
+load("@rules_go//go:def.bzl", "go_library", "go_test")
+
+go_library(
+    name = "fetchweb",
+    srcs = [
+        "fetch.go",
+        "retry.go",
+    ],
+    importpath = "codebase.bid/lib/go/fetchweb",
+    visibility = ["//visibility:public"],
+    deps = [
+        "@org_golang_x_net//html",
+        "@org_golang_x_net//html/charset",
+    ],
+)
+
+go_test(
+    name = "fetchweb_test",
+    srcs = ["fetch_test.go"],
+    embed = [":fetchweb"],
+)
