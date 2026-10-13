@@ -1,0 +1,21 @@
+projects/memode/cmd/memode/BUILD.bazel
+  s_c3dc3eccdbe6fa::t_0aa53c7f7fc941 54-57,72-75
+BUILD.bazel
+  s_c3dc3eccdbe6fa::t_90aefba8933a18 27
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "f26db6bd7978c6ad18baa1956a165af44bc39919",
+  "prompts": {},
+  "sessions": {
+    "s_c3dc3eccdbe6fa": {
+      "agent_id": {
+        "tool": "pi",
+        "id": "01a1377d-6ba4-741e-b565-ca512cd8e961",
+        "model": "gpt-6.1-sol"
+      },
+      "human_author": "Piper McCorkle <contact@piperswe.me>"
+    }
+  }
+}
