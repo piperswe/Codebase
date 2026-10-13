@@ -51,6 +51,27 @@ page is protected with basic auth (`memode` / `MEMODE_OWNER_PASSWORD`) whenever
 that variable is set — set it as soon as the port is reachable beyond
 localhost.
 
+## Linux deployment
+
+Bazel builds multi-architecture OCI images and Debian/RPM packages:
+
+```sh
+bazel build //projects/memode/cmd/memode:memode_image
+bazel build //projects/memode/cmd/memode:memode_linux_packages
+```
+
+The package installs `/usr/bin/memode`, `/etc/memode/memode.env`, and
+`memode.service`. Review the environment file, set `MEMODE_BASE_URL` to the
+public URL and `MEMODE_OWNER_PASSWORD`, then enable with
+`systemctl enable --now memode`. The service runs as the unprivileged `memode`
+user; its SQLite database and Telegram session persist in `/var/lib/memode`.
+
+The OCI image is stateless by default. Set `MEMODE_LISTEN`, `MEMODE_BASE_URL`,
+`MEMODE_DB` (for example `/data/memode.db`), secrets and optional client
+configuration in the runtime environment, and mount persistent writable storage
+at the database/session path. Do not enable it publicly without an owner
+password and TLS-terminating reverse proxy.
+
 ## Configuration
 
 All configuration is environment based (`MEMODE_*`), optionally via `.env`.
