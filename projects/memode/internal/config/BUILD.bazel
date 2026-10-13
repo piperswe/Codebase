@@ -1,0 +1,12 @@
+load("@rules_go//go:def.bzl", "go_library")
+
+go_library(
+    name = "config",
+    srcs = ["config.go"],
+    importpath = "codebase.bid/projects/memode/internal/config",
+    visibility = ["//projects/memode:__subpackages__"],
+    deps = [
+        "//projects/memode/internal/oauthstore",
+        "@com_github_joho_godotenv//:godotenv",
+    ],
+)

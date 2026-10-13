@@ -1,0 +1,66 @@
+package server
+
+type consentService struct {
+	Key   string
+	Label string
+}
+
+type consentViewModel struct {
+	Client      string
+	Services    []consentService
+	Error       string
+	ClientID    string
+	RedirectURI string
+	State       string
+	Challenge   string
+}
+
+templ consentPage(vm consentViewModel) {
+	<!DOCTYPE html>
+	<html>
+		<head>
+			<title>memode consent</title>
+			<style>
+				body { font-family: sans-serif; max-width: 32rem; margin: 3rem auto; }
+				table { border-collapse: collapse; }
+				td, th { padding: .4rem .8rem; border-bottom: 1px solid #ddd; text-align: left; }
+				.error { color: #b00; }
+				button { padding: .5rem 1.2rem; margin-right: 1rem; }
+			</style>
+		</head>
+		<body>
+			<h1>memode</h1>
+			<p><b>{ vm.Client }</b> wants access to your services. Choose per service, or deny.</p>
+			if vm.Error != "" {
+				<p class="error">{ vm.Error }</p>
+			}
+			<form method="post" action="/authorize">
+				<input type="hidden" name="client_id" value={ vm.ClientID }/>
+				<input type="hidden" name="redirect_uri" value={ vm.RedirectURI }/>
+				<input type="hidden" name="state" value={ vm.State }/>
+				<input type="hidden" name="code_challenge" value={ vm.Challenge }/>
+				<input type="hidden" name="code_challenge_method" value="S256"/>
+				<table>
+					<tr>
+						<th>Service</th>
+						<th>No access</th>
+						<th>Read</th>
+						<th>Read &amp; write</th>
+					</tr>
+					for _, svc := range vm.Services {
+						<tr>
+							<td>{ svc.Label }</td>
+							<td><input type="radio" name={ "svc_" + svc.Key } value="" checked/></td>
+							<td><input type="radio" name={ "svc_" + svc.Key } value="read"/></td>
+							<td><input type="radio" name={ "svc_" + svc.Key } value="write"/></td>
+						</tr>
+					}
+				</table>
+				<p>
+					<button type="submit">Approve</button>
+					<button type="submit" name="deny" value="1">Deny</button>
+				</p>
+			</form>
+		</body>
+	</html>
+}

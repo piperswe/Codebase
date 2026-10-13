@@ -1,0 +1,12 @@
+load("@rules_go//go:def.bzl", "go_library")
+
+go_library(
+    name = "oauthstore",
+    srcs = [
+        "grants.go",
+        "store.go",
+    ],
+    importpath = "codebase.bid/projects/memode/internal/oauthstore",
+    visibility = ["//projects/memode:__subpackages__"],
+    deps = ["//lib/go/oauthas"],
+)

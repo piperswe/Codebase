@@ -1,0 +1,14 @@
+load("@rules_go//go:def.bzl", "go_library")
+
+go_library(
+    name = "davtest",
+    srcs = ["davtest.go"],
+    importpath = "codebase.bid/projects/memode/internal/davtest",
+    visibility = ["//projects/memode:__subpackages__"],
+    deps = [
+        "@com_github_emersion_go_ical//:go-ical",
+        "@com_github_emersion_go_vcard//:go-vcard",
+        "@com_github_emersion_go_webdav//caldav",
+        "@com_github_emersion_go_webdav//carddav",
+    ],
+)

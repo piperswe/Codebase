@@ -1,0 +1,44 @@
+load("@rules_go//go:def.bzl", "go_library", "go_test")
+
+go_library(
+    name = "server",
+    srcs = [
+        "codemode.go",
+        "consent.go",
+        "consent_templ.go",
+        "oauth.go",
+        "server.go",
+    ],
+    importpath = "codebase.bid/projects/memode/internal/server",
+    visibility = ["//projects/memode:__subpackages__"],
+    deps = [
+        "//lib/go/codemode",
+        "//lib/go/oauthas",
+        "//projects/memode/internal/config",
+        "//projects/memode/internal/oauthstore",
+        "//projects/memode/internal/version",
+        "@com_github_a_h_templ//:templ",
+        "@com_github_a_h_templ//runtime",
+        "@com_github_go_chi_chi_v5//:chi",
+        "@com_github_modelcontextprotocol_go_sdk//mcp",
+    ],
+)
+
+go_test(
+    name = "server_test",
+    srcs = [
+        "e2e_test.go",
+        "oauth_test.go",
+        "server_test.go",
+    ],
+    embed = [":server"],
+    deps = [
+        "//lib/go/codemode",
+        "//projects/memode/internal/config",
+        "//projects/memode/internal/davtest",
+        "//projects/memode/internal/oauthstore",
+        "//projects/memode/internal/services",
+        "//projects/memode/internal/store",
+        "@com_github_modelcontextprotocol_go_sdk//mcp",
+    ],
+)

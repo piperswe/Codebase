@@ -1,0 +1,13 @@
+load("@rules_go//go:def.bzl", "go_library")
+
+go_library(
+    name = "calendar",
+    srcs = ["calendar.go"],
+    importpath = "codebase.bid/projects/memode/internal/services/calendar",
+    visibility = ["//projects/memode:__subpackages__"],
+    deps = [
+        "//lib/go/codemode",
+        "//lib/go/dav",
+        "//projects/memode/internal/config",
+    ],
+)

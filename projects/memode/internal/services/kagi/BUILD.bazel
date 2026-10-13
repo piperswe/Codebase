@@ -1,0 +1,23 @@
+load("@rules_go//go:def.bzl", "go_library", "go_test")
+
+go_library(
+    name = "kagi",
+    srcs = ["kagi.go"],
+    importpath = "codebase.bid/projects/memode/internal/services/kagi",
+    visibility = ["//projects/memode:__subpackages__"],
+    deps = [
+        "//lib/go/codemode",
+        "//lib/go/kagi",
+        "//projects/memode/internal/config",
+    ],
+)
+
+go_test(
+    name = "kagi_test",
+    srcs = ["kagi_test.go"],
+    embed = [":kagi"],
+    deps = [
+        "//lib/go/codemode",
+        "//projects/memode/internal/config",
+    ],
+)

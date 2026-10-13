@@ -1,0 +1,13 @@
+load("@rules_go//go:def.bzl", "go_library")
+
+go_library(
+    name = "contacts",
+    srcs = ["contacts.go"],
+    importpath = "codebase.bid/projects/memode/internal/services/contacts",
+    visibility = ["//projects/memode:__subpackages__"],
+    deps = [
+        "//lib/go/codemode",
+        "//lib/go/dav",
+        "//projects/memode/internal/config",
+    ],
+)

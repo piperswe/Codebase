@@ -1,0 +1,27 @@
+load("@rules_go//go:def.bzl", "go_library", "go_test")
+
+go_library(
+    name = "dav",
+    srcs = ["dav.go"],
+    importpath = "codebase.bid/lib/go/dav",
+    visibility = ["//visibility:public"],
+    deps = [
+        "@com_github_emersion_go_ical//:go-ical",
+        "@com_github_emersion_go_vcard//:go-vcard",
+        "@com_github_emersion_go_webdav//:go-webdav",
+        "@com_github_emersion_go_webdav//caldav",
+        "@com_github_emersion_go_webdav//carddav",
+    ],
+)
+
+go_test(
+    name = "dav_test",
+    srcs = ["dav_test.go"],
+    embed = [":dav"],
+    deps = [
+        "@com_github_emersion_go_ical//:go-ical",
+        "@com_github_emersion_go_vcard//:go-vcard",
+        "@com_github_emersion_go_webdav//caldav",
+        "@com_github_emersion_go_webdav//carddav",
+    ],
+)

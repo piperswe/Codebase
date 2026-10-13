@@ -1,0 +1,30 @@
+load("@rules_go//go:def.bzl", "go_library", "go_test")
+
+go_library(
+    name = "services",
+    srcs = ["registry.go"],
+    importpath = "codebase.bid/projects/memode/internal/services",
+    visibility = ["//projects/memode:__subpackages__"],
+    deps = [
+        "//lib/go/codemode",
+        "//projects/memode/internal/config",
+        "//projects/memode/internal/services/calendar",
+        "//projects/memode/internal/services/contacts",
+        "//projects/memode/internal/services/kagi",
+        "//projects/memode/internal/services/mail",
+        "//projects/memode/internal/services/telegram",
+    ],
+)
+
+go_test(
+    name = "services_test",
+    srcs = ["dav_integration_test.go"],
+    embed = [":services"],
+    deps = [
+        "//lib/go/codemode",
+        "//projects/memode/internal/config",
+        "//projects/memode/internal/davtest",
+        "//projects/memode/internal/services/calendar",
+        "//projects/memode/internal/services/contacts",
+    ],
+)

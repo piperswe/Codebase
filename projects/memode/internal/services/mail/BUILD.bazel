@@ -1,0 +1,37 @@
+load("@rules_go//go:def.bzl", "go_library", "go_test")
+
+go_library(
+    name = "mail",
+    srcs = [
+        "mail.go",
+        "remote.go",
+        "store.go",
+        "sync.go",
+        "write.go",
+    ],
+    importpath = "codebase.bid/projects/memode/internal/services/mail",
+    visibility = ["//projects/memode:__subpackages__"],
+    deps = [
+        "//lib/go/codemode",
+        "//projects/memode/internal/config",
+        "@com_github_emersion_go_imap_v2//:go-imap",
+        "@com_github_emersion_go_imap_v2//imapclient",
+        "@com_github_emersion_go_message//:go-message",
+        "@com_github_emersion_go_message//mail",
+    ],
+)
+
+go_test(
+    name = "mail_test",
+    srcs = [
+        "greenmail_test.go",
+        "store_test.go",
+    ],
+    embed = [":mail"],
+    deps = [
+        "//projects/memode/internal/config",
+        "//projects/memode/internal/store",
+        "@com_github_testcontainers_testcontainers_go//:testcontainers-go",
+        "@com_github_testcontainers_testcontainers_go//wait",
+    ],
+)

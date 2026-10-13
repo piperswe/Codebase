@@ -18,7 +18,7 @@ copy_to_directory(
 go_library(
     name = "static",
     srcs = ["static.go"],
-    embedsrcs = [":bootstrap_dist"],
+    embedsrcs = [":bootstrap_dist"],  # keep
     importpath = "codebase.bid/projects/datasite/internal/static",
     visibility = ["//projects/datasite:__subpackages__"],
 )

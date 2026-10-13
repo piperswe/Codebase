@@ -1,0 +1,27 @@
+load("@rules_go//go:def.bzl", "go_library", "go_test")
+
+go_library(
+    name = "telegram",
+    srcs = ["telegram.go"],
+    importpath = "codebase.bid/projects/memode/internal/services/telegram",
+    visibility = ["//projects/memode:__subpackages__"],
+    deps = [
+        "//lib/go/codemode",
+        "//projects/memode/internal/config",
+        "@com_github_gotd_td//session",
+        "@com_github_gotd_td//telegram",
+        "@com_github_gotd_td//telegram/auth",
+        "@com_github_gotd_td//tg",
+    ],
+)
+
+go_test(
+    name = "telegram_test",
+    srcs = ["telegram_test.go"],
+    embed = [":telegram"],
+    deps = [
+        "//lib/go/codemode",
+        "//projects/memode/internal/config",
+        "@com_github_gotd_td//tg",
+    ],
+)
