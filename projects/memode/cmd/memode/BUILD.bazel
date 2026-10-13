@@ -51,7 +51,10 @@ linux_binary_packages(
     name = "memode_linux_packages",
     package_name = "memode",
     binary = ":memode_linux_{arch}",
-    deb_depends = ["libc6", "systemd"],
+    deb_depends = [
+        "libc6",
+        "systemd",
+    ],
     description = "Personal assistant MCP server",
     executable_name = "memode",
     extra_files = [
@@ -66,7 +69,10 @@ linux_binary_packages(
             mode = "0600",
         ),
     ],
-    rpm_requires = ["glibc", "systemd"],
+    rpm_requires = [
+        "glibc",
+        "systemd",
+    ],
     systemd_account = systemd_service_account(
         description = "memode service account",
         home = "/var/lib/memode",
