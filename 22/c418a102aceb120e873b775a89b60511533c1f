@@ -1,0 +1,28 @@
+projects/memode/cmd/memode/memode.service
+  s_9b4f5298dec012::t_131eb954aee6c7 1-45
+projects/memode/cmd/memode/BUILD.bazel
+  s_9b4f5298dec012::t_23477971dd2a9b 2-4,27-80
+projects/memode/cmd/memode/memode.env
+  s_9b4f5298dec012::t_857ba2c9924cd1 1-5
+projects/memode/README.md
+  s_9b4f5298dec012::t_beb6eb60b69121 54-74
+BUILD.bazel
+  s_9b4f5298dec012::t_4af2ec2a70238a 54,64
+  s_9b4f5298dec012::t_878f9755a335f3 43
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "22c418a102aceb120e873b775a89b60511533c1f",
+  "prompts": {},
+  "sessions": {
+    "s_9b4f5298dec012": {
+      "agent_id": {
+        "tool": "pi",
+        "id": "01a13776-7f7b-741e-b565-ca4ff97f4d84",
+        "model": "gpt-6-luna"
+      },
+      "human_author": "Piper McCorkle <contact@piperswe.me>"
+    }
+  }
+}
