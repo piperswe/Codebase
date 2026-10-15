@@ -26,21 +26,33 @@ go_binary(
 )
 
 platform_binary(
-    name = "memode_linux_amd64",
+    name = "memode_linux_gnu_amd64",
     binary = ":memode",
     platform = "//platforms:linux_amd64",
 )
 
 platform_binary(
-    name = "memode_linux_arm64",
+    name = "memode_linux_gnu_arm64",
     binary = ":memode",
     platform = "//platforms:linux_arm64",
+)
+
+platform_binary(
+    name = "memode_linux_musl_amd64",
+    binary = ":memode",
+    platform = "@llvm//platforms:linux_amd64_musl",
+)
+
+platform_binary(
+    name = "memode_linux_musl_arm64",
+    binary = ":memode",
+    platform = "@llvm//platforms:linux_arm64_musl",
 )
 
 binary_oci_image(
     name = "memode_image",
     base = "distroless_base",
-    binary = ":memode_linux_{arch}",
+    binary = ":memode_linux_gnu_{arch}",
     description = "Personal assistant MCP server",
     entrypoint = ["/memode"],
     title = "memode",
@@ -50,11 +62,23 @@ binary_oci_image(
 linux_binary_packages(
     name = "memode_linux_packages",
     package_name = "memode",
-    binary = ":memode_linux_{arch}",
-    deb_depends = [
-        "libc6",
-        "systemd",
-    ],
+    binary = ":memode_linux_{libc}_{arch}",
+    depends = {
+        "deb": [
+            "libc6",
+            "systemd",
+        ],
+        "rpm": [
+            "glibc",
+            "systemd",
+        ],
+        "apk": [
+            "sd-tools",
+        ],
+        "archlinux": [
+            "systemd",
+        ],
+    },
     description = "Personal assistant MCP server",
     executable_name = "memode",
     extra_files = [
@@ -69,10 +93,6 @@ linux_binary_packages(
             mode = "0600",
         ),
     ],
-    rpm_requires = [
-        "glibc",
-        "systemd",
-    ],
     systemd_account = systemd_service_account(
         description = "memode service account",
         home = "/var/lib/memode",
@@ -81,6 +101,5 @@ linux_binary_packages(
         user = "memode",
     ),
     systemd_service = "memode.service",
-    target_name = "memode",
     visibility = ["//visibility:public"],
 )

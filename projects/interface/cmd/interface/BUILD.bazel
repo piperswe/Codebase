@@ -21,21 +21,33 @@ go_binary(
 )
 
 platform_binary(
-    name = "interface_linux_amd64",
+    name = "interface_linux_gnu_amd64",
     binary = ":interface",
     platform = "//platforms:linux_amd64",
 )
 
 platform_binary(
-    name = "interface_linux_arm64",
+    name = "interface_linux_gnu_arm64",
     binary = ":interface",
     platform = "//platforms:linux_arm64",
+)
+
+platform_binary(
+    name = "interface_linux_musl_amd64",
+    binary = ":interface",
+    platform = "@llvm//platforms:linux_amd64_musl",
+)
+
+platform_binary(
+    name = "interface_linux_musl_arm64",
+    binary = ":interface",
+    platform = "@llvm//platforms:linux_arm64_musl",
 )
 
 binary_oci_image(
     name = "interface_image",
     base = "distroless_base",
-    binary = ":interface_linux_{arch}",
+    binary = ":interface_linux_gnu_{arch}",
     description = "Social media website",
     entrypoint = ["/interface"],
     title = "interface",
@@ -45,21 +57,28 @@ binary_oci_image(
 linux_binary_packages(
     name = "interface_linux_packages",
     package_name = "interface",
-    binary = ":interface_linux_{arch}",
-    deb_depends = [
-        "libc6",
-        "systemd",
-    ],
+    binary = ":interface_linux_{libc}_{arch}",
+    depends = {
+        "deb": [
+            "libc6",
+            "systemd",
+        ],
+        "rpm": [
+            "glibc",
+            "systemd",
+        ],
+        "apk": [
+            "sd-tools",
+        ],
+        "archlinux": [
+            "systemd",
+        ],
+    },
     description = "Social media website",
     executable_name = "interface",
     install_test_command = [
         "/usr/bin/interface",
         "smoke",
     ],
-    rpm_requires = [
-        "glibc",
-        "systemd",
-    ],
-    target_name = "interface",
     visibility = ["//visibility:public"],
 )

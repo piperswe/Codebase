@@ -39,10 +39,10 @@ ts_config(
 filegroup(
     name = "packages",
     srcs = [
-        "//projects/datasite/cmd/datasite:datasite_packages",
-        "//projects/interface/cmd/interface:interface_packages",
-        "//projects/memode/cmd/memode:memode_packages",
-        "//projects/yago/cmd/yago:yago_packages",
+        "//projects/datasite/cmd/datasite:datasite_linux_packages_packages",
+        "//projects/interface/cmd/interface:interface_linux_packages_packages",
+        "//projects/memode/cmd/memode:memode_linux_packages_packages",
+        "//projects/yago/cmd/yago:yago_linux_packages_packages",
     ],
     visibility = ["//visibility:public"],
 )
@@ -50,10 +50,10 @@ filegroup(
 test_suite(
     name = "package_install_tests",
     tests = [
-        "//projects/datasite/cmd/datasite:datasite_install_tests",
-        "//projects/interface/cmd/interface:interface_install_tests",
-        "//projects/memode/cmd/memode:memode_install_tests",
-        "//projects/yago/cmd/yago:yago_install_tests",
+        "//projects/datasite/cmd/datasite:datasite_linux_packages_install_tests",
+        "//projects/interface/cmd/interface:interface_linux_packages_install_tests",
+        "//projects/memode/cmd/memode:memode_linux_packages_install_tests",
+        "//projects/yago/cmd/yago:yago_linux_packages_install_tests",
     ],
     visibility = ["//visibility:public"],
 )

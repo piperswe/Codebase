@@ -29,6 +29,16 @@ case "${package_format}" in
     dnf install -y /tmp/package.rpm
     rpm --query "${package_name}"
     ;;
+  apk)
+    # systemd lives in the community repo, which the base image doesn't enable.
+    echo "https://dl-cdn.alpinelinux.org/alpine/v$(cut -d. -f1,2 /etc/alpine-release)/community" >> /etc/apk/repositories
+    apk add --allow-untrusted /tmp/package.apk
+    apk info -e "${package_name}"
+    ;;
+  archlinux)
+    pacman -U --noconfirm /tmp/package.archlinux
+    pacman -Qi "${package_name}"
+    ;;
   *)
     echo "unsupported package format: ${package_format}" >&2
     exit 2
@@ -76,7 +86,7 @@ if [ "${systemd_account_user}" != "-" ]; then
 fi
 
 if [ "${systemd_state_directory}" != "-" ]; then
-  state_metadata="$(stat --format='%U:%G:%a' "${systemd_state_directory}")"
+  state_metadata="$(stat -c '%U:%G:%a' "${systemd_state_directory}")"
   normalized_state_mode="${systemd_state_mode#0}"
   expected_state_metadata="${systemd_account_user}:${systemd_account_group}:${normalized_state_mode}"
   if [ "${state_metadata}" != "${expected_state_metadata}" ]; then
@@ -86,11 +96,17 @@ if [ "${systemd_state_directory}" != "-" ]; then
 fi
 
 if [ "${systemd_service}" != "-" ]; then
-  systemd-analyze verify "${systemd_service}"
-  enabled_state="$(systemctl is-enabled "${systemd_service}" 2>/dev/null || true)"
-  if [ "${enabled_state}" = "enabled" ]; then
-    echo "package unexpectedly enabled ${systemd_service}" >&2
-    exit 1
+  # Alpine has no systemd, so its service can't be verified with these tools.
+  # Arch ships systemd 262+, whose analyze-verify exec check fails with
+  # EINVAL under Docker's x86 emulation (there is no arm64 archlinux image),
+  # even for /usr/bin/true — so it can't run there either.
+  if [ "${package_format}" != "apk" ] && [ "${package_format}" != "archlinux" ]; then
+    systemd-analyze verify "${systemd_service}"
+    enabled_state="$(systemctl is-enabled "${systemd_service}" 2>/dev/null || true)"
+    if [ "${enabled_state}" = "enabled" ]; then
+      echo "package unexpectedly enabled ${systemd_service}" >&2
+      exit 1
+    fi
   fi
 fi
 

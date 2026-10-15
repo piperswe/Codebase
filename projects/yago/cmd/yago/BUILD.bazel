@@ -31,21 +31,33 @@ go_binary(
 )
 
 platform_binary(
-    name = "yago_linux_amd64",
+    name = "yago_linux_gnu_amd64",
     binary = ":yago",
     platform = "//platforms:linux_amd64",
 )
 
 platform_binary(
-    name = "yago_linux_arm64",
+    name = "yago_linux_gnu_arm64",
     binary = ":yago",
     platform = "//platforms:linux_arm64",
+)
+
+platform_binary(
+    name = "yago_linux_musl_amd64",
+    binary = ":yago",
+    platform = "@llvm//platforms:linux_amd64_musl",
+)
+
+platform_binary(
+    name = "yago_linux_musl_arm64",
+    binary = ":yago",
+    platform = "@llvm//platforms:linux_arm64_musl",
 )
 
 binary_oci_image(
     name = "yago_image",
     base = "distroless_base",
-    binary = ":yago_linux_{arch}",
+    binary = ":yago_linux_gnu_{arch}",
     description = "Social media website",
     entrypoint = ["/yago"],
     title = "yago",
@@ -55,21 +67,28 @@ binary_oci_image(
 linux_binary_packages(
     name = "yago_linux_packages",
     package_name = "yago",
-    binary = ":yago_linux_{arch}",
-    deb_depends = [
-        "libc6",
-        "systemd",
-    ],
+    binary = ":yago_linux_{libc}_{arch}",
+    depends = {
+        "deb": [
+            "libc6",
+            "systemd",
+        ],
+        "rpm": [
+            "glibc",
+            "systemd",
+        ],
+        "apk": [
+            "sd-tools",
+        ],
+        "archlinux": [
+            "systemd",
+        ],
+    },
     description = "Social media website",
     executable_name = "yago",
     install_test_command = [
         "/usr/bin/yago",
         "smoke",
     ],
-    rpm_requires = [
-        "glibc",
-        "systemd",
-    ],
-    target_name = "yago",
     visibility = ["//visibility:public"],
 )

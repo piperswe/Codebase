@@ -57,21 +57,33 @@ go_test(
 )
 
 platform_binary(
-    name = "datasite_linux_amd64",
+    name = "datasite_linux_gnu_amd64",
     binary = ":datasite",
     platform = "//platforms:linux_amd64",
 )
 
 platform_binary(
-    name = "datasite_linux_arm64",
+    name = "datasite_linux_gnu_arm64",
     binary = ":datasite",
     platform = "//platforms:linux_arm64",
+)
+
+platform_binary(
+    name = "datasite_linux_musl_amd64",
+    binary = ":datasite",
+    platform = "@llvm//platforms:linux_amd64_musl",
+)
+
+platform_binary(
+    name = "datasite_linux_musl_arm64",
+    binary = ":datasite",
+    platform = "@llvm//platforms:linux_arm64_musl",
 )
 
 binary_oci_image(
     name = "datasite_image",
     base = "distroless_base",
-    binary = ":datasite_linux_{arch}",
+    binary = ":datasite_linux_gnu_{arch}",
     description = "Movie log web application",
     entrypoint = ["/datasite"],
     title = "datasite",
@@ -81,11 +93,23 @@ binary_oci_image(
 linux_binary_packages(
     name = "datasite_linux_packages",
     package_name = "datasite",
-    binary = ":datasite_linux_{arch}",
-    deb_depends = [
-        "libc6",
-        "systemd",
-    ],
+    binary = ":datasite_linux_{libc}_{arch}",
+    depends = {
+        "deb": [
+            "libc6",
+            "systemd",
+        ],
+        "rpm": [
+            "glibc",
+            "systemd",
+        ],
+        "apk": [
+            "sd-tools",
+        ],
+        "archlinux": [
+            "systemd",
+        ],
+    },
     description = "Movie log web application",
     executable_name = "datasite",
     extra_files = [
@@ -104,10 +128,6 @@ linux_binary_packages(
         "/usr/bin/datasite",
         "smoke",
     ],
-    rpm_requires = [
-        "glibc",
-        "systemd",
-    ],
     systemd_account = systemd_service_account(
         description = "datasite service account",
         home = "/var/lib/datasite",
@@ -116,6 +136,5 @@ linux_binary_packages(
         user = "datasite",
     ),
     systemd_service = "datasite.service",
-    target_name = "datasite",
     visibility = ["//visibility:public"],
 )

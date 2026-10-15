@@ -62,11 +62,8 @@ use_repo(oxc_crates, "oxc_crates")
 
 bazel_dep(name = "rules_cc", version = "0.2.22")
 bazel_dep(name = "rules_oci", version = "2.3.0")
-bazel_dep(name = "rules_pkg", version = "1.3.0")
 bazel_dep(name = "rules_shell", version = "0.8.0")
 bazel_dep(name = "tar.bzl", version = "0.10.8")
-
-register_toolchains("//platforms:native_rpmbuild_toolchain")
 
 oci = use_extension("@rules_oci//oci:extensions.bzl", "oci")
 oci.pull(
@@ -150,7 +147,7 @@ go_deps.module_override(
     patches = ["//patches:pg_query_go.patch"],
     path = "github.com/pganalyze/pg_query_go/v6",
 )
-use_repo(go_deps, "com_github_a_h_templ", "com_github_anthropics_anthropic_sdk_go", "com_github_coreos_go_systemd_v22", "com_github_cyruzin_golang_tmdb", "com_github_darthsim_overmind", "com_github_emersion_go_ical", "com_github_emersion_go_imap_v2", "com_github_emersion_go_message", "com_github_emersion_go_vcard", "com_github_emersion_go_webdav", "com_github_go_chi_chi_v5", "com_github_go_chi_httplog_v3", "com_github_go_faster_errors", "com_github_go_faster_jx", "com_github_golang_jwt_jwt_v5", "com_github_golang_migrate_migrate_v4", "com_github_gotd_td", "com_github_grafana_ai_sdk", "com_github_grafana_ai_sdk_providers_anthropic", "com_github_grafana_ai_sdk_providers_openai", "com_github_grafana_ai_sdk_providers_openai_compatible", "com_github_jackc_pgx_v5", "com_github_joho_godotenv", "com_github_modelcontextprotocol_go_sdk", "com_github_ogen_go_ogen", "com_github_oklog_ulid_v2", "com_github_openai_openai_go_v3", "com_github_prometheus_client_golang", "com_github_shopify_go_lua", "com_github_sqlc_dev_sqlc", "com_github_systemd_slog_journal", "com_github_testcontainers_testcontainers_go", "com_github_testcontainers_testcontainers_go_modules_postgres", "com_github_valkey_io_valkey_go", "com_github_xsam_otelsql", "com_github_yuin_goldmark", "io_opentelemetry_go_contrib_instrumentation_net_http_otelhttp", "io_opentelemetry_go_otel", "io_opentelemetry_go_otel_exporters_otlp_otlptrace_otlptracehttp", "io_opentelemetry_go_otel_exporters_prometheus", "io_opentelemetry_go_otel_metric", "io_opentelemetry_go_otel_sdk", "io_opentelemetry_go_otel_sdk_metric", "io_opentelemetry_go_otel_trace", "org_golang_x_crypto", "org_golang_x_net", "org_modernc_sqlite")
+use_repo(go_deps, "com_github_a_h_templ", "com_github_anthropics_anthropic_sdk_go", "com_github_coreos_go_systemd_v22", "com_github_cyruzin_golang_tmdb", "com_github_darthsim_overmind", "com_github_emersion_go_ical", "com_github_emersion_go_imap_v2", "com_github_emersion_go_message", "com_github_emersion_go_vcard", "com_github_emersion_go_webdav", "com_github_go_chi_chi_v5", "com_github_go_chi_httplog_v3", "com_github_go_faster_errors", "com_github_go_faster_jx", "com_github_golang_jwt_jwt_v5", "com_github_golang_migrate_migrate_v4", "com_github_goreleaser_nfpm_v2", "com_github_gotd_td", "com_github_grafana_ai_sdk", "com_github_grafana_ai_sdk_providers_anthropic", "com_github_grafana_ai_sdk_providers_openai", "com_github_grafana_ai_sdk_providers_openai_compatible", "com_github_jackc_pgx_v5", "com_github_joho_godotenv", "com_github_modelcontextprotocol_go_sdk", "com_github_ogen_go_ogen", "com_github_oklog_ulid_v2", "com_github_openai_openai_go_v3", "com_github_prometheus_client_golang", "com_github_shopify_go_lua", "com_github_sqlc_dev_sqlc", "com_github_systemd_slog_journal", "com_github_testcontainers_testcontainers_go", "com_github_testcontainers_testcontainers_go_modules_postgres", "com_github_valkey_io_valkey_go", "com_github_xsam_otelsql", "com_github_yuin_goldmark", "io_opentelemetry_go_contrib_instrumentation_net_http_otelhttp", "io_opentelemetry_go_otel", "io_opentelemetry_go_otel_exporters_otlp_otlptrace_otlptracehttp", "io_opentelemetry_go_otel_exporters_prometheus", "io_opentelemetry_go_otel_metric", "io_opentelemetry_go_otel_sdk", "io_opentelemetry_go_otel_sdk_metric", "io_opentelemetry_go_otel_trace", "org_golang_x_crypto", "org_golang_x_net", "org_modernc_sqlite")
 
 bazel_dep(name = "gazelle_cc", version = "0.6.0")
 bazel_dep(name = "aspect_gazelle_js", version = "1.2.1")

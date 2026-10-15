@@ -1,12 +1,19 @@
 def _platform_transition_impl(settings, attr):
     return {
         "//command_line_option:platforms": str(attr.platform),
+        # The llvm toolchain links musl targets as static PIEs carrying a
+        # PT_INTERP, which the musl loader cannot load. Build musl binaries
+        # as pure Go (static, no interpreter) instead.
+        "@rules_go//go/config:pure": "musl" in str(attr.platform),
     }
 
 _platform_transition = transition(
     implementation = _platform_transition_impl,
     inputs = [],
-    outputs = ["//command_line_option:platforms"],
+    outputs = [
+        "//command_line_option:platforms",
+        "@rules_go//go/config:pure",
+    ],
 )
 
 def _platform_binary_impl(ctx):
