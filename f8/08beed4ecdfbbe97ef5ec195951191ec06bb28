@@ -1,0 +1,14 @@
+mise.lock
+  h_cb7f8177e9a94f 1-201
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "f808beed4ecdfbbe97ef5ec195951191ec06bb28",
+  "prompts": {},
+  "humans": {
+    "h_cb7f8177e9a94f": {
+      "author": "Piper McCorkle <contact@piperswe.me>"
+    }
+  }
+}
