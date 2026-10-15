@@ -1,0 +1,71 @@
+platforms/nfpm.bzl
+  s_d2d02058cbcb40::t_d7e316b6049528 15-20,27-30,60,65,89
+  s_d2d02058cbcb40::t_60fe84f5fbf208 21-23
+  s_d2d02058cbcb40::t_7777bd5c8cb941 1-14,24-26,31-59,61-64,66,69-83,87-88,90-96,110-139,141-156,158-168
+  s_d2d02058cbcb40::t_052ea2840de5e9 84-86,97-109
+  s_d2d02058cbcb40::t_9c6f380be2eb40 140,157
+  s_d2d02058cbcb40::t_e6a37755d22ce8 67-68
+platforms/binary.bzl
+  s_d2d02058cbcb40::t_6f8dac5488d2b7 7
+  s_d2d02058cbcb40::t_0029217085d053 15
+  s_d2d02058cbcb40::t_121f8eee7ce013 4-6,13-14,16
+platforms/package_install_container.sh
+  s_d2d02058cbcb40::t_f5af816948c16f 33-34
+  s_d2d02058cbcb40::t_ebed6449ca8f6f 100-103
+  s_d2d02058cbcb40::t_ec9068a78b15d1 99,104-109
+  s_d2d02058cbcb40::t_bb3c3babc8cb34 32,35-41
+  s_d2d02058cbcb40::t_c257916c7c7419 89
+projects/yago/cmd/yago/BUILD.bazel
+  s_d2d02058cbcb40::t_23083bf029871b 60
+  s_d2d02058cbcb40::t_15ffade3b48f9b 34,40,45-56,70-80,82-86
+  s_d2d02058cbcb40::t_b2af521471e4b0 81
+projects/interface/cmd/interface/BUILD.bazel
+  s_d2d02058cbcb40::t_b2af521471e4b0 71
+  s_d2d02058cbcb40::t_bf0ff9d1e44871 24,30,35-46,60-70,72-76
+  s_d2d02058cbcb40::t_23083bf029871b 50
+projects/memode/cmd/memode/BUILD.bazel
+  s_d2d02058cbcb40::t_36fd91e04009a2 29,35,40-51,65-75,77-81
+  s_d2d02058cbcb40::t_b2af521471e4b0 76
+  s_d2d02058cbcb40::t_23083bf029871b 55
+platforms/workspace_status.sh
+  s_d2d02058cbcb40::t_5b0c9e984962da 9,38,40,43-47
+projects/datasite/cmd/datasite/BUILD.bazel
+  s_d2d02058cbcb40::t_23083bf029871b 86
+  s_d2d02058cbcb40::t_5be669eb664bf0 60,66,71-82,96-106,108-112
+  s_d2d02058cbcb40::t_b2af521471e4b0 107
+MODULE.bazel
+  s_d2d02058cbcb40::t_e72a6e83c0d819 150
+platforms/BUILD.bazel
+  s_d2d02058cbcb40::t_f8afb79c86ddf3 22-23
+go.mod
+  s_d2d02058cbcb40::t_c8acb872730aeb 49-50,56,62,65-67,69,77,79,83-90,92-94,102,104,113,117,121-123,128,130,137-139,144,151,153-157,163-165,175-179,193,202,204,208,212-213,219,228,231-232,235-238,246,248-249,251-253,255,264,271
+  s_d2d02058cbcb40::t_49774281467db0 277
+BUILD.bazel
+  s_d2d02058cbcb40::t_bd86879ccdedd2 42-45,53-56
+platforms/packages.bzl
+  s_d2d02058cbcb40::t_392b7e91afb4a3 1,5,8-17,25-32,123-126,143,150-152,155-157,162,167,169-171,174-175,177-178,190,194,248,253-266,273,275,277-314,316-319,324-337,339,341-342,363,368-372,374,384
+  s_d2d02058cbcb40::t_fdf06bf231ef9f 71,73,101,270
+  s_d2d02058cbcb40::t_433faa39e3159a 191-193
+  s_d2d02058cbcb40::t_4c916094f0bac2 131-136,138-142
+  s_d2d02058cbcb40::t_d4a80e0c2e9dea 320-323
+MODULE.bazel.lock
+  s_d2d02058cbcb40::t_249ca74f50dbed 244
+go.sum
+  s_d2d02058cbcb40::t_f0b567a2ba85d7 3-4,17-18,24-32,35-40,51-52,57-60,74-75,78-81,88-105,108-113,133-134,139-140,165-166,181-182,194-197,200-201,214-221,232-233,242-243,262-269,292-293,308-309,314-323,335-336,343-344,349-350,353-356,379-388,425-426,451-452,457,461-462,467-468,473,476-483,498,502-503,529-530,537-542,552-559,610-614,618-619,623,626-627,634-635,638,642-643,647,651-652,656-657,660,664-665,675-676,696,704-705,750-751
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "c97838e7182497f9e1936836fa2c61a821f2621b",
+  "prompts": {},
+  "sessions": {
+    "s_d2d02058cbcb40": {
+      "agent_id": {
+        "tool": "pi",
+        "id": "01a140ac-811b-74e0-a260-6a8f6a9ee921",
+        "model": "glm-5.3"
+      },
+      "human_author": "Piper McCorkle <contact@piperswe.me>"
+    }
+  }
+}
