@@ -52,3 +52,6 @@ run = "bazel run //projects/bazel_cache:deploy"
 [tasks."yago:start"]
 description = "Start the Yago application"
 run = "./tools/overmind start --procfile=./projects/yago/Procfile"
+
+[settings]
+lockfile = true
