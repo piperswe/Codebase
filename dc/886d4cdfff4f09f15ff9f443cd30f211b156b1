@@ -1,0 +1,21 @@
+platforms/packages.bzl
+  s_369190b8eaeaa9::t_a0245498ac43a3 201,234,324,331
+.github/workflows/ci.yaml
+  s_369190b8eaeaa9::t_10dde9f817a73c 7-20,48,50,55-57
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "dc886d4cdfff4f09f15ff9f443cd30f211b156b1",
+  "prompts": {},
+  "sessions": {
+    "s_369190b8eaeaa9": {
+      "agent_id": {
+        "tool": "pi",
+        "id": "01a146ef-7d4c-756d-b79e-06654e01d780",
+        "model": "glm-5.3"
+      },
+      "human_author": "Piper McCorkle <contact@piperswe.me>"
+    }
+  }
+}
