@@ -1,0 +1,21 @@
+MODULE.bazel
+  s_9a6c0399f907c3::t_f128f0c53ade1a 48,54,60
+  s_9a6c0399f907c3::t_d54ea130869a17 40-47,49-53,55-59,61-81
+  s_9a6c0399f907c3::t_7fb9378e066b55 39,82
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "3baa49e1ed6f8a198e5bae5061dc779fd6af94cd",
+  "prompts": {},
+  "sessions": {
+    "s_9a6c0399f907c3": {
+      "agent_id": {
+        "tool": "pi",
+        "id": "01a146f8-8cf1-7787-9296-d3dcc1de2ad5",
+        "model": "glm-5.3"
+      },
+      "human_author": "Piper McCorkle <contact@piperswe.me>"
+    }
+  }
+}
