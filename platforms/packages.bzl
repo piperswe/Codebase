@@ -198,6 +198,7 @@ def _package_install_test(
         package,
         package_format,
         package_name,
+        arch,
         docker_platform,
         image,
         files,
@@ -230,6 +231,7 @@ def _package_install_test(
         ],
         size = "large",
         tags = [
+            arch,
             "local",
             "no-sandbox",
             "requires-docker",
@@ -319,13 +321,14 @@ def linux_packages(
             test_target = "{}_{}_{}_install_test".format(name, packager, arch)
             if packager == "archlinux" and arch != "amd64":
                 # There is no arm64 archlinux docker image; the amd64 test
-                # (emulated) still covers the packager end-to-end.
+                # covers the packager end-to-end on amd64 runners.
                 continue
             _package_install_test(
                 name = test_target,
                 package = ":" + pkg_target,
                 package_format = packager,
                 package_name = package_name,
+                arch = arch,
                 docker_platform = docker_platform,
                 image = image,
                 files = package_files,

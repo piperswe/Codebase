@@ -4,7 +4,20 @@ on:
     branches: ["**"]
 jobs:
   build-test:
-    runs-on: ubuntu-latest
+    name: ${{ matrix.arch }}
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - arch: amd64
+            runs-on: ubuntu-latest
+            # Install tests run their package's arch in a container, so skip
+            # the other arch to avoid qemu-user emulation on native runners.
+            skip-tag: arm64
+          - arch: arm64
+            runs-on: ubuntu-24.04-arm
+            skip-tag: amd64
+    runs-on: ${{ matrix.runs-on }}
     permissions:
       contents: read
       packages: write
@@ -15,8 +28,6 @@ jobs:
           fetch-depth: 0
       - name: Mise
         uses: jdx/mise-action@v4
-      - name: Set up QEMU
-        uses: docker/setup-qemu-action@v4
       - name: Cache Bazel repository cache
         uses: actions/cache@v4
         with:
@@ -34,14 +45,16 @@ jobs:
       # because `--build_tests_only` defaults to false.
       # A separate `bazel build //...` step repeats that work.
       - name: Build and test
-        run: bazel test --config=docker //...
+        run: bazel test --config=docker --test_tag_filters=-${{ matrix.skip-tag }} //...
       - name: Login to GitHub Container Registry
-        if: github.ref == 'refs/heads/main'
+        if: github.ref == 'refs/heads/main' && matrix.arch == 'amd64'
         env:
           GHCR_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: printf '%s' "$GHCR_TOKEN" | docker login ghcr.io --username "${{ github.actor }}" --password-stdin
       - name: Push Docker images
-        if: github.ref == 'refs/heads/main'
+        # Images are multi-arch indexes; both matrix jobs build them via the
+        # remote cache, so let only one job push to avoid racing the registry.
+        if: github.ref == 'refs/heads/main' && matrix.arch == 'amd64'
         env:
           BRANCH_TAG: ${{ github.ref_name }}
           COMMIT_TAG: ${{ github.sha }}
