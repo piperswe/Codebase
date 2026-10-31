@@ -1,0 +1,41 @@
+load("@rules_go//go:def.bzl", "go_library", "go_test")
+
+go_library(
+    name = "worker",
+    srcs = [
+        "bindings.go",
+        "client.go",
+        "dispatch.go",
+        "server.go",
+        "wire.go",
+    ],
+    importpath = "codebase.bid/projects/memory/internal/worker",
+    visibility = ["//projects/memory:__subpackages__"],
+    deps = [
+        "//lib/go/jsruntime",
+        "//lib/go/unixsocket",
+        "//projects/memory/internal/model",
+        "//projects/memory/internal/store/postgres",
+        "//projects/memory/proto/memory/worker/v1:workerv1",
+        "@com_github_dop251_goja//:goja",
+        "@org_golang_google_grpc//:grpc",
+        "@org_golang_google_grpc//codes",
+        "@org_golang_google_grpc//credentials/insecure",
+        "@org_golang_google_grpc//status",
+        "@org_golang_google_protobuf//proto",
+        "@org_golang_google_protobuf//reflect/protoreflect",
+    ],
+)
+
+go_test(
+    name = "worker_test",
+    srcs = ["protocol_test.go"],
+    embed = [":worker"],
+    deps = [
+        "//projects/memory/internal/model",
+        "//projects/memory/proto/memory/worker/v1:workerv1",
+        "@org_golang_google_grpc//:grpc",
+        "@org_golang_google_grpc//credentials/insecure",
+        "@org_golang_google_grpc//test/bufconn",
+    ],
+)

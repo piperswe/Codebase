@@ -1,6 +1,6 @@
 module codebase.bid
 
-go 1.27.1
+go 1.27.3
 
 require (
 	github.com/Shopify/go-lua v0.0.0-20261007132305-3f823f845ff9
@@ -10,6 +10,7 @@ require (
 	github.com/bazelbuild/bazel-gazelle v0.53.0
 	github.com/coreos/go-systemd/v22 v22.7.0
 	github.com/cyruzin/golang-tmdb v1.9.4
+	github.com/dop251/goja v0.0.0-20261031103838-cf2ff0ec0b31
 	github.com/emersion/go-ical v0.0.0-20250609112844-439c63cef608
 	github.com/emersion/go-imap/v2 v2.0.0-beta.8
 	github.com/emersion/go-message v0.18.2
@@ -21,6 +22,8 @@ require (
 	github.com/go-faster/jx v1.2.0
 	github.com/golang-jwt/jwt/v5 v5.3.1
 	github.com/golang-migrate/migrate/v4 v4.19.1
+	github.com/google/jsonschema-go v0.4.3
+	github.com/google/uuid v1.6.0
 	github.com/gotd/td v0.162.0
 	github.com/grafana/ai-sdk v0.1.0-alpha.1.0.20260825181821-1f7f7ef4a4c8
 	github.com/grafana/ai-sdk/providers/anthropic v0.0.0-20260825181821-1f7f7ef4a4c8
@@ -48,6 +51,9 @@ require (
 	go.opentelemetry.io/otel/trace v1.45.0
 	golang.org/x/crypto v0.58.0
 	golang.org/x/net v0.60.0
+	golang.org/x/sys v0.49.0
+	google.golang.org/grpc v1.83.2
+	google.golang.org/protobuf v1.36.11
 	modernc.org/sqlite v1.57.0
 )
 
@@ -105,6 +111,7 @@ require (
 	github.com/davecgh/go-spew v1.1.2-0.20180830191138-d8f796af33cc // indirect
 	github.com/distribution/reference v0.6.0 // indirect
 	github.com/dlclark/regexp2 v1.12.0 // indirect
+	github.com/dlclark/regexp2/v2 v2.11.0 // indirect
 	github.com/docker/go-connections v0.7.0 // indirect
 	github.com/docker/go-units v0.5.0 // indirect
 	github.com/dustin/go-humanize v1.0.1 // indirect
@@ -124,14 +131,14 @@ require (
 	github.com/go-logr/logr v1.4.4 // indirect
 	github.com/go-logr/stdr v1.2.2 // indirect
 	github.com/go-ole/go-ole v1.3.0 // indirect
+	github.com/go-sourcemap/sourcemap v2.1.3+incompatible // indirect
 	github.com/go-sql-driver/mysql v1.9.3 // indirect
 	github.com/gobwas/glob v0.2.3 // indirect
 	github.com/goccy/go-json v0.10.5 // indirect
 	github.com/golang/groupcache v0.0.0-20241129210726-2c02b8208cf8 // indirect
 	github.com/google/cel-go v0.28.0 // indirect
-	github.com/google/jsonschema-go v0.4.3 // indirect
+	github.com/google/pprof v0.0.0-20260802141513-ef3492d7dac3 // indirect
 	github.com/google/s2a-go v0.1.9 // indirect
-	github.com/google/uuid v1.6.0 // indirect
 	github.com/googleapis/enterprise-certificate-proxy v0.3.19 // indirect
 	github.com/googleapis/gax-go/v2 v2.23.0 // indirect
 	github.com/goreleaser/chglog v0.7.4 // indirect
@@ -249,7 +256,6 @@ require (
 	golang.org/x/mod v0.41.0 // indirect
 	golang.org/x/oauth2 v0.36.0 // indirect
 	golang.org/x/sync v0.24.0 // indirect
-	golang.org/x/sys v0.49.0 // indirect
 	golang.org/x/text v0.43.0 // indirect
 	golang.org/x/time v0.15.0 // indirect
 	golang.org/x/tools v0.51.0 // indirect
@@ -257,8 +263,6 @@ require (
 	google.golang.org/api v0.291.0 // indirect
 	google.golang.org/genproto/googleapis/api v0.0.0-20260803160001-6ac0973c030d // indirect
 	google.golang.org/genproto/googleapis/rpc v0.0.0-20260803160001-6ac0973c030d // indirect
-	google.golang.org/grpc v1.83.0 // indirect
-	google.golang.org/protobuf v1.36.11 // indirect
 	gopkg.in/natefinch/lumberjack.v2 v2.2.1 // indirect
 	gopkg.in/urfave/cli.v1 v1.20.0 // indirect
 	gopkg.in/warnings.v0 v0.1.2 // indirect

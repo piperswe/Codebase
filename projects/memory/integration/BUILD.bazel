@@ -1,0 +1,35 @@
+load("@rules_go//go:def.bzl", "go_test")
+
+go_test(
+    name = "integration_test",
+    size = "large",
+    srcs = [
+        "advanced_test.go",
+        "export_test.go",
+        "query_benchmark_test.go",
+        "schema_test.go",
+        "stack_test.go",
+        "storage_test.go",
+    ],
+    tags = ["requires-docker"],
+    deps = [
+        "//lib/go/unixsocket",
+        "//projects/memory/internal/auth",
+        "//projects/memory/internal/mcp",
+        "//projects/memory/internal/model",
+        "//projects/memory/internal/store/postgres",
+        "//projects/memory/internal/worker",
+        "//projects/memory/proto/memory/worker/v1:workerv1",
+        "//projects/memory/sdk",
+        "@com_github_golang_jwt_jwt_v5//:jwt",
+        "@com_github_google_jsonschema_go//jsonschema",
+        "@com_github_jackc_pgx_v5//:pgx",
+        "@com_github_modelcontextprotocol_go_sdk//mcp",
+        "@com_github_testcontainers_testcontainers_go//:testcontainers-go",
+        "@com_github_testcontainers_testcontainers_go//wait",
+        "@com_github_testcontainers_testcontainers_go_modules_postgres//:postgres",
+        "@org_golang_google_grpc//:grpc",
+        "@org_golang_google_protobuf//encoding/protowire",
+        "@org_golang_x_crypto//bcrypt",
+    ],
+)

@@ -1,0 +1,156 @@
+[
+  {
+    "ident": "entity/id",
+    "valueType": "string",
+    "cardinality": "one",
+    "protected": true,
+    "description": "Reserved entity/id metadata"
+  },
+  {
+    "ident": "entity/ident",
+    "valueType": "string",
+    "cardinality": "one",
+    "protected": true,
+    "description": "Reserved entity/ident metadata"
+  },
+  {
+    "ident": "entity/kind",
+    "valueType": "string",
+    "cardinality": "one",
+    "protected": true,
+    "description": "Reserved entity/kind metadata"
+  },
+  {
+    "ident": "entity/revision",
+    "valueType": "integer",
+    "cardinality": "one",
+    "protected": true,
+    "description": "Reserved entity/revision metadata"
+  },
+  {
+    "ident": "entity/label",
+    "valueType": "string",
+    "cardinality": "one",
+    "protected": false,
+    "description": "Human-readable display label; exact names are separate."
+  },
+  {
+    "ident": "entity/type",
+    "valueType": "ref",
+    "cardinality": "many",
+    "protected": false,
+    "description": "Explicit membership in a registered type; no inheritance."
+  },
+  {
+    "ident": "schema/value-type",
+    "valueType": "string",
+    "cardinality": "one",
+    "protected": true,
+    "description": "Reserved schema/value-type metadata"
+  },
+  {
+    "ident": "schema/cardinality",
+    "valueType": "string",
+    "cardinality": "one",
+    "protected": true,
+    "description": "Reserved schema/cardinality metadata"
+  },
+  {
+    "ident": "schema/description",
+    "valueType": "string",
+    "cardinality": "one",
+    "protected": true,
+    "description": "Reserved schema/description metadata"
+  },
+  {
+    "ident": "schema/unit",
+    "valueType": "string",
+    "cardinality": "one",
+    "protected": true,
+    "description": "Reserved schema/unit metadata"
+  },
+  {
+    "ident": "schema/status",
+    "valueType": "string",
+    "cardinality": "one",
+    "protected": true,
+    "description": "Reserved schema/status metadata"
+  },
+  {
+    "ident": "schema/replacement",
+    "valueType": "ref",
+    "cardinality": "one",
+    "protected": true,
+    "description": "Reserved schema/replacement metadata"
+  },
+  {
+    "ident": "schema/revision",
+    "valueType": "integer",
+    "cardinality": "one",
+    "protected": true,
+    "description": "Reserved schema/revision metadata"
+  },
+  {
+    "ident": "schema/applies-to",
+    "valueType": "ref",
+    "cardinality": "many",
+    "protected": true,
+    "description": "Reserved schema/applies-to metadata"
+  },
+  {
+    "ident": "schema/reference-types",
+    "valueType": "ref",
+    "cardinality": "many",
+    "protected": true,
+    "description": "Reserved schema/reference-types metadata"
+  },
+  {
+    "ident": "schema/examples",
+    "valueType": "string",
+    "cardinality": "many",
+    "protected": true,
+    "description": "Reserved schema/examples metadata"
+  },
+  {
+    "ident": "schema/not-this",
+    "valueType": "string",
+    "cardinality": "many",
+    "protected": true,
+    "description": "Reserved schema/not-this metadata"
+  },
+  {
+    "ident": "source/origin",
+    "valueType": "string",
+    "cardinality": "one",
+    "protected": true,
+    "description": "Reserved source/origin metadata"
+  },
+  {
+    "ident": "source/uri",
+    "valueType": "string",
+    "cardinality": "one",
+    "protected": true,
+    "description": "Reserved source/uri metadata"
+  },
+  {
+    "ident": "source/description",
+    "valueType": "string",
+    "cardinality": "one",
+    "protected": true,
+    "description": "Reserved source/description metadata"
+  },
+  {
+    "ident": "source/locator",
+    "valueType": "string",
+    "cardinality": "one",
+    "protected": true,
+    "description": "Reserved source/locator metadata"
+  },
+  {
+    "ident": "source/observed-at",
+    "valueType": "timestamp",
+    "cardinality": "one",
+    "protected": true,
+    "description": "Reserved source/observed-at metadata"
+  }
+]

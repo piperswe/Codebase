@@ -2,7 +2,10 @@ load("@rules_go//go:def.bzl", "go_library", "go_test")
 
 go_library(
     name = "oauthas",
-    srcs = ["oauthas.go"],
+    srcs = [
+        "metadata.go",
+        "oauthas.go",
+    ],
     importpath = "codebase.bid/lib/go/oauthas",
     visibility = ["//visibility:public"],
     deps = ["@com_github_golang_jwt_jwt_v5//:jwt"],
@@ -10,6 +13,9 @@ go_library(
 
 go_test(
     name = "oauthas_test",
-    srcs = ["oauthas_test.go"],
+    srcs = [
+        "metadata_test.go",
+        "oauthas_test.go",
+    ],
     embed = [":oauthas"],
 )

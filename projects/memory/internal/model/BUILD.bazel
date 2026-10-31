@@ -1,0 +1,19 @@
+load("@rules_go//go:def.bzl", "go_library", "go_test")
+
+go_library(
+    name = "model",
+    srcs = [
+        "contracts.go",
+        "request.go",
+        "value.go",
+    ],
+    importpath = "codebase.bid/projects/memory/internal/model",
+    visibility = ["//projects/memory:__subpackages__"],
+    deps = ["@com_github_google_uuid//:uuid"],
+)
+
+go_test(
+    name = "model_test",
+    srcs = ["value_test.go"],
+    embed = [":model"],
+)

@@ -1,0 +1,14 @@
+load("@rules_go//go:def.bzl", "go_library", "go_test")
+
+go_library(
+    name = "cursor",
+    srcs = ["cursor.go"],
+    importpath = "codebase.bid/lib/go/cursor",
+    visibility = ["//visibility:public"],
+)
+
+go_test(
+    name = "cursor_test",
+    srcs = ["cursor_test.go"],
+    embed = [":cursor"],
+)
