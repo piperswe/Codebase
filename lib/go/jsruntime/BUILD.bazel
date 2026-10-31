@@ -1,0 +1,16 @@
+load("@rules_go//go:def.bzl", "go_library", "go_test")
+
+go_library(
+    name = "jsruntime",
+    srcs = ["runtime.go"],
+    importpath = "codebase.bid/lib/go/jsruntime",
+    visibility = ["//visibility:public"],
+    deps = ["@com_github_dop251_goja//:goja"],
+)
+
+go_test(
+    name = "jsruntime_test",
+    srcs = ["runtime_test.go"],
+    embed = [":jsruntime"],
+    deps = ["@com_github_dop251_goja//:goja"],
+)

@@ -1,0 +1,17 @@
+load("@rules_go//go:def.bzl", "go_library")
+
+go_library(
+    name = "mcp",
+    srcs = ["server.go"],
+    importpath = "codebase.bid/projects/memory/internal/mcp",
+    visibility = ["//projects/memory:__subpackages__"],
+    deps = [
+        "//projects/memory/internal/auth",
+        "//projects/memory/internal/model",
+        "//projects/memory/internal/store/postgres",
+        "//projects/memory/internal/worker",
+        "//projects/memory/sdk",
+        "@com_github_google_jsonschema_go//jsonschema",
+        "@com_github_modelcontextprotocol_go_sdk//mcp",
+    ],
+)

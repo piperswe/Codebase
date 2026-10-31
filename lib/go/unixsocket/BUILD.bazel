@@ -1,0 +1,23 @@
+load("@rules_go//go:def.bzl", "go_library", "go_test")
+
+go_library(
+    name = "unixsocket",
+    srcs = ["socket_linux.go"],
+    importpath = "codebase.bid/lib/go/unixsocket",
+    visibility = ["//visibility:public"],
+    deps = select({
+        "@rules_go//go/platform:android": [
+            "@org_golang_x_sys//unix",
+        ],
+        "@rules_go//go/platform:linux": [
+            "@org_golang_x_sys//unix",
+        ],
+        "//conditions:default": [],
+    }),
+)
+
+go_test(
+    name = "unixsocket_test",
+    srcs = ["socket_linux_test.go"],
+    embed = [":unixsocket"],
+)

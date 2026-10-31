@@ -1,0 +1,5 @@
+test_suite(
+    name = "code_mode_examples_test",
+    tags = ["requires-docker"],
+    tests = ["//projects/memory/integration:integration_test"],
+)

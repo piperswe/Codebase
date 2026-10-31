@@ -1,0 +1,27 @@
+load("@aspect_rules_js//js:defs.bzl", "js_library")
+load("@rules_go//go:def.bzl", "go_library")
+
+go_library(
+    name = "sdk",
+    srcs = ["embed.go"],
+    embedsrcs = [
+        "code-mode.d.ts",
+        "contracts.json",
+        "examples/batch-pull.js",
+        "examples/history.js",
+        "examples/incoming.js",
+        "examples/integers.js",
+        "examples/navigation.js",
+        "examples/pagination.js",
+        "examples/rejected-write.js",
+        "examples/schema.js",
+        "examples/unknown-attribute.js",
+    ],
+    importpath = "codebase.bid/projects/memory/sdk",
+    visibility = ["//visibility:public"],
+)
+
+js_library(
+    name = "sdk_js",
+    srcs = ["code-mode.d.ts"],
+)

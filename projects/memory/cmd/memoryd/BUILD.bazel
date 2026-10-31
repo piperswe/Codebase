@@ -1,0 +1,107 @@
+load("@rules_go//go:def.bzl", "go_binary", "go_library")
+load("@rules_oci//oci:defs.bzl", "oci_load")
+load("@rules_shell//shell:sh_test.bzl", "sh_test")
+load("//platforms:binary.bzl", "platform_binary")
+load("//platforms:oci.bzl", "binary_oci_image")
+
+go_library(
+    name = "memoryd_lib",
+    srcs = ["main.go"],
+    importpath = "codebase.bid/projects/memory/cmd/memoryd",
+    visibility = ["//visibility:private"],
+    deps = [
+        "//lib/go/unixsocket",
+        "//projects/memory/internal/auth",
+        "//projects/memory/internal/config",
+        "//projects/memory/internal/mcp",
+        "//projects/memory/internal/model",
+        "//projects/memory/internal/store/postgres",
+        "//projects/memory/internal/version",
+        "//projects/memory/internal/worker",
+        "//projects/memory/proto/memory/worker/v1:workerv1",
+        "@org_golang_google_grpc//:grpc",
+        "@org_golang_x_crypto//bcrypt",
+    ],
+)
+
+go_binary(
+    name = "memoryd",
+    embed = [":memoryd_lib"],
+    visibility = ["//visibility:public"],
+    x_defs = {
+        "codebase.bid/projects/memory/internal/version.Revision": "{STABLE_GIT_REVISION}",
+        "codebase.bid/projects/memory/internal/version.Version": "{STABLE_IMAGE_VERSION}",
+    },
+)
+
+platform_binary(
+    name = "memoryd_linux_gnu_amd64",
+    binary = ":memoryd",
+    platform = "//platforms:linux_amd64",
+)
+
+platform_binary(
+    name = "memoryd_linux_gnu_arm64",
+    binary = ":memoryd",
+    platform = "//platforms:linux_arm64",
+)
+
+binary_oci_image(
+    name = "memory_image",
+    base = "memory_distroless_base",
+    binary = ":memoryd_linux_gnu_{arch}",
+    description = "Typed structured memory MCP API and isolated read-only JavaScript worker",
+    entrypoint = ["/memoryd"],
+    title = "memory",
+    visibility = ["//visibility:public"],
+)
+
+[
+    oci_load(
+        name = "memory_load_" + arch,
+        image = ":memory_image_linux_" + arch,
+        repo_tags = ["local/memory:" + arch],
+    )
+    for arch in [
+        "amd64",
+        "arm64",
+    ]
+]
+
+[
+    filegroup(
+        name = "memory_" + arch + "_tar",
+        srcs = [":memory_load_" + arch],
+        output_group = "tarball",
+        visibility = ["//visibility:public"],
+    )
+    for arch in [
+        "amd64",
+        "arm64",
+    ]
+]
+
+[
+    sh_test(
+        name = "image_" + arch + "_test",
+        size = "large",
+        srcs = ["image_test.sh"],
+        args = [
+            "$(location :memory_" + arch + "_tar)",
+            arch,
+            "$(location //projects/memory/integration/workerprobe)",
+        ],
+        data = [
+            ":memory_" + arch + "_tar",
+            "//projects/memory/integration/workerprobe",
+        ],
+        tags = [
+            "requires-docker",
+            arch,
+        ],
+    )
+    for arch in [
+        "amd64",
+        "arm64",
+    ]
+]

@@ -20,7 +20,7 @@ jobs:
     runs-on: ${{ matrix.runs-on }}
     permissions:
       contents: read
-      packages: write
+      packages: read
     steps:
       - name: Checkout
         uses: actions/checkout@v7
@@ -45,16 +45,73 @@ jobs:
       # because `--build_tests_only` defaults to false.
       # A separate `bazel build //...` step repeats that work.
       - name: Build and test
-        run: bazel test --config=docker --test_tag_filters=-${{ matrix.skip-tag }} //...
+        run: bazel test --stamp --config=docker --test_tag_filters=-${{ matrix.skip-tag }} //...
+  memory-security:
+    name: Memory release security
+    needs: build-test
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: read
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+      - uses: jdx/mise-action@v4
+      - name: Rebuild release links and image packaging twice
+        run: |
+          flags=(--stamp --nokeep_state_after_build '--modify_execution_info=(GoLink|OCI.*|Tar.*)=+no-cache')
+          bazel build "${flags[@]}" --execution_log_json_file="$RUNNER_TEMP/memory-first-actions.json" //projects/memory/cmd/memoryd:memory_image //projects/memory/cmd/memoryd:memory_amd64_tar //projects/memory/cmd/memoryd:memory_arm64_tar
+          layout=$(bazel cquery //projects/memory/cmd/memoryd:memory_image --output=files)
+          first_index=$(mktemp "$RUNNER_TEMP/memory-first-index.XXXXXX")
+          cp "$layout/index.json" "$first_index"
+          python3 projects/memory/tools/remove_release_outputs.py "$RUNNER_TEMP/memory-first-actions.json"
+          bazel build "${flags[@]}" //projects/memory/cmd/memoryd:memory_image //projects/memory/cmd/memoryd:memory_amd64_tar //projects/memory/cmd/memoryd:memory_arm64_tar
+          cmp "$first_index" "$layout/index.json"
+      - name: Scan Go dependency call graph
+        run: |
+          binary=$(bazel cquery //projects/memory/cmd/memoryd:memoryd_linux_gnu_amd64 --output=files)
+          test "$(go env GOVERSION)" = "$(go version -m "$binary" | awk 'NR == 1 {print $NF}')"
+          # Stripped Go executables lack symbols for precise govulncheck analysis.
+          # Scan the same source/toolchain; Trivy inspects the produced image and SBOM.
+          GOBIN="$RUNNER_TEMP/memory-security-tools" go install golang.org/x/vuln/cmd/govulncheck@v1.9.0
+          for arch in amd64 arm64; do
+            GOOS=linux GOARCH="$arch" "$RUNNER_TEMP/memory-security-tools/govulncheck" ./projects/memory/... ./lib/go/jsruntime
+          done
+      - name: Scan final distroless image
+        run: |
+          for arch in amd64 arm64; do
+            archive=$(bazel cquery "//projects/memory/cmd/memoryd:memory_${arch}_tar" --output=files)
+            docker run --rm --mount "type=bind,src=$PWD/$archive,dst=/scan/image.tar,readonly" \
+              aquasec/trivy:0.76.1@sha256:790fd66d1697395d8693d1acaa1ea702406a20f109b6fc7bac8db623eca6c06c \
+              image --db-repository ghcr.io/aquasecurity/trivy-db:2 --input /scan/image.tar --scanners vuln --severity HIGH,CRITICAL --exit-code 1 --no-progress
+          done
+  publish:
+    name: Publish tested multi-architecture images
+    needs: [build-test, memory-security]
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+      - name: Mise
+        uses: jdx/mise-action@v4
+      - name: Setup cache
+        run: |
+          {
+            echo "common --config=ci"
+            echo "build --remote_cache=https://user:${{ secrets.BAZEL_CACHE_PASSWORD }}@bazel-cache.piperswe.me/Codebase"
+          } > user.bazelrc
       - name: Login to GitHub Container Registry
-        if: github.ref == 'refs/heads/main' && matrix.arch == 'amd64'
         env:
           GHCR_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: printf '%s' "$GHCR_TOKEN" | docker login ghcr.io --username "${{ github.actor }}" --password-stdin
       - name: Push Docker images
-        # Images are multi-arch indexes; both matrix jobs build them via the
-        # remote cache, so let only one job push to avoid racing the registry.
-        if: github.ref == 'refs/heads/main' && matrix.arch == 'amd64'
         env:
           BRANCH_TAG: ${{ github.ref_name }}
           COMMIT_TAG: ${{ github.sha }}
@@ -62,7 +119,22 @@ jobs:
         run: |
           REGISTRY=$(printf '%s' "$REGISTRY" | tr '[:upper:]' '[:lower:]')
           export REGISTRY
-          bazel run //:push_images -- \
+          bazel run --stamp //:push_images -- \
             --tag "$BRANCH_TAG" \
             --tag "$COMMIT_TAG" \
             --tag latest
+      - name: Capture immutable Memory release evidence
+        env:
+          IMAGE_REPOSITORY: ghcr.io/${{ github.repository }}/memory
+        run: |
+          layout=$(bazel cquery //projects/memory/cmd/memoryd:memory_image --output=files)
+          printf '%s\n' '{"nativeAmd64":"passed","nativeArm64":"passed","goVulnerabilityScan":"passed","imageVulnerabilityScan":"passed"}' > memory-checks.json
+          python3 projects/memory/tools/release_evidence.py "$layout" \
+            --source "${{ github.sha }}" --repository "${IMAGE_REPOSITORY,,}" \
+            --workflow-run "https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}" \
+            --checks memory-checks.json --output memory-release.json
+      - uses: actions/upload-artifact@v6
+        with:
+          name: memory-release-${{ github.sha }}
+          path: memory-release.json
+          if-no-files-found: error

@@ -1,0 +1,27 @@
+load("@rules_go//go:def.bzl", "go_library")
+
+go_library(
+    name = "postgres",
+    srcs = [
+        "bootstrap.go",
+        "export.go",
+        "find.go",
+        "pull.go",
+        "read.go",
+        "read_budget.go",
+        "schema.go",
+        "store.go",
+        "write.go",
+    ],
+    importpath = "codebase.bid/projects/memory/internal/store/postgres",
+    visibility = ["//projects/memory:__subpackages__"],
+    deps = [
+        "//lib/go/cursor",
+        "//projects/memory/internal/model",
+        "//projects/memory/migrations",
+        "@com_github_google_uuid//:uuid",
+        "@com_github_jackc_pgx_v5//:pgx",
+        "@com_github_jackc_pgx_v5//pgconn",
+        "@com_github_jackc_pgx_v5//pgxpool",
+    ],
+)

@@ -1,0 +1,16 @@
+load("@protobuf//bazel:proto_library.bzl", "proto_library")
+load("@rules_go//proto:def.bzl", "go_proto_library")
+# gazelle:ignore
+# Generated sources are checked in for go test; Bazel regenerates from proto.
+proto_library(
+    name = "worker_proto",
+    srcs = ["worker.proto"],
+    visibility = ["//visibility:public"],
+)
+go_proto_library(
+    name = "workerv1",
+    compilers = ["@rules_go//proto:go_proto", "@rules_go//proto:go_grpc_v2"],
+    importpath = "codebase.bid/projects/memory/proto/memory/worker/v1",
+    proto = ":worker_proto",
+    visibility = ["//visibility:public"],
+)

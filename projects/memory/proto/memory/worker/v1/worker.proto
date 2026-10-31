@@ -1,0 +1,56 @@
+syntax = "proto3";
+package memory.worker.v1;
+option go_package = "codebase.bid/projects/memory/proto/memory/worker/v1;workerv1";
+
+service Worker {
+ rpc Health(HealthRequest) returns (HealthResponse);
+ rpc Execute(stream ApiFrame) returns (stream WorkerFrame);
+}
+message HealthRequest { string protocol_version = 1; }
+message HealthResponse { string protocol_version = 1; string worker_version = 2; bool ready = 3; }
+message Limits { uint32 timeout_ms = 1; uint32 graph_operations = 2; uint32 result_bytes = 3; uint32 log_bytes = 4; }
+message StartExecution { string execution_id = 1; string protocol_version = 2; string source = 3; bytes input_json = 4; Limits limits = 5; string sdk_version = 6; string schema_revision = 7; string space_revision = 8; }
+message Cancel { string reason = 1; }
+message SafeError { string code = 1; string message = 2; bool retryable = 3; }
+message ApiFrame { oneof frame { StartExecution start = 1; GraphResponse response = 2; Cancel cancel = 3; } reserved 4 to 15; }
+message Started { string execution_id = 1; string protocol_version = 2; string worker_version = 3; }
+message Stats { uint32 graph_operations = 1; uint32 sql_statements = 2; uint32 rows = 3; uint32 edges = 4; }
+message Completed { bytes result_json = 1; string diagnostics = 2; Stats stats = 3; }
+message Failed { SafeError error = 1; string diagnostics = 2; Stats stats = 3; }
+message WorkerFrame { oneof frame { Started started = 1; GraphRequest request = 2; Completed completed = 3; Failed failed = 4; } reserved 5 to 15; }
+// These are graph data, not JavaScript Number values. Exact numeric wire values
+// are strings; boolean has a distinct payload. No doubles for int64/decimal.
+message Value { string type = 1; oneof payload { string exact = 2; bool boolean = 3; } }
+message Evidence { string source = 1; optional double confidence = 2; string method = 3; optional string observed_at = 4; }
+message Fact { string id = 1; string entity = 2; string attribute = 3; Value value = 4; string revision = 5; bool virtual = 6; repeated Evidence evidence = 7; }
+message Entity { string id = 1; optional string ident = 2; string kind = 3; string revision = 4; bool archived = 5; repeated Fact facts = 6; }
+message Definition { string id = 1; string ident = 2; string kind = 3; string description = 4; string value_type = 5; string cardinality = 6; repeated string applies_to = 7; repeated string reference_types = 8; string unit = 9; string status = 10; string replacement = 11; repeated string examples = 12; repeated string not_this = 13; repeated string aliases = 14; string schema_revision = 15; bool protected = 16; }
+message PageOptions { uint32 limit = 1; string cursor = 2; }
+message PageMeta { bool complete = 1; optional string next_cursor = 2; }
+message Get { repeated string entities = 1; repeated string attributes = 2; }
+message AttributeRead { string entity = 1; string attribute = 2; PageOptions page = 3; }
+message References { string entity = 1; string attribute = 2; string direction = 3; PageOptions page = 4; }
+message Search { string query = 1; string kind = 2; repeated string types = 3; PageOptions page = 4; }
+message PathStep { string attribute = 1; string direction = 2; }
+message Predicate { repeated Predicate all = 1; repeated Predicate any = 2; string attribute = 3; string op = 4; Value value = 5; repeated Value values = 6; repeated PathStep path = 7; }
+message Find { Predicate where = 1; repeated string select = 2; repeated string types = 3; string query = 4; PageOptions page = 5; }
+message Selection { string attribute = 1; oneof projection { bool scalar = 2; PullPattern nested = 3; } }
+message Incoming { string attribute = 1; repeated Selection select = 2; uint32 limit = 3; }
+message PullPattern { repeated Selection select = 1; repeated Incoming incoming = 2; uint32 limit = 3; }
+message Pull { string entity = 1; PullPattern pattern = 2; }
+message History { string entity = 1; PageOptions page = 2; }
+message Schema { string action = 1; string entity = 2; string query = 3; PageOptions page = 4; }
+message Help { string topic = 1; }
+// Space, principal, SQL and capability fields are deliberately absent.
+message GraphRequest { uint64 call_id = 1; oneof operation { Get lookup = 2; Get batch_lookup = 3; AttributeRead attribute_read = 4; References refs = 5; References incoming = 6; Search search = 7; Find find = 8; Pull pull = 9; History history = 10; Schema schema = 11; Help help = 12; } reserved 13 to 31; }
+message EntityPage { repeated Entity items = 1; PageMeta meta = 2; }
+message FactPage { repeated Fact items = 1; PageMeta meta = 2; }
+message Hit { string id = 1; optional string ident = 2; string kind = 3; string snippet = 4; }
+message HitPage { repeated Hit items = 1; PageMeta meta = 2; }
+message DefinitionPage { repeated Definition items = 1; PageMeta meta = 2; }
+message PullEdge { string attribute = 1; repeated PullResult items = 2; PageMeta meta = 3; }
+message PullResult { Entity entity = 1; repeated PullEdge edges = 2; bool stub = 3; }
+message HistoryEvent { string revision = 1; uint32 ordinal = 2; string kind = 3; string entity = 4; bytes audit_json = 5; string actor = 6; string client = 7; string reason = 8; string committed_at = 9; }
+message HistoryPage { repeated HistoryEvent items = 1; PageMeta meta = 2; }
+message HelpResult { string sdk_version = 1; string documentation = 2; }
+message GraphResponse { uint64 call_id = 1; oneof result { SafeError error = 2; EntityPage entities = 3; FactPage facts = 4; HitPage hits = 5; DefinitionPage definitions = 6; PullResult pull = 7; HistoryPage history = 8; HelpResult help = 9; } }

@@ -1,0 +1,14 @@
+load("@rules_go//go:def.bzl", "go_library")
+
+go_library(
+    name = "migrations",
+    srcs = ["embed.go"],
+    embedsrcs = [
+        "000001_base.sql",
+        "bootstrap.json",
+        "grants.sql",
+        "roles.sql",
+    ],
+    importpath = "codebase.bid/projects/memory/migrations",
+    visibility = ["//visibility:public"],
+)
